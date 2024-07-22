@@ -3,6 +3,7 @@ import Button from "../shared/Button";
 import Letter from "../shared/Letter";
 import LetterCycle from "../shared/LetterCycle";
 import chart from "../../../assets/svgs/chart.svg";
+import Header from "../shared/Header";
 
 export default function Hero() {
     const Letters: string[] = [
@@ -17,7 +18,7 @@ export default function Hero() {
         <section className="max-container relative flex items-center justify-between gap-5 padding">
             <header className="w-[50%] flex flex-col gap-14">
                 <div className="flex flex-col gap-5">
-                    <h1 className="text-4xl font-black">Master English with <span className="bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 text-transparent bg-clip-text">Intelligent Learning</span></h1>
+                    <Header title='Master English with ' coloredText="Intelligent Learning" coloredClass="primary-header-color" customClass="mb-0"/>
                     <p className="text-base">Harness the power of AI to improve your English skills. With personalized courses, real-time feedback, and engaging content, fluency is within your reach. Start learning today!</p>
                 </div>
                 

@@ -81,5 +81,12 @@ html {
       @apply z-10 rounded-full px-8 py-4 relative flex items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-orange-600 before:duration-500 before:ease-out hover:shadow-orange-600 hover:before:h-56 hover:before:w-56;
     }
 
+    .primary-header-color {
+      @apply bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 text-transparent bg-clip-text;
+    }
+
+    .secondary-header-color {
+      @apply text-purple-500
+    }
   
 }
