@@ -4,9 +4,9 @@ import data from './index.ts';
 
 export default function Steps() {
     return(
-        <section className="max-container flex flex-col">
+        <section className="max-container flex flex-col pb-32">
             <div className="text-center">
-                <Header title="What we " coloredText="Offer" coloredClass="secondary-header-color"/>
+                <Header title="What we " coloredText="offer" coloredClass="secondary-header-color" size="text-4xl" infoText="Features"/>
             </div>
 
             <div>
