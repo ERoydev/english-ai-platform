@@ -4,12 +4,12 @@ import data from './index.ts';
 
 export default function Steps() {
     return(
-        <section className="max-container flex flex-col pb-32">
+        <section className="max-container flex flex-col pb-32 px-10">
             <div className="text-center">
                 <Header title="What we " coloredText="offer" coloredClass="secondary-header-color" size="text-4xl" infoText="Services"/>
             </div>
             <div>
-                <div className="flex justify-between flex-wrap gap-10">
+                <div className="flex flex-wrap gap-10 justify-center">
                     {data && data.length > 0 && data.map((item, index) => (
                         <WindowItem key={index} title={item.title} text={item.description} icon={item.icon} />
                     ))}

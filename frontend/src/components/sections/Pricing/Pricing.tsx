@@ -10,7 +10,7 @@ export default function Pricing() {
                 <Header title="Our " coloredText={"Pricing"} coloredClass="secondary-header-color" size="text-4xl" infoText="flexible plans"/>
             </div>
 
-            <div className="flex gap-5">
+            <div className="flex gap-5 max-md:flex-col justify-center px-10">
                 {data && data.length > 0 && data.map((item, index) => (
                     <PricingCard 
                         key={index}

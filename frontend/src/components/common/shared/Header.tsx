@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ title, coloredText, coloredClass, size,
         <>
             {infoText && <p className='info-text'>{infoText}</p>}
             
-            <h1 className={`${size} ${classNames}`}>
+            <h1 className={`xl:${size} ${classNames} text-3xl`}>
                 {title}
                 <span className={`${coloredClass}`}>
                     {coloredText}

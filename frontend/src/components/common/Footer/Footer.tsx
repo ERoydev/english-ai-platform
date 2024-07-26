@@ -1,15 +1,15 @@
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import Logo from "../shared/Logo";
+
 
 export default function Footer() {
     return(
         <footer className="bg-gray-800 text-white py-8 pt-14">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
                     {/* <!-- Company Info --> */}
-                    <div className="">
-                        <h4 className="text-lg font-semibold mb-4">About Us</h4>
-                        <p>At LexiLearn, we are dedicated to providing personalized and effective English learning experiences using cutting-edge AI technology.</p>
+                    <div className="items-center flex">
+                        <Logo />
                     </div>
                     
                     {/* <!-- Navigation Links --> */}

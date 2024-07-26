@@ -44,10 +44,13 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ slides }) => {
                 key={slide.id}
                 className={`w-full h-full flex-shrink-0 flex items-center justify-center`}
               >
-                  <div className="swiper-slide w-[60%]">
-                        <div
-                            className="group bg-white border border-solid border-gray-300 rounded-xl p-6 transition-all duration-500  w-full mx-auto hover:border-indigo-600 hover:shadow-sm slide_active:border-indigo-600">
-                            <div className="">
+                  <div className="swiper-slide w-[60%] max-xl:w-[85%]">
+
+                        <div className="group bg-white border border-solid border-gray-300 rounded-xl p-6 max-xl:p-3 transition-all duration-500 w-full mx-auto hover:border-indigo-600 hover:shadow-sm slide_active:border-indigo-600">
+                            
+                            {/* Rating + Review Text */}
+                            <div>
+                                {/* Rating */}
                                 <div className="flex items-center mb-7 gap-2 text-amber-500 transition-all duration-500  ">
                                     <svg className="w-5 h-5" viewBox="0 0 18 17" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -57,24 +60,31 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ slides }) => {
                                     </svg>
                                     <span className="text-base font-semibold text-indigo-600">{slide.rating}</span>
                                 </div>
+
+                                {/* Review Text */}
                                 <p
-                                    className="text-base text-gray-600 leading-6  transition-all duration-500 pb-8 group-hover:text-gray-800 slide_active:text-gray-800">
+                                    className="max-xl:text-xs text-base text-gray-600 leading-6  transition-all duration-500 pb-8 group-hover:text-gray-800 slide_active:text-gray-800">
                                     {slide.text}
                                 </p>
                             </div>
+                            
+                            {/* Person Initials */}
                             <div className="flex items-center gap-5 border-t border-solid border-gray-200 pt-5">
                                 <img className="rounded-full h-10 w-10" src="https://pagedone.io/asset/uploads/1696229969.png"
                                     alt="avatar" />
                                 <div className="block">
-                                    <h5 className="text-gray-900 font-medium transition-all duration-500  mb-1">{slide.firstName} {slide.lastName}</h5>
-                                    <span className="text-sm leading-4 text-gray-500">{slide.role}</span>
+                                    <h5 className="max-xl:text-xs text-gray-900 font-medium transition-all duration-500  mb-1">{slide.firstName} {slide.lastName}</h5>
+                                    <span className="max-xl:text-xs text-sm leading-4 text-gray-500">{slide.role}</span>
                                 </div>
                             </div>
+
                         </div>
                   </div>
               </div>
             ))}
           </div>
+
+          {/* Slider */}
           <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
             {slides.map((_, index) => (
               <button

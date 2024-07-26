@@ -10,7 +10,7 @@ export default function Contact() {
                 <Header title='Feel Free To ' coloredText="Reach out" coloredClass="secondary-header-color" size="text-4xl" infoText="contacts"/>
             </div>
 
-            <div className="w-[80%] bg-slate-600/[.08] py-14 px-16 pb-32 rounded-lg relative mb-24">
+            <div className="w-[80%] max-md:w-full bg-slate-600/[.08] py-14 px-16 max-md:py-5 max-md:px-5 pb-32 rounded-lg relative mb-24">
                 <form className="flex flex-col z-20">
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="px-3 w-[50%] mb-6 md:mb-0">
@@ -27,7 +27,7 @@ export default function Contact() {
                             {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
                         </div>
 
-                        <div className=" w-[50%] px-3">
+                        <div className="w-[50%] px-3 mb06 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 Last Name
                             </label>
@@ -67,11 +67,11 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    <div className="w-full">
-                        <label htmlFor="message" 
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Your message
+                    <div className="w-full max-md:mb-24">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="message">
+                            Your message here
                         </label>
+                            
                         <textarea 
                             id="message" 
                             rows='6' 
@@ -80,7 +80,7 @@ export default function Contact() {
                         </textarea>
                     </div>
 
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 max-xl:text-sm">
                         <Button label="Submit" className=""/>
                     </div>
                 </form>

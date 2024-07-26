@@ -70,7 +70,7 @@ html {
   }
 
   .info-text {
-    @apply font-montserrat text-gray-500 font-medium lg:text-[0.7rem] xl:text-[1rem] text-[0.5rem];
+    @apply font-montserrat text-gray-500 font-medium lg:text-[0.8rem] xl:text-[1rem] text-[0.7rem];
   }
 
   .window {
