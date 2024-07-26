@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
+import { testimonials } from "../../sections/Testimonials";
 
 
-const CustomSlider: React.FC = ({ slides }) => {
+interface CustomSliderProps {
+  slides: testimonials[]
+}
+
+const CustomSlider: React.FC<CustomSliderProps> = ({ slides }) => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const slideInterval = useRef(null);
 

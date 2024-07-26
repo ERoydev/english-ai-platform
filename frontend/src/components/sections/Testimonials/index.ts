@@ -1,5 +1,5 @@
 
-interface testimonials {
+export interface testimonials {
     id: number,
     firstName: string,
     lastName: string,

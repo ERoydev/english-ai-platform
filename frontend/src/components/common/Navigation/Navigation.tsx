@@ -8,8 +8,8 @@ export default function Navigation() {
         <header className="flex max-container items-center justify-between padding-x py-5">
             <div>
                 <h1 className="font-bold text-2xl flex items-center gap-2 scale-95 hover:scale-100 hover:cursor-pointer hover:text-slate-700 transition">
-                    <img src={globus} className="w-16 h-16 rounded-full " alt="" />
-                    LexiLearn
+                    <img src={globus} className="w-16 h-16 rounded-full " alt="Logo" />
+                        LexiLearn
                 </h1>
             </div>
             <nav>

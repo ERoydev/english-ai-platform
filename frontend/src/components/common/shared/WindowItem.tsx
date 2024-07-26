@@ -12,15 +12,6 @@ interface WindowItemProps {
     icon: string;
 }
 
-{/* <div className="relative w-[22%] window py-6 pb-24 px-5 flex flex-col gap-5  hover:cursor-pointer hover:bg-indigo-700 hover:text-slate-100 transition ease-in-out">
-            <img src={`${imgUrl}`} alt="" className='rounded-lg' />
-            <p className='px-1 text-center text-md'>{text}</p>
-
-            <div className='absolute bottom-5 left-1/2 transform -translate-x-1/2'>
-                <Button label='Get Started'/>
-            </div>
-        </div> */}
-
 const WindowItem: React.FC<WindowItemProps> = ({ title, text, icon}) => {
     return (
         <div className='w-[31%] pb-5 flex flex-col gap-3 window px-4 py-4 upwards hover:bg-slate-200'>
