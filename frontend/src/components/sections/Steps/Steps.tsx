@@ -1,5 +1,5 @@
-import Header from "../shared/Header";
-import WindowItem from "../shared/WindowItem.js";
+import Header from "../../common/shared/Header";
+import WindowItem from "../../common/shared/WindowItem.js";
 import data from './index.ts';
 
 export default function Steps() {

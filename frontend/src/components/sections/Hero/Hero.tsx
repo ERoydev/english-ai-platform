@@ -1,9 +1,9 @@
 import robot from "../../../assets/images/robot.png";
-import Button from "../shared/Button";
-import Letter from "../shared/Letter";
-import LetterCycle from "../shared/LetterCycle";
+import Button from "../../common/shared/Button";
+import Letter from "../../common/shared/Letter";
+import LetterCycle from "../../common/shared/LetterCycle";
 import chart from "../../../assets/svgs/chart.svg";
-import Header from "../shared/Header";
+import Header from "../../common/shared/Header";
 
 export default function Hero() {
     const Letters: string[] = [
@@ -16,15 +16,30 @@ export default function Hero() {
 
     return (
         <section className="max-container relative flex items-center justify-between gap-5 padding">
-            <header className="w-[50%] flex flex-col gap-14">
-                <div className="flex flex-col gap-5">
-                    <Header title='Master English with ' coloredText="Intelligent Learning" coloredClass="primary-header-color" customClass="mb-0 font-black" size="text-4xl"/>
-                    <p className="text-base">Harness the power of AI to improve your English skills. With personalized courses, real-time feedback, and engaging content, fluency is within your reach. Start learning today!</p>
+            <header className="w-[50%] relative">
+                <div className="flex flex-col gap-14 mb-16">
+                    <div className="flex flex-col gap-5">
+                        <Header title='Master English with ' coloredText="Intelligent Learning" coloredClass="primary-header-color" customClass="mb-0 font-black" size="text-4xl"/>
+                        <p className="text-base">Harness the power of AI to improve your English skills. With personalized courses, real-time feedback, and engaging content, fluency is within your reach. Start learning today!</p>
+                    </div>
+                    
+                    <div>
+                        <Button label="Start Now" />
+                    </div>
                 </div>
-                
-                <div>
-                    <Button label="Start Now" />
+                 
+                 {/* Decoration 5k+, 4K+ */}
+                <div className="flex gap-10 absolute">
+                    <div className="flex flex-col text-center">
+                        <p className="text-4xl font-black text-gray-400">5K</p>
+                        <p className="text-gray-400">Users</p>
+                    </div>
+                    <div className="flex flex-col text-center">
+                        <p className="text-4xl font-black text-gray-400">2K+</p>
+                        <p className="text-gray-400">Completed Courses</p>
+                    </div>
                 </div>
+    
             </header>
 
 

@@ -20,6 +20,7 @@ export default {
       backgroundImage: {
         'color-gradient': 'linear-gradient(to right bottom, #09031c, #0d081c, #110d1c, #14111c, #16141c, #16141c, #16141b, #16141b, #14111a, #110d19, #0d0819, #090318);',
         'testimonial-texture': "url('./src/assets/images/corporate.jpg')"
+        
       },
       fontFamily: {
         palanquin: ['Palanquin', 'sans-serif'],

@@ -1,6 +1,8 @@
-import Hero from "../Hero/Hero";
-import Steps from "../Steps/Steps";
-import Testimonials from "../Testimonials/Testimonials";
+import Hero from "../../sections/Hero/Hero";
+import Pricing from "../../sections/Pricing/Pricing";
+import Steps from "../../sections/Steps/Steps";
+import Testimonials from "../../sections/Testimonials/Testimonials";
+
 
 export default function Home() {
 
@@ -10,6 +12,7 @@ export default function Home() {
             <Hero />
             <Steps />
             <Testimonials />
+            <Pricing />
         </div>
     )
 }
