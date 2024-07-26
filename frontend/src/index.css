@@ -7,7 +7,7 @@
 @import url('assets/styles/testimonial.css');
 @import url('assets/styles/upwards.css');
 @import url('assets/styles/border-bar.css');
-
+@import url('assets/styles/image-overlay.css');
 
 @tailwind base;
 @tailwind components;

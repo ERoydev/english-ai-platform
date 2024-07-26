@@ -6,13 +6,12 @@ export default function Steps() {
     return(
         <section className="max-container flex flex-col pb-32">
             <div className="text-center">
-                <Header title="What we " coloredText="offer" coloredClass="secondary-header-color" size="text-4xl" infoText="Features"/>
+                <Header title="What we " coloredText="offer" coloredClass="secondary-header-color" size="text-4xl" infoText="Services"/>
             </div>
-
             <div>
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap gap-10">
                     {data && data.length > 0 && data.map((item, index) => (
-                        <WindowItem key={index} imgUrl={item.url} text={item.text}/>
+                        <WindowItem key={index} title={item.title} text={item.description} icon={item.icon} />
                     ))}
                 </div>
             </div>

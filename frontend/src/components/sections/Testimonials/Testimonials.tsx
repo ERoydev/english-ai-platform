@@ -13,7 +13,7 @@ export default function Testimonials() {
                     <Header title="What people say " coloredText="about us" coloredClass="secondary-header-color" size='text-4xl' infoText="Testimonial"/>
                 </div>
 
-                <div className="relative bg-testimonial-texture bg-cover bg-center inner-shadow">
+                <div className="relative bg-testimonial-texture bg-cover bg-center overlay">
                     <CustomSlider slides={data} />
                 </div>
                 

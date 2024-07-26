@@ -26,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({ title, coloredText, coloredClass, size,
                     {coloredText}
                 </span>
             </h1>
+
         </>
     );
 }
