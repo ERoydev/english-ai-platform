@@ -1,16 +1,15 @@
 import Button from "../shared/Button";
-import globus from '../../../assets/images/globus.png';
 import Link from "../shared/Link";
 import Logo from "../shared/Logo";
 
 
 export default function Navigation() {
     return (
-        <header className="flex max-container items-center justify-between padding-x py-5">
+        <header className="max-lg:hidden flex max-container items-center justify-between padding-x py-5">
             <div>
                 <Logo />
             </div>
-            
+
             <nav>
                 <ul className="flex gap-14 items-center">
                     <li>

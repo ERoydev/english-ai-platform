@@ -4,7 +4,7 @@ import Logo from "../shared/Logo";
 export default function Footer() {
     return(
         <footer className="bg-gray-800 text-white py-8 pt-14">
-            <div className="container mx-auto px-4">
+            <div className="max-container mx-auto px-8 flex flex-col max-lg:items-center">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
                     {/* <!-- Company Info --> */}
@@ -14,29 +14,29 @@ export default function Footer() {
                     
                     {/* <!-- Navigation Links --> */}
                     <div className="">
-                        <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+                        <h4 className="max-xl:text-md text-lg font-semibold mb-4">Quick Links</h4>
                         <ul className="space-y-2">
-                        <li><a href="/home" className="hover:underline">Home</a></li>
-                        <li><a href="/features" className="hover:underline">Features</a></li>
-                        <li><a href="/pricing" className="hover:underline">Pricing</a></li>
-                        <li><a href="/about" className="hover:underline">About Us</a></li>
-                        <li><a href="/contact" className="hover:underline">Contact Us</a></li>
+                        <li><a href="/home" className="hover:underline max-xl:text-sm">Home</a></li>
+                        <li><a href="/features" className="hover:underline max-xl:text-sm">Features</a></li>
+                        <li><a href="/pricing" className="hover:underline max-xl:text-sm">Pricing</a></li>
+                        <li><a href="/about" className="hover:underline max-xl:text-sm">About Us</a></li>
+                        <li><a href="/contact" className="hover:underline max-xl:text-sm">Contact Us</a></li>
                         </ul>
                     </div>
                     
                     {/* <!-- Contact Information --> */}
                     <div className="">
-                        <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+                        <h4 className="max-xl:text-md text-lg font-semibold mb-4">Contact Us</h4>
                         <ul className="space-y-2">
-                        <li><span className="font-semibold">Email:</span> support@yourcompany.com</li>
-                        <li><span className="font-semibold">Phone:</span> +123-456-7890</li>
-                        <li><span className="font-semibold">Address:</span> Bulgaria</li>
+                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Email:</span> support@yourcompany.com</li>
+                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Phone:</span> +123-456-7890</li>
+                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Address:</span> Bulgaria</li>
                         </ul>
                     </div>
                     
                     {/* <!-- Social Media & Newsletter --> */}
                     <div className="">
-                        <h4 className="text-lg font-semibold mb-4">Stay Connected</h4>
+                        <h4 className="max-xl:text-md text-lg font-semibold mb-4">Stay Connected</h4>
 
                         <div className="flex space-x-4 mb-4">
                             {/* <a href="https://www.facebook.com" className="hover:text-cyan-500"><i className="faFacebook"></i></a>
@@ -48,7 +48,7 @@ export default function Footer() {
                         <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
                         <form action="#" method="POST" className="flex flex-col space-y-2">
                             <input type="email" className="px-4 py-2 rounded bg-gray-700 text-white" placeholder="Your email address" />
-                            <button type="submit" className="px-4 py-2 bg-cyan-500 rounded text-white hover:bg-cyan-600">Subscribe</button>
+                            <button type="submit" className="max-xl:text-sm px-4 py-2 bg-cyan-500 rounded text-white hover:bg-cyan-600">Subscribe</button>
                         </form>
                     </div>
                 </div>
