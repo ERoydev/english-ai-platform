@@ -1,7 +1,7 @@
 import React from 'react';
 import { VerticalTimelineElement }  from 'react-vertical-timeline-component';
 
-interface TimelineElementProps {
+export interface TimelineElementProps {
     title: string;
     description: string;
     step: string;
@@ -11,7 +11,7 @@ interface TimelineElementProps {
 const TimeLineElement: React.FC<TimelineElementProps> = ({title, description, step}) => {
     return(
         <VerticalTimelineElement
-            className="vertical-timeline-element--work upwards "
+            className="vertical-timeline-element--work upwards"
             contentStyle={{ background: 'rgba(148, 163, 184, 0.3)', color: '#fff',}}
             contentArrowStyle={{ borderRight: '7px solid  rgba(148, 163, 184, 0.3)'}}
             date={step}

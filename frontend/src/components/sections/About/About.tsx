@@ -1,5 +1,4 @@
 import Header from "../../common/shared/Header";
-import office from "../../../assets/images/About/office.jpg";
 import BorderBar from "../../decoration/BorderBar";
 
 export default function About() {
@@ -19,7 +18,7 @@ export default function About() {
 
                   
                     <div className="text-center flex flex-col justify-center">
-                        <Header title="About " size="text-4xl" customClass="mb-20 font-black text-white z-20" coloredText="Us" coloredClass="secondary-header-color" infoText="learn about us"/>
+                        <Header title="About " size="text-4xl" customClass="mb-20 font-bold text-white z-20" coloredText="Us" coloredClass="secondary-header-color" infoText="learn about us"/>
                     </div>
                     <div className="flex items-center gap-5">
 

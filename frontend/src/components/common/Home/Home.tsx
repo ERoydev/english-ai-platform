@@ -1,4 +1,5 @@
 import About from "../../sections/About/About";
+import Contact from "../../sections/Contact/Contact";
 import Hero from "../../sections/Hero/Hero";
 import HowItWorks from "../../sections/HowItWorks/HowItWorks";
 import Pricing from "../../sections/Pricing/Pricing";
@@ -16,6 +17,7 @@ export default function Home() {
             <Testimonials />
             <Pricing />
             <About />
+            <Contact />
         </div>
     )
 }
