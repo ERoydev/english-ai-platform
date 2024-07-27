@@ -2,10 +2,10 @@ import Header from "../../common/shared/Header";
 import CustomSlider from "../../common/shared/CustomSlider";
 import data from './index.ts';
 import BorderBar from "../../decoration/BorderBar.tsx";
+import withScrollAnimation from "../../decoration/WithScrollAnimation.tsx";
 
 
-
-export default function Testimonials() {
+function TestimonialsContent() {
     return(
         <>
             <section className="pt-10">
@@ -22,3 +22,8 @@ export default function Testimonials() {
         </>
     );
 }
+
+
+const Testimonials = withScrollAnimation(TestimonialsContent);
+
+export default Testimonials;

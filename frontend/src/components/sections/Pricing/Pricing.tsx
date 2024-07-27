@@ -1,9 +1,9 @@
 import Header from "../../common/shared/Header";
 import PricingCard from "./PricingCard"
 import data from "./index";
+import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
-export default function Pricing() {
-    console.log(data)
+function PricingContent() {
     return(
         <section className="max-container py-28">
             <div className="text-center">
@@ -24,3 +24,7 @@ export default function Pricing() {
         </section>
     );
 }
+
+const Pricing = withScrollAnimation(PricingContent);
+
+export default Pricing;

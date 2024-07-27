@@ -3,7 +3,7 @@ import BorderBar from '../../decoration/BorderBar';
 import info from "./index";
 
 
-export default function HowItWorks() {
+export default function HowItWorksContent() {
     return(
         <section className='my-10 relative'>
           <div>

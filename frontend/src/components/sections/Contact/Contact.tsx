@@ -1,8 +1,8 @@
 import Button from "../../common/shared/Button";
 import Header from "../../common/shared/Header";
+import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
-
-export default function Contact() {
+function ContactContent() {
     return(
         <section className="max-container mt-24 flex flex-col items-center">
 
@@ -88,3 +88,6 @@ export default function Contact() {
         </section>
     );
 }
+
+const Contact = withScrollAnimation(ContactContent);
+export default Contact;

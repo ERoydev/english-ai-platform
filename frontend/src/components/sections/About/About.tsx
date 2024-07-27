@@ -1,7 +1,9 @@
 import Header from "../../common/shared/Header";
 import BorderBar from "../../decoration/BorderBar";
+import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
-export default function About() {
+
+function AboutContent() {
     return(
         <section className="mt-10 z-0 relative">
             
@@ -51,3 +53,7 @@ export default function About() {
         </section>
     );
 }
+
+const About = withScrollAnimation(AboutContent);
+
+export default About;
