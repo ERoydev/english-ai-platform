@@ -16,8 +16,9 @@ const Header: React.FC<HeaderProps> = ({ title, coloredText, coloredClass, size,
     if (customClass) {
         classNames = customClass
     } 
+
     return(
-        <>
+        <div data-testid="message-container">
             {infoText && <p className='info-text'>{infoText}</p>}
             
             <h1 className={`xl:${size} ${classNames} text-3xl`}>
@@ -27,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ title, coloredText, coloredClass, size,
                 </span>
             </h1>
 
-        </>
+        </div>
     );
 }
 

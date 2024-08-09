@@ -1,4 +1,4 @@
-import Header from "../../common/shared/Header";
+import Header from "../../common/shared/Header/Header";
 import BorderBar from "../../decoration/BorderBar";
 import withScrollAnimation from "../../decoration/WithScrollAnimation";
 

@@ -1,5 +1,5 @@
 import Button from "../../common/shared/Button";
-import Header from "../../common/shared/Header";
+import Header from "../../common/shared/Header/Header";
 import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
 function ContactContent() {
