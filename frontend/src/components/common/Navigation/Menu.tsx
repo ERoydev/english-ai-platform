@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Link from "../shared/Link";
-import Button from "../shared/Button";
+import Button from "../shared/Button/Button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 

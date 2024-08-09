@@ -1,4 +1,4 @@
-import Button from "../../common/shared/Button";
+import Button from "../../common/shared/Button/Button";
 
 interface PricingCardProps {
     title: string,

@@ -1,5 +1,5 @@
 import robot from "../../../assets/images/robot.png";
-import Button from "../../common/shared/Button";
+import Button from "../../common/shared/Button/Button";
 import Letter from "../../common/shared/Letter";
 import LetterCycle from "../../common/shared/LetterCycle";
 import chart from "../../../assets/svgs/chart.svg";
