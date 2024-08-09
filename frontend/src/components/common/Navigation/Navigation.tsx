@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../shared/Logo";
+import Logo from "../shared/Logo/Logo";
 import Menu from "./Menu";
 
 

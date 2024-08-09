@@ -1,7 +1,7 @@
 import robot from "../../../assets/images/robot.png";
 import Button from "../../common/shared/Button/Button";
-import Letter from "../../common/shared/Letter";
-import LetterCycle from "../../common/shared/LetterCycle";
+import Letter from "../../common/shared/Letter/Letter";
+import LetterCycle from "../../common/shared/Letter/LetterCycle";
 import chart from "../../../assets/svgs/chart.svg";
 import Header from "../../common/shared/Header/Header";
 
