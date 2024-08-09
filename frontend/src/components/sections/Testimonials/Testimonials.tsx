@@ -1,4 +1,4 @@
-import Header from "../../common/shared/Header";
+import Header from "../../common/shared/Header/Header.tsx";
 import CustomSlider from "../../common/shared/CustomSlider";
 import data from './index.ts';
 import BorderBar from "../../decoration/BorderBar.tsx";

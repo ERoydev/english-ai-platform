@@ -1,4 +1,4 @@
-import Header from "../../common/shared/Header";
+import Header from "../../common/shared/Header/Header";
 import PricingCard from "./PricingCard"
 import data from "./index";
 import withScrollAnimation from "../../decoration/WithScrollAnimation";

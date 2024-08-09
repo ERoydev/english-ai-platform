@@ -3,7 +3,7 @@ import Button from "../../common/shared/Button";
 import Letter from "../../common/shared/Letter";
 import LetterCycle from "../../common/shared/LetterCycle";
 import chart from "../../../assets/svgs/chart.svg";
-import Header from "../../common/shared/Header";
+import Header from "../../common/shared/Header/Header";
 
 export default function Hero() {
     const Letters: string[] = [
