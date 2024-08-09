@@ -7,6 +7,7 @@ Welcome to the **AI English Learning Platform**! This project aims to create an 
 - [Tech Stack](#tech-stack)
 - [Current Status](#current-status)
 - [Future Plans](#future-plans)
+- [Getting Started](#getting-started)
 - [How to Contribute](#how-to-contribute)
 - [Stay Updated](#stay-updated)
 - [License](#license)
@@ -41,16 +42,27 @@ The project is currently in the initial stages of development. Here’s what has
 The following features are planned for future development:
 
 - **User Authentication**: Implement user login, registration, and profile management.
-- **Speech analysis**: Develop and integrate AI-driven analysis of speech.
+- **Lesson Content**: Develop and integrate AI-driven lesson content.
 - **Interactive Quizzes**: Create quizzes that adapt to user performance.
 - **Progress Tracking**: Build dashboards for users to track their progress.
 - **AI Recommendations**: Suggest personalized lessons and quizzes based on user data.
 
-## How to Contribute
+## Getting Started
 
-We welcome contributions from the community! Here’s how you can help:
+If you want to explore or contribute to the project, here's how you can get started:
 
-1. **Fork the repository**: Click the "Fork" button at the top of this page to create a copy of this repository on your account.
-2. **Clone your fork**: 
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+- **Node.js**: [Download and install Node.js](https://nodejs.org/)
+- **Python**: [Download and install Python](https://www.python.org/)
+- **Git**: [Download and install Git](https://git-scm.com/)
+- **Django**: Install Django by running `pip install django`
+- **React**: The React project will be managed with `npm` or `yarn`
+
+### Installation
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/english-ai-platform.git
+   git clone https://github.com/ERoydev/english-ai-platform.git
+   cd english-ai-platform
