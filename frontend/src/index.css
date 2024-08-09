@@ -1,0 +1,104 @@
+/* My Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* Custom CSS Files */
+@import url('assets/styles/animations.css');
+@import url('assets/styles/testimonial.css');
+@import url('assets/styles/upwards.css');
+@import url('assets/styles/border-bar.css');
+@import url('assets/styles/image-overlay.css');
+@import url('assets/styles//slide-down.css');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+html {
+  font-family: Montserrat;
+  background-color: bg-clr;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+  
+  
+@layer components {
+  .max-container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .input {
+    @apply block p-3.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300;
+  }
+}
+
+@layer utilities {
+  .padding {
+    @apply sm:px-16 px-8 sm:py-24 py-12;
+  }
+
+  .padding-x {
+    @apply sm:px-16 px-8;
+  }
+
+  .padding-y {
+    @apply sm:py-24 py-12;
+  }
+
+  .padding-l {
+    @apply sm:pl-16 pl-8;
+  }
+
+  .padding-r {
+    @apply sm:pr-16 pr-8;
+  }
+
+  .padding-t {
+    @apply sm:pt-24 pt-12;
+  }
+
+  .padding-b {
+    @apply sm:pb-24 pb-12;
+  }
+
+  .info-text {
+    @apply font-montserrat text-gray-500 font-medium lg:text-[0.8rem] xl:text-[1rem] text-[0.7rem];
+  }
+
+  .window {
+    @apply bg-slate-400/[.03] border border-slate-500/[.30] rounded-3xl;
+  }
+
+  .main-text {
+    @apply text-white-clr font-montserrat font-bold;
+  }
+
+  .main-button {
+    @apply z-10 rounded-full px-8 py-4 relative flex items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-orange-600 before:duration-500 before:ease-out hover:shadow-orange-600 hover:before:h-56 hover:before:w-56;
+  }
+
+  .secondary-button {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full;
+  }
+
+  .primary-header-color {
+    @apply bg-gradient-to-r from-orange-500 via-indigo-500 to-green-500 text-transparent bg-clip-text;
+  }
+
+  .secondary-header-color {
+    @apply text-purple-500
+  }
+  
+
+}

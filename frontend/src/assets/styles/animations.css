@@ -1,0 +1,10 @@
+@keyframes fade {
+    0% { opacity: 0; transform: translateY(100%); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-100%); }
+  }
+  
+  .fade-animation {
+    animation: fade 6s infinite;
+  }
