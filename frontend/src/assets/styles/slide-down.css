@@ -1,0 +1,16 @@
+/* I use this for my navigation mobile version to slide it down */
+
+/* It's reusable i can use it on others components !! */
+
+@keyframes slide-down {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .slide-down {
+    animation: slide-down 0.3s ease-out;
+  }

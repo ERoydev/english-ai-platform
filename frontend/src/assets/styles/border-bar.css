@@ -1,0 +1,13 @@
+
+/* I use this for the Orange/blue border */
+.border-bar {
+    height: 10px;
+    width: 100%; 
+    background: linear-gradient(
+      -45deg, /* Angle the gradient */
+      #005f6b 33%, 
+      #f07c00 33%, 
+      #f07c00 66%, 
+      #595959 33% 
+    );
+  }

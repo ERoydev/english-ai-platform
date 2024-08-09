@@ -1,0 +1,18 @@
+/* I use this for images to add overlay inside and make the smoother as a background image */
+
+/* It's reusable i can use it on every image !! */
+
+.overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the rgba value to set the desired opacity */
+    z-index: 0;
+}
+.content {
+    position: relative;
+    z-index: 1;
+}
