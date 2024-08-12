@@ -1,9 +1,11 @@
 import React from 'react';
 
-import Link from "../shared/Link";
+import LinkComponent from '../shared/LinkComponent';
 import Button from "../shared/Button/Button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
+import Path from '../../../Paths.tsx'; /* File containing the route paths for each link */
 
 
 interface MenuProps {
@@ -44,18 +46,18 @@ const Menu: React.FC<MenuProps> = ({
                 </div>
                 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <Link label='Courses' />
+                    <LinkComponent label='Courses' path='/' />
                 </li>
                 <li className={isOpen ? `text-lg`: ''}>
-                    <Link label='Students' />
-                </li>
-
-                <li className={isOpen ? `text-lg`: ''}>
-                    <Link label='Practice & Quizzes' />
+                    <LinkComponent label='Students' path='/' />
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <Link label='About us' />
+                    <LinkComponent label='Practice & Quizzes' path={Path.PracticeApp} />
+                </li>
+
+                <li className={isOpen ? `text-lg`: ''}>
+                    <LinkComponent label='About us' path='/' />
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>

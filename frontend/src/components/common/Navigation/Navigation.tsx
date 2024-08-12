@@ -7,6 +7,8 @@ export default function Navigation() {
     const [menuIsOpened, setMenuIsOpened] = useState(false);
 
     const MenuClickHandler = () => {
+        /* This function handles the mobile version (Hamburger button) */
+
         if (menuIsOpened) {
             setMenuIsOpened(false);
         } else {
