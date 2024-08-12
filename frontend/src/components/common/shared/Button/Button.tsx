@@ -5,7 +5,7 @@ export default function Button({
     className
 }: {
     label: string;
-    className?: string;
+    className?: string; /* Add custom classNames (optional) */
 }) {
     return (
         <button className={`${className} main-button`} data-testid="button">
