@@ -1,13 +1,13 @@
-
 // Components
 import Logo from "../shared/Logo/Logo";
 import MenuItem from "./MenuItem";
 import Button from "../shared/Button/Button";
 
-// React-Router
-import { Link } from "react-router-dom";
+// Mapping Files
+import Icons from "./Icons";
+import BorderBar from "../../decoration/BorderBar";
+import Header from "../shared/Header/Header";
 
-// Mapping files
 export default function PracticeApp() {
     return(
         <section>
@@ -21,22 +21,25 @@ export default function PracticeApp() {
             </button>
             
             {/* SIDEBAR */}
-            <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <aside id="logo-sidebar" className="fixed top-38 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
 
-                    {/* Logo */}
-                    <div className="pb-5">
-                         <Logo />
-                    </div>
+          
 
                     {/* Menu Links */}
-                    <ul className="space-y-2 font-medium">
-                        <MenuItem label="Dashboard" />
-                        <MenuItem label="Learning Modules" />
-                        <MenuItem label="Goals and Achievements" />
-                        <MenuItem label="Content & Resources" />
-                        <MenuItem label="Notifications" />
-                        <Button label="Become Pro" />
+                    <ul className="space-y-4 font-medium">
+                        <MenuItem label="Learning Modules" icon={Icons.LearningModule} />
+                        <MenuItem label="Goals and Achievements" icon={Icons.Goals} />
+                        <MenuItem label="Content & Resources" icon={Icons.Resources} />
+                        <MenuItem label="Notifications" icon={Icons.Notifications} />
+                        <MenuItem label="Learning Paths" icon={Icons.LearningPaths} />
+                        <MenuItem label="Logout" icon={Icons.Logout}/>
+
+                        <hr className="border-2 border-gray-300 my-4" />
+
+                        <li className="flex justify-center items-center pt-5">
+                            <Button label="Become Pro" />
+                        </li>
                     </ul>
 
                 </div>
@@ -45,105 +48,59 @@ export default function PracticeApp() {
             {/* END OF SIDEBAR */}
             
             {/* Main Content Boxes here !!! */}
-            <div className="p-4 sm:ml-64">
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                        <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                        <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                            <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                            </p>
-                        </div>
-                    </div>
+            <div className="p-4 md:ml-64 h-auto pt-10">
+                <Header title="Hello, User!" customClass="mb-5"/>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                    <div
+                    className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                    ></div>
+                </div>
+
+                <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+                ></div>
+
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                </div>
+
+                <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+                ></div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
+                    <div
+                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    ></div>
                 </div>
             </div>
 

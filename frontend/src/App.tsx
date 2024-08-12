@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <main>
-      {!isPracticeApp && <Navigation />}
+      <Navigation />
         <Routes >
           <Route path={Path.Home} element={<Home />} />
           <Route path={Path.PracticeApp} element={<PracticeApp />} />
