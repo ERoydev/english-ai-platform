@@ -66,3 +66,7 @@ Make sure you have the following installed on your machine:
    ```bash
    git clone https://github.com/ERoydev/english-ai-platform.git
    cd english-ai-platform
+
+![Screenshot 2024-08-13 152852](https://github.com/user-attachments/assets/3ae778ed-2aea-4b23-b2ba-b5399e399960)
+
+   
