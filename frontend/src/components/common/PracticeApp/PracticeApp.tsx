@@ -6,7 +6,11 @@ import Header from "../shared/Header/Header";
 import GridWindow from "./GridWindow";
 
 // Mapping Files
-import [Icons, Images] from './'
+import {Icons, Images} from "./index.tsx";
+
+// FontAwesome
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function PracticeApp() {
@@ -24,10 +28,10 @@ export default function PracticeApp() {
             
             {/* SIDEBAR */}
             <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-                <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+                <div className="relative h-full px-3 py-4 overflow-y-auto bg-gray-800">
 
                     <div className="pb-10">
-                        <Logo />
+                        <Logo color={"text-gray-200"} />
                     </div>
           
 
@@ -42,8 +46,8 @@ export default function PracticeApp() {
 
                         <hr className="border-2 border-gray-300 my-4" />
 
-                        <li className="flex justify-center items-center pt-5">
-                            <Button label="Become Pro" />
+                        <li className="flex justify-center items-center absolute inset-x-0 bottom-10 pt-5">
+                            <Button label="Upgrade Plan" backgroundColor="bg-white" textColor="text-black"/>
                         </li>
                     </ul>
 
@@ -54,15 +58,26 @@ export default function PracticeApp() {
             
             {/* Main Content Boxes here !!! */}
             <div className="p-4 md:ml-64 h-auto pt-10">
-                <Header title="Hello, " customClass="mb-5" size={"text-3xl"} coloredText="User!" coloredClass="secondary-header-color"/>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <GridWindow label="Vocabulary" size="h-32 md:h-64" />
+                <Header title="Hello back, " customClass="mb-5" size={"text-3xl"} coloredText="User!" coloredClass="secondary-header-color"/>
+                <div className="flex gap-5 items-center py-10 border-b-2">
+                    <div>
+                        <FontAwesomeIcon icon={faClock} className="w-[50px] h-[50px] text-gray-300" />
+                    </div>
 
-                    <GridWindow label="Grammar" size="h-32 md:h-64" />
+                    <div className="flex flex-col justify-center">
+                        <h1 className="font-bold text-gray-500 text-lg">Speaking Time</h1>
+                        <h1 className="font-bold text-black text-3xl leading-8">81 min</h1>
+                    </div>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 py-10">
+                    <GridWindow label="Vocabulary" size="h-32 md:h-64" img={Images.vocabulary} />
 
-                    <GridWindow label="Speaking" size="h-32 md:h-64" />
+                    <GridWindow label="Grammar" size="h-32 md:h-64" img={Images.grammar} />
+
+                    <GridWindow label="Speaking" size="h-32 md:h-64" img={Images.speaking} />
                     
-                    <GridWindow label="Reading & Writting" size="h-32 md:h-64" />
+                    <GridWindow label="Reading & Writting" size="h-32 md:h-64" img={Images.reading} />
                 </div>
 
                 <div

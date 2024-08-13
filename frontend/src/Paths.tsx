@@ -4,6 +4,8 @@
 const Path = {
     Home: "/",
     PracticeApp: "/Practice&Quizzes",
+    Courses: "/Courses",
+    Signup: "/Signup",
 }
 
 export default Path;
