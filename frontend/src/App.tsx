@@ -21,12 +21,12 @@ export default function App() {
 
   return (
     <main>
-      <Navigation />
+      {!isPracticeApp && <Navigation />}
         <Routes >
           <Route path={Path.Home} element={<Home />} />
           <Route path={Path.PracticeApp} element={<PracticeApp />} />
         </Routes>
-      {!isPracticeApp && <Footer />}
+       {/* <Footer /> */}
     </main>
   )
 }

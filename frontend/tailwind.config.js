@@ -31,7 +31,8 @@ export default {
         'bg-clr': '#e5e8e3',
         'primary': "#1c1c22",
         "secondary": "#b853cf",
-        "accent": "#fff"
+        "accent": "#fff",
+        "app-bg": "#040507"
       },
       boxShadow: {
         '3xl': '0 10px 40px rgba(0, 0, 0, 0.1)'

@@ -2,15 +2,16 @@
 import Logo from "../shared/Logo/Logo";
 import MenuItem from "./MenuItem";
 import Button from "../shared/Button/Button";
+import Header from "../shared/Header/Header";
+import GridWindow from "./GridWindow";
 
 // Mapping Files
-import Icons from "./Icons";
-import BorderBar from "../../decoration/BorderBar";
-import Header from "../shared/Header/Header";
+import [Icons, Images] from './'
+
 
 export default function PracticeApp() {
     return(
-        <section>
+        <section className="">
             
             {/* MOBILE BUTTON */}
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -19,11 +20,15 @@ export default function PracticeApp() {
                 <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
             </button>
+
             
             {/* SIDEBAR */}
-            <aside id="logo-sidebar" className="fixed top-38 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
 
+                    <div className="pb-10">
+                        <Logo />
+                    </div>
           
 
                     {/* Menu Links */}
@@ -49,46 +54,41 @@ export default function PracticeApp() {
             
             {/* Main Content Boxes here !!! */}
             <div className="p-4 md:ml-64 h-auto pt-10">
-                <Header title="Hello, User!" customClass="mb-5"/>
+                <Header title="Hello, " customClass="mb-5" size={"text-3xl"} coloredText="User!" coloredClass="secondary-header-color"/>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div
-                    className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-                    ></div>
-                    <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-                    ></div>
-                    <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-                    ></div>
-                    <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-                    ></div>
+                    <GridWindow label="Vocabulary" size="h-32 md:h-64" />
+
+                    <GridWindow label="Grammar" size="h-32 md:h-64" />
+
+                    <GridWindow label="Speaking" size="h-32 md:h-64" />
+                    
+                    <GridWindow label="Reading & Writting" size="h-32 md:h-64" />
                 </div>
 
                 <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+                    className="window h-96 mb-4"
                 ></div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                     <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    className="window h-48 md:h-72"
                     ></div>
                     <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    className="window h-48 md:h-72"
                     ></div>
                     <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    className="window h-48 md:h-72"
                     ></div>
                     <div
-                    className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+                    className="window h-48 md:h-72"
                     ></div>
                 </div>
 
-                <div
+                {/* <div
                     className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-                ></div>
+                ></div> */}
                 
-                <div className="grid grid-cols-2 gap-4">
+                {/* <div className="grid grid-cols-2 gap-4">
                     <div
                     className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
                     ></div>
@@ -101,7 +101,7 @@ export default function PracticeApp() {
                     <div
                     className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
                     ></div>
-                </div>
+                </div> */}
             </div>
 
         </section>
