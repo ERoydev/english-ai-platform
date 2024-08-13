@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import Path from '../../../Paths.tsx'; /* File containing the route paths for each link */
+import { Link } from 'react-router-dom';
 
 
 interface MenuProps {
@@ -46,7 +47,7 @@ const Menu: React.FC<MenuProps> = ({
                 </div>
                 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <LinkComponent label='Courses' path='/' />
+                    <LinkComponent label='Courses' path={Path.Courses} />
                 </li>
                 <li className={isOpen ? `text-lg`: ''}>
                     <LinkComponent label='Students' path='/' />
@@ -61,7 +62,9 @@ const Menu: React.FC<MenuProps> = ({
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <Button label='Sign-up'/>
+                    <Link to={Path.Signup}>
+                        <Button label='Sign-up'/>
+                    </Link>
                 </li>
             </ul>
         </>

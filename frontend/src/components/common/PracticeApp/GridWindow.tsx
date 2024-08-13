@@ -1,12 +1,13 @@
-import vocabulary from "../../../assets/images/Practice/vocabulary.jpg";
 
 
 export default function GridWindow({
     label,
     size,
+    img,
 }: {
     label: string;
     size: string; /* pass sizes like `h-32 md:h-64`, ` */
+    img: string;
 }) {
     return(
         <div
@@ -15,7 +16,7 @@ export default function GridWindow({
             <span className="absolute top-5 left-5 font-bold text-white text-2xl z-20">{label}</span>
 
             <div className="overlay">
-                <img src={vocabulary} alt="" />
+                <img src={img} alt="" />
             </div>
     </div>
 

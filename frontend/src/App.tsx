@@ -10,13 +10,15 @@ import { useLocation } from "react-router-dom";
 
 // Mapping Files
 import Path from "./Paths.tsx";
+import Courses from "./components/common/Courses/Courses.tsx";
+import Signup from "./components/common/Authentication/Signup.tsx";
 
 
 export default function App() {
   const location = useLocation();
 
   // I use this to disable nav and footer in PracticeApp !
-  const isPracticeApp = location.pathname == Path.PracticeApp;
+  const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup;
 
 
   return (
@@ -25,8 +27,10 @@ export default function App() {
         <Routes >
           <Route path={Path.Home} element={<Home />} />
           <Route path={Path.PracticeApp} element={<PracticeApp />} />
+          <Route path={Path.Courses} element={<Courses />} />
+          <Route path={Path.Signup} element={<Signup />} />
         </Routes>
-       {/* <Footer /> */}
+       {!isPracticeApp && <Footer />}
     </main>
   )
 }
