@@ -1,0 +1,14 @@
+POST  http://127.0.0.1:8000/auth/login
+Content-Type: application/json
+
+{ "email":  "emil@abv.bg", "password": "123456"}
+
+###
+POST  http://127.0.0.1:8000/auth/signup
+Content-Type: application/json
+
+{ "email":  "emil1@abv.bg", "password": "test123"}
+
+###
+GET  http://127.0.0.1:8000/auth/test_token
+Content-Type: application/json
