@@ -12,3 +12,11 @@ Content-Type: application/json
 ###
 GET  http://127.0.0.1:8000/auth/test_token
 Content-Type: application/json
+Authorization: Token f02d537eee83603b913a7b129a3b9a391cd75004
+### In order to work i need to put in header of the request Authorization: Token <token hash here>
+
+
+POST  http://127.0.0.1:8000/auth/logout
+Content-Type: application/json
+Authorization: Token f02d537eee83603b913a7b129a3b9a391cd75004
+

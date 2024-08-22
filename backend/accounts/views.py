@@ -34,6 +34,27 @@ def signup(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def test_token(request):
-    return Response({})
+    return Response("passed for {}".format(request.user.email))
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def logout(request):
+    user = request.user
+    try:
+        # Delete the user's token to log them out
+        user.auth_token.delete()
+        return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+    except:
+        return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
