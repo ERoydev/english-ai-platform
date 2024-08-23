@@ -12,14 +12,26 @@ from django.shortcuts import get_object_or_404
 UserModel = get_user_model()
 @api_view(['POST'])
 def login(request):
+
+    # Check that email and password are provided in the request.data
+    if 'email' not in request.data or 'password' not in request.data:
+        return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Fetch the user by email
     user = get_object_or_404(UserModel, email=request.data['email'])
 
+    # Check if the password is correct
     if not user.check_password(request.data['password']):
         return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
+    # Create or get the user token
     token, created = Token.objects.get_or_create(user=user)
+
+    # Serialize the user data
     serializer = UserSerializer(instance=user)
-    return Response({"token": token.key, "user": serializer.data})
+
+    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def signup(request):
