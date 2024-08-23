@@ -14,7 +14,11 @@ const initialValues = {
 
 export default function Signup() {
     const SubmitClickHandler = () => {
-        login(values)
+        try {
+            login(values)
+        } catch (err) {
+            console.log(err)
+        }
     } 
 
     const {values, onChange, onSubmit} = useForm(SubmitClickHandler, initialValues)

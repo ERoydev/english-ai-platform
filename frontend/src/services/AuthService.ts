@@ -17,9 +17,19 @@ export const register = async (values: values) => {
 export const login = async (values: values) => {
     try {
         const response = await axios.post(`${baseUrl}/auth/login/`, values); 
-        console.log(response.data)
+        const { token, user } = response.data;
+
+        localStorage.setItem('token', token)
+        
+        console.log('Logged in successfully: ', user)
     } catch (error) {
-        console.log(error)
+        if (error.response) {
+            console.error('Login failed:', error.response.data);
+        } else {
+            console.error('An unexpected error occurred:', error.message);
+        }
+        throw error;
     }
+
 
 };
