@@ -9,7 +9,9 @@ from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 
 
-UserModel = get_user_model()
+UserModel = get_user_model() # I get my userModel
+
+
 @api_view(['POST'])
 def login(request):
 
@@ -17,7 +19,7 @@ def login(request):
     if 'email' not in request.data or 'password' not in request.data:
         return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
     
-    # Fetch the user by email
+    # Fetch the user by email or return error 404
     user = get_object_or_404(UserModel, email=request.data['email'])
 
     # Check if the password is correct
