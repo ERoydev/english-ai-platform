@@ -4,20 +4,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Path from "../../../Paths";
 import useForm from "../../../hooks/useForm";
-import { login } from "../../../services/AuthService";
-
 
 const initialValues = {
     email: '',
     password: ''
 }
 
-export default function Signup() {
+
+export default function AuthScreen({
+    authActionName,
+
+}: {
+    authActionName: string;
+}) {
+
     const SubmitClickHandler = () => {
         try {
-            login(values)
+            console.log(values);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     } 
 
@@ -35,7 +40,7 @@ export default function Signup() {
                 <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                     <div className="mt-12 flex flex-col items-center">
                         <h1 className="text-2xl xl:text-3xl font-extrabold">
-                            Sign up
+                            {authActionName}
                         </h1>
                         <div className="w-full flex-1 mt-8">
                             <div className="flex flex-col items-center">
@@ -58,7 +63,7 @@ export default function Signup() {
                                         </svg>
                                     </div>
                                     <span className="ml-4">
-                                        Sign Up with Google
+                                        {authActionName} with Google
                                     </span>
                                 </button>
 
@@ -71,7 +76,7 @@ export default function Signup() {
                                         </svg>
                                     </div>
                                     <span className="ml-4">
-                                        Sign Up with GitHub
+                                        {authActionName} with GitHub
                                     </span>
                                 </button>
                             </div>
@@ -79,7 +84,7 @@ export default function Signup() {
                             <div className="my-12 border-b text-center">
                                 <div
                                     className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                                    Or sign up with e-mail
+                                    Or {authActionName} with e-mail
                                 </div>
                             </div>
 
@@ -112,7 +117,7 @@ export default function Signup() {
                                         <path d="M20 8v6M23 11h-6" />
                                     </svg>
                                     <span className="ml-3">
-                                        Sign Up
+                                        {authActionName}
                                     </span>
                                 </button>
                                 <p className="mt-6 text-xs text-gray-600 text-center">

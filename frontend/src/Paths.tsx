@@ -6,6 +6,7 @@ const Path = {
     PracticeApp: "/Practice&Quizzes",
     Courses: "/Courses",
     Signup: "/Signup",
+    Login: "/Login",
 }
 
 export default Path;

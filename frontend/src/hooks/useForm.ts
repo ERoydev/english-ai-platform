@@ -1,5 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 
+// Thats my reusable component to handle basic controlled forms.
+
 type FormValues = {
   [key: string]: any;
 };
