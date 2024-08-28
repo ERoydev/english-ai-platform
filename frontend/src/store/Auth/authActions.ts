@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as authService from '../../services/Auth/AuthService';
-import axios from 'axios';
 
 interface authParams {
   email: string;
@@ -49,15 +48,19 @@ export const userRegister = createAsyncThunk<
   {rejectValue: string}
 >(
   'auth/signup/',
-  async ({email, password}, {rejectWithValue}) => {
+  async ({email, password}, { dispatch, rejectWithValue}) => {
     try {
-      console.log('inside')
-      // const data = await authService.signup({ email, password });
+      const data = await authService.signup({ email, password });
 
-      // localStorage.setItem('userToken', data.token);
-      // return data;
+      const loginResponse = await dispatch(userLogin({ email, password}));
+
+      if (userLogin.rejected.match(loginResponse)) {
+        return rejectWithValue('Error loggin in after registration');
+      }
+
+      return loginResponse;
+
     } catch (error: any) {
-
       console.log(error)
       return rejectWithValue('Error registering')
     }

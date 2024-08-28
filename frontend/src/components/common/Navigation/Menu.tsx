@@ -23,6 +23,8 @@ const Menu: React.FC<MenuProps> = ({
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+    console.log(isAuthenticated)
+
     return(
         <>
             {/* Mobile Hamburger button */}

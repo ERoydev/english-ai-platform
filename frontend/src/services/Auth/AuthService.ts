@@ -22,3 +22,31 @@ export const signup = async (values: values) => {
 
   return data;
 }
+
+export const logout = async(values: values) => {
+  const token = localStorage.getItem('userToken');
+
+  if (!token) {
+    throw new Error('No JWT token found.');
+  }
+
+  const config = {
+    headers: {
+      'Authorization': `${token}`,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  try {
+    // Make the POST request to the logout endpoint
+    const response = await axios.post(`${baseUrl}/auth/logout/`, values, config);
+    
+    // If successful, you can also remove the token from localStorage
+    localStorage.removeItem('userToken');
+
+    return response.data;
+  } catch (error) {
+    console.error('Logout failed', error);
+    throw error;  // Rethrow the error for further handling
+  }
+}
