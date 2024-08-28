@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 // Mapping Files
 import Path from "./Paths.tsx";
 import Courses from "./components/common/Courses/Courses.tsx";
+import Logout from "./components/common/Authentication/Logout.tsx";
 
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
           <Route path={Path.Courses} element={<Courses />} />
           <Route path={Path.Signup} element={<AuthScreen authActionName="Sign up"/>} />
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
+          <Route path={Path.Logout} element={<Logout />} />
         </Routes>
        {!isPracticeApp && <Footer />}
     </main>
