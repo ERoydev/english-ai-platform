@@ -6,6 +6,7 @@ import Menu from "./Menu";
 export default function Navigation() {
     const [menuIsOpened, setMenuIsOpened] = useState(false);
 
+
     const MenuClickHandler = () => {
         /* This function handles the mobile version (Hamburger button) */
 
@@ -23,7 +24,10 @@ export default function Navigation() {
             </div>
 
             <nav >
-                <Menu MenuClickHandler={MenuClickHandler} isOpen={menuIsOpened}/>
+                <Menu 
+                    MenuClickHandler={MenuClickHandler} 
+                    isOpen={menuIsOpened} 
+                />
             </nav>
         </header>
     )
