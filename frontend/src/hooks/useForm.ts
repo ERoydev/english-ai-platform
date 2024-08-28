@@ -8,7 +8,7 @@ type FormValues = {
 
 type SubmitHandler = (values: FormValues) => void;
 
-export default function useForm(submitHandler: SubmitHandler, initialValues: FormValues) {
+export default function useForm(SubmitHandler: SubmitHandler, initialValues: FormValues) {
   const [values, setValues] = useState<FormValues>(initialValues);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ export default function useForm(submitHandler: SubmitHandler, initialValues: For
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitHandler(values);
+    SubmitHandler(values);
   };
 
   return {

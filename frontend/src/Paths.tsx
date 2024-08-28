@@ -7,6 +7,7 @@ const Path = {
     Courses: "/Courses",
     Signup: "/Signup",
     Login: "/Login",
+    Logout: "/Logout",
 }
 
 export default Path;

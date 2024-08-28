@@ -1,9 +1,23 @@
+// Image
 import signup from "../../../assets/auth/signup.svg";
+
+// ICONS
 import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import Path from "../../../Paths";
+
+// Utils
 import useForm from "../../../hooks/useForm";
+import Path from "../../../Paths";
+
+// Redux 
+import { useDispatch, useSelector } from "react-redux";
+import * as authActions from '../../../store/Auth/authActions';
+import { AppDispatch } from "../../../store/store";
+
+// React
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 
 const initialValues = {
     email: '',
@@ -17,14 +31,26 @@ export default function AuthScreen({
 }: {
     authActionName: string;
 }) {
+    const navigate = useNavigate();
+    const { error, isAuthenticated } = useSelector(state => state.auth)
+
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate(Path.Home);
+        }
+    }, [navigate, isAuthenticated])
 
     const SubmitClickHandler = () => {
-        try {
-            console.log(values);
-        } catch (err) {
-            console.log(err);
+        if(authActionName === 'Login') {
+            dispatch(authActions.userLogin({email: values.email, password: values.password}));
+
+        } else if (authActionName === 'Sign up') {
+            dispatch(authActions.userRegister({email: values.email, password: values.password}));
+            
         }
-    } 
+    }
 
     const {values, onChange, onSubmit} = useForm(SubmitClickHandler, initialValues)
 
@@ -88,6 +114,7 @@ export default function AuthScreen({
                                 </div>
                             </div>
 
+                        
                             <div className="mx-auto max-w-xs">
                                 <input
                                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -107,6 +134,13 @@ export default function AuthScreen({
                                     onChange={onChange}
                                     
                                     />
+
+                                    {error && (
+                                        <div className="mt-2 bg-red-100 border border-red-200 text-sm text-red-800 rounded-lg p-4 dark:bg-red-800/10 dark:border-red-900 dark:text-red-500" role="alert" tabIndex="-1" aria-labelledby="hs-soft-color-danger-label">
+                                            <span id="hs-soft-color-danger-label" className="font-bold"></span>{error}
+                                        </div>
+                                    )}
+
                                 <button
                                     onClick={onSubmit}
                                     className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
@@ -120,6 +154,25 @@ export default function AuthScreen({
                                         {authActionName}
                                     </span>
                                 </button>
+
+                                {authActionName == 'Sign up' ? (
+                                    <p className="mt-6 text-sm text-gray-600 text-center">
+                                        Already has an account <Link to={Path.Login}>
+                                                <span className="border-b border-blue-600 text-md hover:cursor-pointer font-semibold hover:text-gray-500">
+                                                    Login instead.
+                                                </span>
+                                            </Link>
+                                    </p>)
+                                    :
+                                    (
+                                    <p className="mt-6 text-sm text-gray-600 text-center">
+                                        Don't have an account <Link to={Path.Signup}>
+                                                <span className="border-b border-blue-600 text-md hover:cursor-pointer font-semibold hover:text-gray-500">
+                                                    Signup.
+                                                </span>
+                                            </Link>
+                                    </p>)
+                                }
                                 <p className="mt-6 text-xs text-gray-600 text-center">
                                     I agree to abide by 
                                     LexiLearn's <span className="border-b border-gray-500 border-dotted">Terms of Service</span> and its <span className="border-b border-gray-500 border-dotted">Privacy Policy</span>

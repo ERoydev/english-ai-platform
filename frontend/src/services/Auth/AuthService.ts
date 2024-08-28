@@ -15,3 +15,10 @@ export const login = async (values: values) => {
     return data;
 
 };
+
+export const signup = async (values: values) => {
+  const response = await axios.post(`${baseUrl}/auth/signup/`, values);
+  const data = response.data;
+
+  return data;
+}

@@ -7,6 +7,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import Path from '../../../Paths.tsx'; /* File containing the route paths for each link */
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 interface MenuProps {
@@ -18,6 +19,9 @@ const Menu: React.FC<MenuProps> = ({
     MenuClickHandler,
     isOpen,
  }) => {
+
+
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
     return(
         <>
@@ -62,9 +66,16 @@ const Menu: React.FC<MenuProps> = ({
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <Link to={Path.Signup}>
-                        <Button label='Sign-up'/>
-                    </Link>
+                    {!isAuthenticated ?                
+                        <Link to={Path.Signup}>
+                            <Button label='Sign-up'/>
+                        </Link>
+
+                        :
+                        <Link to={Path.Logout}>
+                            <Button label='Logout' />
+                        </Link>
+                    }
                 </li>
             </ul>
         </>
