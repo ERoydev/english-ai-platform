@@ -25,10 +25,15 @@ export const userLogin = createAsyncThunk<
   'auth/login/',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const data = await authService.login({ email, password });
+      const userData = await authService.login({ email, password });
+      // Two factor verification => test token after login
+      const tokenTestData = await authService.test_token(userData.token);
       
-      localStorage.setItem('userToken', data.token);
-      return data;
+      if (tokenTestData.passed) {
+        localStorage.setItem('userToken', userData.token);
+        return userData;
+      }
+  
     } catch (error: any) { // `error` could be of any type
       if (error.response && error.response.data.detail) {
         if (error.response.status === 404) {
