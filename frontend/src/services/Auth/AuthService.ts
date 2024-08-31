@@ -7,13 +7,31 @@ type values = {
   };
 
 
+const createRequestConfig = (token: string) => {
+  const config = {
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    }
+  }
+  return config;
+}
+
+export const test_token = async (token: string) => {
+  const config = createRequestConfig(token);
+
+  const response = await axios.get(`${baseUrl}/auth/test_token/`, config);
+  const data = response.data;
+
+  return data;
+}
+
 
 export const login = async (values: values) => {
     const response = await axios.post(`${baseUrl}/auth/login/`, values); 
     const data = response.data;
 
     return data;
-
 };
 
 export const signup = async (values: values) => {
@@ -30,12 +48,7 @@ export const logout = async(values: values) => {
     throw new Error('No JWT token found.');
   }
 
-  const config = {
-    headers: {
-      'Authorization': `Token ${token}`,
-      'Content-Type': 'application/json',
-    }
-  }
+  const config = createRequestConfig(token);
 
   try {
     // Make the POST request to the logout endpoint
