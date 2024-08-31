@@ -72,3 +72,8 @@ def logout(request):
         return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
     except:
         return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def getUserByToken(request):
+    pass

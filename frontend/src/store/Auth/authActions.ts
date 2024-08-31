@@ -26,7 +26,7 @@ export const userLogin = createAsyncThunk<
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const userData = await authService.login({ email, password });
-      // Two factor verification => test token after login
+      // Two factor verification => test_token after login
       const tokenTestData = await authService.test_token(userData.token);
       
       if (tokenTestData.passed) {
@@ -60,14 +60,17 @@ export const userRegister = createAsyncThunk<
       const loginResponse = await dispatch(userLogin({ email, password}));
 
       if (userLogin.rejected.match(loginResponse)) {
-        return rejectWithValue('Error loggin in after registration');
+        return rejectWithValue('Error logging in after registration');
       }
 
       return loginResponse;
 
     } catch (error: any) {
-      console.log(error)
       return rejectWithValue('Error registering')
     }
   }
 )
+
+export const loadUserFromToken = createAsyncThunk('auth/') => {
+
+}
