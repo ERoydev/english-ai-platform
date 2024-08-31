@@ -14,7 +14,6 @@ export default function Logout() {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        console.log('INSIDEEE')
         authService.logout(auth.userInfo)
             .then(() => {
                 dispatch(logout());

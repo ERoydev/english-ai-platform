@@ -20,9 +20,11 @@ const authSlice = createSlice({
     reducers: {
       logout: (state) => {
         state.loading = false;
-        state.userInfo = null;
+        state.userInfo = {};
         state.userToken = null;
         state.error = null;
+        state.isAuthenticated = false;
+        state.success = false;
       }
     },
     extraReducers: (builder) => {
