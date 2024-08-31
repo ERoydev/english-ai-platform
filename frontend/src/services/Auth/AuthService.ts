@@ -32,7 +32,7 @@ export const logout = async(values: values) => {
 
   const config = {
     headers: {
-      'Authorization': `${token}`,
+      'Authorization': `Token ${token}`,
       'Content-Type': 'application/json',
     }
   }
