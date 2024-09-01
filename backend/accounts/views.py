@@ -74,6 +74,22 @@ def logout(request):
         return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Might delete when i implement JWT
 @api_view(['POST'])
 def getUserByToken(request):
-    pass
+    try:
+        token = request.data.get('token')
+        if not token:
+            return Response({"detail": "Token is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        token_object = get_object_or_404(Token.objects.select_related('user'), pk=token)
+        user = token_object.user
+
+        serializer = UserSerializer(user)
+        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+
+    except Token.DoesNotExist:
+        return Response({"detail": "Invalid token."}, status=status.HTTP_404_NOT_FOUND)
+    
+    except Exception as e:
+        return Response({"detail": f"Something went wrong: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)

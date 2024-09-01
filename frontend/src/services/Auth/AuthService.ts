@@ -63,3 +63,10 @@ export const logout = async(values: values) => {
     throw error;  // Rethrow the error for further handling
   }
 }
+
+export const getUserByToken = async(token: string) => {
+  const response = await axios.post(`${baseUrl}/auth/getUserByToken/`, {"token": token});
+
+  const data = response.data;
+  return data;
+}

@@ -13,7 +13,9 @@ import { useLocation } from "react-router-dom";
 import Path from "./Paths.tsx";
 import Courses from "./components/common/Courses/Courses.tsx";
 import Logout from "./components/common/Authentication/Logout.tsx";
-
+import { useEffect } from "react";
+import { getUserByToken } from "./services/Auth/AuthService.ts";
+import { useSelector } from "react-redux";
 
 export default function App() {
   const location = useLocation();
@@ -21,6 +23,12 @@ export default function App() {
   // I use this to disable nav and footer in PracticeApp !
   const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname === Path.Login;
 
+  const authToken = useSelector(state => state.auth.userToken)
+
+  useEffect(() => {
+    getUserByToken(authToken)
+      .then(res => console.log(res))
+  }, [])
 
   return (
     <main>

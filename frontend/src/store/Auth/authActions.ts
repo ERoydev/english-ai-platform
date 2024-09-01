@@ -71,6 +71,11 @@ export const userRegister = createAsyncThunk<
   }
 )
 
-export const loadUserFromToken = createAsyncThunk('auth/') => {
-
-}
+// export const loadUserFromToken = createAsyncThunk(
+//   'auth/getUserByToken',
+//   async ({token}, {rejectWithValue}) => {
+//     try {
+//       const data = await 
+//     }
+//   }
+// )
