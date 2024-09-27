@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { userLogin } from './authActions';
+import { loadUserFromToken, userLogin } from './authActions';
 
 
 const userToken = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : null
@@ -25,6 +25,9 @@ const authSlice = createSlice({
         state.error = null;
         state.isAuthenticated = false;
         state.success = false;
+      },
+      loadUserFromToken: (state, {payload}) => {
+      
       }
     },
     extraReducers: (builder) => {
