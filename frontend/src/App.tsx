@@ -20,28 +20,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch } from "./store/store.ts";
 import * as authActions from './store/Auth/authActions.ts';
+import UserLoader from "./components/common/Authentication/UserLoader.tsx";
 
 
 export default function App() {
   const location = useLocation();
-
   // I use this to disable nav and footer in PracticeApp !
   const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname === Path.Login;
 
-  const dispatch: AppDispatch = useDispatch();
-  const userToken = useSelector(state => state.auth.userToken)
-
-  useEffect(() => {
-    /*
-    Whenever i refresh the page i want from userToken to get all the userData and store it into redux store (Persisted State functionality)
-    */
-    if (userToken) {
-      dispatch(authActions.loadUserFromToken({ token: userToken}))
-    }
-  }, [dispatch, userToken])
 
   return (
     <main>
+      <UserLoader>
       {!isPracticeApp && <Navigation />}
         <Routes >
           <Route path={Path.Home} element={<Home />} />
@@ -51,7 +41,8 @@ export default function App() {
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
           <Route path={Path.Logout} element={<Logout />} />
         </Routes>
-       {!isPracticeApp && <Footer />}
+        {!isPracticeApp && <Footer />}
+      </UserLoader>
     </main>
   )
 }

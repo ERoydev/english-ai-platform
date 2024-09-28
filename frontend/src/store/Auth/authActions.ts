@@ -71,6 +71,17 @@ export const userRegister = createAsyncThunk<
   }
 )
 
+/*
+- When i dispatch this function and all Thunk functions above too
+- Redux Toolkit generates these three actions automatically for loadUserFromToken
+  - auth/getUserByToken/pending
+  - auth/getUserByToken/fulfilled
+  - auth/getUserByToken/rejected
+In your authSlice, you handle each of these automatically generated actions using extraReducers.
+
+So when i use createAsyncThunk Redux tool kit automatically generates the actions (pending, fulfilled, rejected)
+*/
+
 export const loadUserFromToken = createAsyncThunk(
   'auth/getUserByToken',
   async ({token}, {dispatch, rejectWithValue}) => {
