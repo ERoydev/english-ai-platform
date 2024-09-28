@@ -16,6 +16,7 @@ export default function Logout() {
     useEffect(() => {
         authService.logout(auth.userInfo)
             .then(() => {
+                // After logout request resolve then i need to make the changes in my redux slice and i dispatch()
                 dispatch(logout());
                 navigate(Path.Home);
             })

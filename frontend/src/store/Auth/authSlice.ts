@@ -10,7 +10,7 @@ const initialState = {
     userToken: userToken, // for storing the JWT
     error: null,
     success: false, // for monitoring the registration process.
-    isAuthenticated: false,
+    isAuthenticated: !!userToken,
 };
 
 
@@ -26,9 +26,6 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.success = false;
       },
-      loadUserFromToken: (state, {payload}) => {
-      
-      }
     },
     extraReducers: (builder) => {
         builder
@@ -45,6 +42,21 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
           })
           .addCase(userLogin.rejected, (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
+            state.isAuthenticated = false;
+          })
+          // Handling loadUserFromToken states
+          .addCase(loadUserFromToken.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(loadUserFromToken.fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.userInfo = payload;
+            state.isAuthenticated = true;
+          })
+          .addCase(loadUserFromToken.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             state.isAuthenticated = false;
