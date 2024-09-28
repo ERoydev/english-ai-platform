@@ -73,11 +73,11 @@ export const userRegister = createAsyncThunk<
 
 export const loadUserFromToken = createAsyncThunk(
   'auth/getUserByToken',
-  async ({token}, {rejectWithValue}) => {
+  async ({token}, {dispatch, rejectWithValue}) => {
     try {
       const data = await authService.getUserByToken(token);
 
-      // TODO FINISH THE DISPATCH WITH LOADUSER
+      return data;
     } catch(error) {
       rejectWithValue('Error loading the user.')
     }
