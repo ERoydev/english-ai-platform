@@ -15,11 +15,6 @@ import Courses from "./components/common/Courses/Courses.tsx";
 import Logout from "./components/common/Authentication/Logout.tsx";
 
 // 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { AppDispatch } from "./store/store.ts";
-import * as authActions from './store/Auth/authActions.ts';
 import UserLoader from "./components/common/Authentication/UserLoader.tsx";
 
 
@@ -31,7 +26,7 @@ export default function App() {
 
   return (
     <main>
-      <UserLoader>
+      <UserLoader> 
       {!isPracticeApp && <Navigation />}
         <Routes >
           <Route path={Path.Home} element={<Home />} />
