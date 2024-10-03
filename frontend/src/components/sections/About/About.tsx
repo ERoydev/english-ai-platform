@@ -8,7 +8,7 @@ function AboutContent() {
         <section className="mt-10 z-0 relative">
             
          
-            <div className="relative bg-about-texture bg-cover bg-center overlay">
+            <div className="relative bg-about-texture bg-cover bg-center overlay z-10">
             
                 <div className="flex flex-col">
                     <div className="z-20">
@@ -16,10 +16,10 @@ function AboutContent() {
                     </div>
                 </div>
 
-                <div className="max-container py-12 z-20">
+                <div className="max-container py-12 z-30">
 
                   
-                    <div className="text-center flex flex-col justify-center">
+                    <div className="text-center flex flex-col justify-center z-20 relative">
                         <Header title="About " size="text-4xl" customClass="mb-20 max-xl:mb-10 font-bold text-white z-20" coloredText="Us" coloredClass="secondary-header-color" infoText="learn about us"/>
                     </div>
                     <div className="flex items-center gap-5">
