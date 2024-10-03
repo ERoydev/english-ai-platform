@@ -5,7 +5,7 @@ import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
 function AboutContent() {
     return(
-        <section className="mt-10 z-0 relative">
+        <section className="mt-10 z-0 relative" id="about">
             
          
             <div className="relative bg-about-texture bg-cover bg-center overlay z-10">

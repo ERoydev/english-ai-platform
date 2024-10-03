@@ -22,7 +22,7 @@ const Menu: React.FC<MenuProps> = ({
 
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    
+
     return(
         <>
             {/* Mobile Hamburger button */}
@@ -53,16 +53,9 @@ const Menu: React.FC<MenuProps> = ({
                 <li className={isOpen ? `text-lg`: ''}>
                     <LinkComponent label='Courses' path={Path.Courses} />
                 </li>
-                <li className={isOpen ? `text-lg`: ''}>
-                    <LinkComponent label='Students' path='/' />
-                </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
                     <LinkComponent label='Practice & Quizzes' path={Path.PracticeApp} />
-                </li>
-
-                <li className={isOpen ? `text-lg`: ''}>
-                    <LinkComponent label='About us' path='/' />
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
