@@ -2,7 +2,9 @@ import vocabulary from '../../../assets/images/Practice/vocabulary.jpg';
 import grammar from '../../../assets/images/Practice/grammar.jpg';
 import reading from '../../../assets/images/Practice/reading.jpg';
 import speaking from '../../../assets/images/Practice/speaking.jpg';
-
+import ielts from '../../../assets/images/Practice/ielts.jpg';
+import listening from '../../../assets/images/Practice/listening.jpg';
+import synonyms from '../../../assets/images/Practice/synonyms.jpg';
 
 
 export const Icons = {
@@ -20,7 +22,10 @@ export const Images = {
     vocabulary: vocabulary,
     grammar: grammar,
     reading: reading,
-    speaking: speaking
+    speaking: speaking,
+    ielts: ielts,
+    listening: listening,
+    synonyms: synonyms,
 }
 
 

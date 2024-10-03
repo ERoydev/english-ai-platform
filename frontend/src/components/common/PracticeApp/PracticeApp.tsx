@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import MobileButton from "../shared/Button/MobileButton.tsx";
+import Path from "../../../Paths.tsx";
+import { Link } from "react-router-dom";
 
 
 export default function PracticeApp() {
@@ -28,7 +30,9 @@ export default function PracticeApp() {
         <section className="">
             
             {/* MOBILE BUTTON */}
-            <MobileButton buttonHandlerFunction={mobileButtonHandler} />
+            <div className="mt-2 ms-3">
+                <MobileButton buttonHandlerFunction={mobileButtonHandler} />
+            </div>
 
             {/* OVERLAY Click outside of menu to close menu in mobile version */}
             {isSidebarOpen && (
@@ -47,9 +51,18 @@ export default function PracticeApp() {
                         <Logo color={"text-gray-200"} />
                     </div>
                     
-                    <div className="pb-5">
-                        <MobileButton buttonHandlerFunction={mobileButtonHandler} />
-                    </div>
+                    {isSidebarOpen && 
+                        <div className="flex justify-between items-center pb-5 pr-2">
+
+                            <div className="">
+                                <MobileButton buttonHandlerFunction={mobileButtonHandler} />
+                            </div>
+
+                            <div className="w-4 text-gray-500 hover:cursor-pointer" onClick={() => setIsSidebarOpen(false)}>
+                                <svg className="hover:fill-red-800 focus:fill-red-800" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>  
+                            </div>
+                        </div>
+                    }
           
 
                     {/* Menu Links */}
@@ -66,6 +79,14 @@ export default function PracticeApp() {
                         <li className="flex justify-center items-center absolute inset-x-0 bottom-10 pt-5">
                             <Button label="Upgrade Plan" backgroundColor="bg-white" textColor="text-black"/>
                         </li>
+
+                        {isSidebarOpen &&
+                        (
+                        <Link to={Path.Home} className="flex justify-center items-center pt-5">
+                            <Button label="Back to Home" backgroundColor="bg-white" textColor="text-black"/>
+                        </Link>
+                        )
+                        }
                     </ul>
 
                 </div>
@@ -97,23 +118,26 @@ export default function PracticeApp() {
                     <GridWindow label="Reading & Writting" size="h-32 md:h-64" img={Images.reading} />
                 </div>
 
-                <div
-                    className="window h-96 mb-4"
-                ></div>
+                <div className="window h-96 mb-8 overflow-hidden upwards">
+                    <GridWindow 
+                        label="IELTS" 
+                        labelClass="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-4xl" 
+                        size="h-[400px]" 
+                        img={Images.ielts} />
+                </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div
+                <div className="grid grid-cols-2 gap-4 mb-8">
+
+                        <GridWindow label="Listening" size="h-32 md:h-64" img={Images.listening} />
+
+                        <GridWindow label="Synonyms and Antonyms" size="h-32 md:h-64" img={Images.synonyms} />
+
+                    {/* <div
                     className="window h-48 md:h-72"
                     ></div>
                     <div
                     className="window h-48 md:h-72"
-                    ></div>
-                    <div
-                    className="window h-48 md:h-72"
-                    ></div>
-                    <div
-                    className="window h-48 md:h-72"
-                    ></div>
+                    ></div> */}
                 </div>
 
                 {/* <div
