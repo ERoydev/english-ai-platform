@@ -31,6 +31,29 @@ export default function IeltsSpeaking() {
         }
     }
 
+    const nextButtonHandler = () => {
+        const currChapterLength = chapter1[currentChapterIndex].questions.length - 1
+        const countOfTotalChapters = chapter1.length - 1;
+        
+        if (currentChapterIndex == countOfTotalChapters && currentQuestionIndex == currChapterLength ) {
+            return
+        }
+       
+        if (currentQuestionIndex < currChapterLength) {
+            setCurrentQuestionIndex((idx) => {
+                return idx + 1
+            })
+        } else {
+            setCurrentChapterIndex((idx) => {
+                return idx + 1
+            })
+
+            setCurrentQuestionIndex(() => {
+                return 0
+            })
+        }
+    }
+
     const handleStartPauseClick = () => {
         setPauseTimer((prev) => !prev); // Toggle between start and pause
     };
@@ -54,19 +77,24 @@ export default function IeltsSpeaking() {
                             {chapter1[currentChapterIndex].questions[currentQuestionIndex]}
                         </p>
 
-                        <p className="info-text">The longer you talk the better</p>
+                        <p className="text-sm text-slate-400">The longer you talk the better</p>
                     </div>
 
                     {/* BUTTONS */}
                     <div className="flex justify-between items-center absolute bottom-10 left-0 right-0 px-5">
-                        <SpeakButton buttonText={recordButtonText} buttonHandler={recordButtonHandler} />
+                        
+                        <div className="w-1/3 flex justify-start items-center">
+                            <SpeakButton buttonText={recordButtonText} buttonHandler={recordButtonHandler} />
+                        </div>
 
-                        <div>
+                        <div className="w-1/3 flex justify-center items-center">
                             <TimerComponent pauseTimer={pauseTimer} />
                         </div>
 
-                        <div>
-                            <button className="bg-[#333] rounded-md text-white p-4 max-md:text-sm max-md:p-2 hover:cursor-pointer hover:bg-gray-600">
+                        <div className="w-1/3 flex justify-end items-center">
+                            <button
+                                onClick={nextButtonHandler}
+                                className="bg-[#333] rounded-md text-white p-4 max-md:text-sm max-md:p-2 hover:cursor-pointer hover:bg-gray-600">
                                 <svg
                                     className="w-[30px] fill-white"
                                     xmlns="http://www.w3.org/2000/svg"

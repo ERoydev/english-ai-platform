@@ -24,7 +24,7 @@ import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/I
 export default function App() {
   const location = useLocation();
   // I use this to disable nav and footer in PracticeApp !
-  const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname === Path.Login || location.pathname === Path.IeltsSpeaking;
+  const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname == Path.Login || location.pathname == Path.IeltsSpeaking;
 
 
   return (
