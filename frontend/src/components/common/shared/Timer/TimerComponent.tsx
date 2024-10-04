@@ -1,35 +1,71 @@
 import React, { useState, useEffect } from 'react';
 
 export default function TimerComponent({ pauseTimer }: { pauseTimer: boolean }) {
-    const [timeLeft, setTimeLeft] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
-    // Effect to control the timer based on `isRunning` state
-    useEffect(() => {
-        let timerId;
+  // Effect to control the timer based on `isRunning` state
+  useEffect(() => {
+    let timerId;
 
-        if (isRunning) {
-            timerId = setInterval(() => {
-                setTimeLeft((prevTime) => prevTime + 1);
-            }, 1000);
-        }
+    if (isRunning) {
+      timerId = setInterval(() => {
+        setSeconds((prevSeconds) => {
+          if (prevSeconds + 1 === 60) {
+            setMinutes((prevMinutes) => prevMinutes + 1);
+            return 0;
+          }
+          return prevSeconds + 1;
+        });
+      }, 1000);
+    }
 
-        // Cleanup the interval when the component is unmounted or `isRunning` changes
-        return () => clearInterval(timerId);
-    }, [isRunning]);
+    // Cleanup the interval when the component is unmounted or `isRunning` changes
+    return () => clearInterval(timerId);
+  }, [isRunning]);
 
-    // Effect to handle changes to the `pauseTimer` prop
-    useEffect(() => {
-        if (pauseTimer) {
-            setIsRunning(true); // Start the timer
-        } else {
-            setIsRunning(false); // Pause the timer
-        }
-    }, [pauseTimer]);
+  // Effect to handle changes to the `pauseTimer` prop
+  useEffect(() => {
+    if (pauseTimer) {
+      setIsRunning(true); // Start the timer
+    } else {
+      setIsRunning(false); // Pause the timer
+    }
+  }, [pauseTimer]);
 
-    return (
-        <div>
-            <h1>Timer: {timeLeft} seconds</h1>
-        </div>
-    );
+  // Format minutes and seconds to always have two digits
+  const formatTime = (time) => time.toString().padStart(2, '0');
+
+  return (
+      <div className="bg-blue-600 py-3 px-5 rounded-lg max-md:px-3">
+
+        {!isRunning ? (
+            <div>
+                <h1 className='font-bold text-white'>Paused</h1>
+            </div>
+
+        ) : 
+        (
+            <div className='flex gap-2 items-center'>
+                <div className="flex space-x-1">
+                {[...Array(5)].map((_, index) => (
+                    <div
+                    key={index}
+                    className="w-1 h-3 bg-green-500 animate-audio-bar"
+                    ></div>
+                ))}
+                </div>
+
+                <div className='font-bold text-white text-md'>
+                    {formatTime(minutes)}:{formatTime(seconds)}
+                </div>
+
+            </div>
+
+        )}
+
+      </div>
+    
+  );
 }

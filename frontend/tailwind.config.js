@@ -17,6 +17,15 @@ export default {
       '8xl': ['96px', '106px']
     },
     extend: {
+      animation: {
+        'audio-bar': 'audioBar 1s infinite ease-in-out',
+      },
+      keyframes: {
+        audioBar: {
+          '0%, 100%': { transform: 'scaleY(1)' },
+          '50%': { transform: 'scaleY(2)' },
+        },
+      },
       backgroundImage: {
         'color-gradient': 'linear-gradient(to right bottom, #09031c, #0d081c, #110d1c, #14111c, #16141c, #16141c, #16141b, #16141b, #14111a, #110d19, #0d0819, #090318);',
         'testimonial-texture': "url('./src/assets/images/corporate.jpg')",
