@@ -97,6 +97,9 @@ export default function PracticeApp() {
             {/* Main Content Boxes here !!! */}
             <div className="p-4 md:ml-64 h-auto pt-10">
                 <Header title="Hello back, " customClass="mb-5" size={"text-3xl"} coloredText={userData.user ? userData?.user?.email : 'Anonymous'} coloredClass="secondary-header-color"/>
+                
+    
+                
                 <div className="flex gap-5 items-center py-10 border-b-2">
                     <div>
                         <FontAwesomeIcon icon={faClock} className="w-[50px] h-[50px] text-gray-300" />
@@ -119,11 +122,14 @@ export default function PracticeApp() {
                 </div>
 
                 <div className="window h-96 mb-8 overflow-hidden upwards">
-                    <GridWindow 
-                        label="IELTS" 
-                        labelClass="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-4xl" 
-                        size="h-[400px]" 
-                        img={Images.ielts} />
+                    <Link to={Path.IELTS}>
+                        <GridWindow 
+                            label="IELTS" 
+                            labelClass="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-4xl" 
+                            size="h-[400px]" 
+                            img={Images.ielts} 
+                            />
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-8">
@@ -159,6 +165,7 @@ export default function PracticeApp() {
                     ></div>
                 </div> */}
             </div>
+
 
         </section>
     );

@@ -80,6 +80,10 @@ html {
     @apply bg-slate-400/[.03] border border-slate-500/[.30] rounded-3xl;
   }
 
+  .subwindow {
+    @apply bg-gray-100 rounded-lg;
+  }
+
   .main-text {
     @apply text-white-clr font-montserrat font-bold;
   }

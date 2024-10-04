@@ -45,7 +45,7 @@ const Menu: React.FC<MenuProps> = ({
             )}
             
             {/* Menu links */}
-            <ul className={`${isOpen ? 'absolute top-0 left-0 right-0 w-full backdrop-blur-xl bg-white/30 z-50 py-20 slide-down' : 'max-xl:hidden'} max-xl:flex-col flex gap-14 items-center`}>
+            <ul className={`${isOpen ? 'absolute top-0 left-0 right-0 w-full backdrop-blur-xl bg-white/30 z-50 py-20 slide-down' : 'max-xl:hidden'} max-xl:flex-col flex gap-12 items-center`}>
                 <div className={`${isOpen ? '' : 'hidden'} hover:cursor-pointer hover:text-blue-600 transition`} onClick={MenuClickHandler} >
                     <FontAwesomeIcon icon={faXmark} className='absolute w-[36px] h-[36px] top-5 right-5'/>
                 </div>
@@ -59,10 +59,18 @@ const Menu: React.FC<MenuProps> = ({
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
-                    {!isAuthenticated ?                
-                        <Link to={Path.Signup}>
-                            <Button label='Sign-up'/>
-                        </Link>
+                    <LinkComponent label="IELTS" path={Path.IELTS} />
+                </li>
+
+
+                <li className={isOpen ? `text-lg`: ''}>
+                    {!isAuthenticated ?          
+                        
+                        <div className='flex gap-5'>
+                            <Link to={Path.Login}>
+                                <Button label='Login'/>
+                            </Link>
+                        </div>
 
                         :
                         <Link to={Path.Logout}>
