@@ -14,8 +14,11 @@ const Logo: React.FC<LogoProps> = ({ color }) => {
                 <img src={globus} className="w-16 h-16 rounded-full " alt="Logo" />
                     LexiLearn
             </h1>
+
+
         </Link>
 );
 }
 
 export default Logo;
+

@@ -16,12 +16,15 @@ import Logout from "./components/common/Authentication/Logout.tsx";
 
 // 
 import UserLoader from "./components/common/Authentication/UserLoader.tsx";
+import AuthGuard from "./components/guards/AuthGuard.tsx";
+import IELTS from "./components/common/PracticeApp/IELTS/IELTS.tsx";
+import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/IeltsSpeaking.tsx";
 
 
 export default function App() {
   const location = useLocation();
   // I use this to disable nav and footer in PracticeApp !
-  const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname === Path.Login;
+  const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname === Path.Login || location.pathname === Path.IeltsSpeaking;
 
 
   return (
@@ -30,7 +33,9 @@ export default function App() {
       {!isPracticeApp && <Navigation />}
         <Routes >
           <Route path={Path.Home} element={<Home />} />
-          <Route path={Path.PracticeApp} element={<PracticeApp />} />
+          <Route path={Path.PracticeApp} element={<AuthGuard><PracticeApp /></AuthGuard> }/>
+          <Route path={Path.IELTS} element={<IELTS />} />
+          <Route path={Path.IeltsSpeaking} element={<IeltsSpeaking />} />
           <Route path={Path.Courses} element={<Courses />} />
           <Route path={Path.Signup} element={<AuthScreen authActionName="Sign up"/>} />
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
