@@ -54,6 +54,7 @@ If you want to explore or contribute to the project, here's how you can get star
 ### Prerequisites
 
 Make sure you have the following installed on your machine:
+
 - **Node.js**: [Download and install Node.js](https://nodejs.org/)
 - **Python**: [Download and install Python](https://www.python.org/)
 - **Git**: [Download and install Git](https://git-scm.com/)
