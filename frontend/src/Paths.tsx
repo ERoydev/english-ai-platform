@@ -6,6 +6,7 @@ const Path = {
     PracticeApp: "/Practice&Quizzes",
     IELTS: "/Practice&Quizzes/IELTS",
     IeltsSpeaking: "/Practice&Quizzes/IELTS/Speaking",
+    SpeechAnalysis: "/Practice&Quizzes/SpeechAnalysis",
     Courses: "/Courses",
     Signup: "/Signup",
     Login: "/Login",
