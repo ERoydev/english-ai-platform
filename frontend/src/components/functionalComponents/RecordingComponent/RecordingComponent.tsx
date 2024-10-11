@@ -1,125 +1,130 @@
 import React, { useState } from 'react';
 import TimerComponent from '../../common/shared/Timer/TimerComponent';
 import SpeakButton from '../../common/shared/Button/SpeakButton';
+import { ReactMediaRecorder } from 'react-media-recorder';
 
 /*
-This component handles the Timer, Speaking and question changing this is coupled with custom hook to be reused accross different places
+This component handles the Timer, Speaking, and question changing.
+It is coupled with a custom hook to be reused across different places.
 */
-function RecordingComponent({
-  nextButtonHandler // Initialized in useRecordingChangeQuestions custom hook
-}:{
-  nextButtonHandler: () => void, // Function to call when the next button is clicked
-}) {
-  const [recording, setRecording] = useState(false);
-  const [audioChunks, setAudioChunks] = useState([]);
-  const [allRecordings, setAllRecordings] = useState([]);
-  const [recordButtonText, setRecordButtonText] = useState('Start Record');
-  const [pauseTimer, setPauseTimer] = useState(false);
-
-
-  let mediaRecorder;
-
-  const startRecording = () => {
-    setRecording(true);
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then(stream => {
-        mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.start();
-
-        mediaRecorder.ondataavailable = (event) => {
-          setAudioChunks((prevChunks) => [...prevChunks, event.data]);
-        };
-
-        mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-          setAllRecordings((prevRecordings) => [...prevRecordings, audioBlob]);
-          setAudioChunks([]); // Reset audio chunks
-        };
-      })
-      .catch(error => {
-        console.error("Error accessing the microphone: ", error);
-      });
-  };
-
-  const stopRecording = () => {
-    setRecording(false);
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-    }
-  };
-
-  const handleStartPauseClick = () => {
-      setPauseTimer((prev) => !prev); // Toggle between start and pause
-  };
-
-  const recordButtonHandler = () => {
-
-    if (recordButtonText === "Pause") {
-        setRecordButtonText(() => {
-            return "Continue";
-        })
-
-        handleStartPauseClick();
-
-    } else {
-        setRecordButtonText(() => {
-            return "Pause";
-        })
-
-        handleStartPauseClick();
-
-    }
+interface RecordingComponentProps {
+  nextButtonHandler: () => void; // Function for handling the next button click
+  isFinished: boolean; // Boolean indicating whether all questions are completed
 }
 
-  const finishTest = () => {
-    // Prepare data to send for analysis
-    console.log('FINISH')
-    // const formData = new FormData();
-    // allRecordings.forEach((recording, index) => {
-    //   formData.append(`audio_${index}`, recording, `recording_${index}.wav`);
-    // });
+const RecordingComponent: React.FC<RecordingComponentProps> = ({
+  nextButtonHandler,
+  isFinished,
+}) => {
+  const [isRecording, setIsRecording] = useState(false); // For controlling recording state
+  const [isPaused, setIsPaused] = useState(false); // For controlling pause/resume state
+  const [recordButtonText, setRecordButtonText] = useState('Start Record');
+  const [startTimer, setStartTimer] = useState(false);
+  const [audioURL, setAudioURL] = useState<string | null>(null); // Store the audio URL for download
 
-    // axios.post('http://your-backend-url/api/analyze/', formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // })
-    // .then(response => {
-    //   console.log("Analysis results: ", response.data);
-    //   // Reset all recordings after analysis
-    //   setAllRecordings([]);
-    // })
-    // .catch(error => {
-    //   console.error("Error during analysis: ", error);
-    // });
+  const handleRecordButtonClick = (
+    startRecording: () => void,
+    pauseRecording: () => void,
+    resumeRecording: () => void,
+    stopRecording: () => void
+  ) => {
+    if (!isRecording) {
+      // Start Recording
+      startRecording();
+      setRecordButtonText('Pause');
+      setIsRecording(true);
+      setStartTimer(true); // Start timer when recording begins
+    } else if (!isPaused) {
+      // Pause the recording
+      pauseRecording();
+      setRecordButtonText('Resume');
+      setIsPaused(true);
+      setStartTimer(false); // Pause timer when recording is paused
+    } else {
+      // Resume the recording
+      resumeRecording();
+      setRecordButtonText('Pause');
+      setIsPaused(false);
+      setStartTimer(true); // Resume timer when recording resumes
+    }
+  };
+
+  const handleStopRecording = (stopRecording: () => void) => {
+    stopRecording();
+    setRecordButtonText('Start Record');
+    setIsRecording(false);
+    setIsPaused(false);
+    setStartTimer(false); // Stop timer when recording stops
+  };
+
+  const handleNextButton = (stopRecording: () => void) => {
+    if (isFinished) {
+      // Stop Recording and get the final blob
+      handleStopRecording(stopRecording);
+    } else {
+      nextButtonHandler();
+    }
   };
 
   return (
-    <div className="flex justify-between items-center absolute bottom-10 left-0 right-0 px-5">
-                        
-    <div className="w-1/3 flex justify-start items-center">
-        <SpeakButton buttonText={recordButtonText} buttonHandler={recordButtonHandler} />
-    </div>
+    <ReactMediaRecorder
+      audio
+      render={({ startRecording, pauseRecording, resumeRecording, stopRecording, mediaBlobUrl }) => {
+        if (mediaBlobUrl && !audioURL) {
+          setAudioURL(mediaBlobUrl); // Set the audio URL when the recording is finished
+        }
 
-    <div className="w-1/3 flex justify-center items-center">
-        <TimerComponent pauseTimer={pauseTimer} />
-    </div>
+        return (
+          <div className="flex justify-between items-center absolute bottom-10 left-0 right-0 px-5">
+            <div className="w-1/3 flex justify-start items-center">
+              <SpeakButton
+                buttonText={recordButtonText}
+                buttonHandler={() =>
+                  handleRecordButtonClick(startRecording, pauseRecording, resumeRecording, stopRecording)
+                }
+              />
+            </div>
 
-    <div className="w-1/3 flex justify-end items-center">
-        <button
-            onClick={nextButtonHandler}
-            className="bg-[#333] rounded-md text-white p-4 max-md:text-sm max-md:p-2 hover:cursor-pointer hover:bg-gray-600">
-            <svg
-                className="w-[30px] fill-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-            >
-                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
-            </svg>
-        </button>
-    </div>
-</div>
+            <div className="w-1/3 flex justify-center items-center">
+              <TimerComponent pauseTimer={startTimer} />
+            </div>
+
+            <div className="w-1/3 flex justify-end items-center">
+              <button
+                onClick={() => handleNextButton(stopRecording)}
+                className="bg-[#333] rounded-md text-white p-4 max-md:text-sm max-md:p-2 hover:cursor-pointer hover:bg-gray-600"
+              >
+                {isFinished ? (
+                  <span className="font-bold">Done</span>
+                ) : (
+                  <svg
+                    className="w-[30px] fill-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* Display download link if the audio is available */}
+            {/* {audioURL && (
+              <div className="absolute top-5 right-5">
+                <a
+                  href={audioURL}
+                  download="recording.mp3"
+                  className="bg-blue-500 text-white p-2 rounded"
+                >
+                  Download Recording
+                </a>
+              </div>
+            )} */}
+          </div>
+        );
+      }}
+    />
   );
-}
+};
 
 export default RecordingComponent;

@@ -6,7 +6,7 @@ import { useRecordingChangeQuestions } from "../../../../functionalComponents/Re
 
 
 export default function IeltsSpeaking() {
-    const { currentChapterIndex, currentQuestionIndex, nextButtonHandler} = useRecordingChangeQuestions(chapter1)
+    const { currentChapterIndex, currentQuestionIndex, nextButtonHandler, isFinished} = useRecordingChangeQuestions(chapter1)
     
 
     return(
@@ -31,7 +31,7 @@ export default function IeltsSpeaking() {
                     </div>
 
                     {/* Recording Component with timer and FN from my custom hook is used here  */}
-                    <RecordingComponent nextButtonHandler={nextButtonHandler}/>
+                    <RecordingComponent nextButtonHandler={nextButtonHandler} isFinished={isFinished}/>
                 </div>
             </div>
         </section>

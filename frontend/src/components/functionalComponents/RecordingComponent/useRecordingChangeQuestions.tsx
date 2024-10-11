@@ -9,10 +9,11 @@ interface Chapter {
     questions: string[];
 }
 
-
 export const useRecordingChangeQuestions = (chapter: Chapter[]) => {
     const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [isFinished, setIsFinished] = useState(false);
+
 
     const nextButtonHandler = () => {
         // Chapter means chapter with multiple questions inside.
@@ -20,10 +21,10 @@ export const useRecordingChangeQuestions = (chapter: Chapter[]) => {
 
         const currChapterLength = chapter[currentChapterIndex].questions.length - 1
         const countOfTotalChapters = chapter.length - 1;
-
         
         if (currentChapterIndex == countOfTotalChapters && currentQuestionIndex == currChapterLength ) {
-            return
+            setIsFinished(true);
+            return;
         }
        
         if (currentQuestionIndex < currChapterLength) {
@@ -41,9 +42,11 @@ export const useRecordingChangeQuestions = (chapter: Chapter[]) => {
         }
     }
 
+
     return {
         currentChapterIndex,
         currentQuestionIndex,
         nextButtonHandler,
+        isFinished,
     }
 }

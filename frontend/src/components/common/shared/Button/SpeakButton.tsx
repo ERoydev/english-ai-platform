@@ -5,10 +5,10 @@ I use this component for functionalities that will use record button
 
 export default function SpeakButton({
     buttonText,
-    buttonHandler
+    buttonHandler,
 }:{
     buttonText: string;
-    buttonHandler: Event;
+    buttonHandler: () => void; // Correcting type to a function
 }) {
     return(
         <div>
