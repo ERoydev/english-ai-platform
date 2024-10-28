@@ -42,7 +42,6 @@ export const useRecordingChangeQuestions = (chapter: Chapter[]) => {
         }
     }
 
-
     return {
         currentChapterIndex,
         currentQuestionIndex,
