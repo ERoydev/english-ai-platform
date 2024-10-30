@@ -1,0 +1,7 @@
+# Ignore Python virtual environment and compiled files
+venv/
+*.pyc
+__pycache__/
+
+# Ignore large files and libraries not meant for version control
+Lib/site-packages/
