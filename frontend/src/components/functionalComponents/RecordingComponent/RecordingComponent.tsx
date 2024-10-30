@@ -5,6 +5,8 @@ import { useReactMediaRecorder } from 'react-media-recorder';
 import { useNavigate } from 'react-router-dom';
 import Path from '../../../Paths';
 
+import { send_speech_for_analysis } from '../../../services/Speech/SpeechService';
+
 interface RecordingComponentProps {
   nextButtonHandler: () => void;
   isFinished: boolean;
@@ -18,6 +20,7 @@ const RecordingComponent: React.FC<RecordingComponentProps> = ({
   const [isPaused, setIsPaused] = useState(false);
   const [recordButtonText, setRecordButtonText] = useState('Start Record');
   const [startTimer, setStartTimer] = useState(false);
+  const [recordingStopped, setRecordingStopped] = useState(false);
 
   const { startRecording, stopRecording, pauseRecording, resumeRecording, mediaBlobUrl } =
     useReactMediaRecorder({ audio: true });
@@ -53,45 +56,56 @@ const RecordingComponent: React.FC<RecordingComponentProps> = ({
     setIsRecording(false);
     setIsPaused(false);
     setStartTimer(false);
+    setRecordingStopped(true); // Mark recording as stopped
   };
 
-  // Automatically stop recording and navigate when isFinished becomes true
+  // Automatically stop recording when isFinished becomes true
   useEffect(() => {
     if (isFinished) {
       handleStopRecording();
     }
   }, [isFinished]);
 
-  useEffect(() => {
-    // Navigate to the Speech Analysis page when mediaBlobUrl is available after recording stops
-    if (mediaBlobUrl && isFinished) {
-      navigate(Path.SpeechAnalysis, { state: { audioBlob: mediaBlobUrl } });
+  const handleDoneClick = async (): Promise<void> => {
+    const analysisResult = await send_speech_for_analysis(mediaBlobUrl);
+    if ('error' in analysisResult) {
+        console.error("Analysis failed:", analysisResult.error);
+        alert("Failed to analyze the audio. Please try again.");
+    } else {
+        console.log("Received Analysis:", analysisResult.analysis_result);
+        // After success i want to navigate to analysis page
+        navigate(Path.SpeechAnalysis, { state: { audioBlob: mediaBlobUrl } });
     }
-  }, [mediaBlobUrl, isFinished, navigate]);
+};
 
   return (
     <div className="flex justify-between items-center absolute bottom-10 left-0 right-0 px-5">
-     
-      <div className="w-1/3 flex justify-start items-center">
-        <SpeakButton
-          buttonText={recordButtonText}
-          buttonHandler={handleRecordButtonClick}
-          />
-      </div>
+      {/* {!isFinished && ( */}
+        <>
+          <div className="w-1/3 flex justify-start items-center">
+            <SpeakButton
+              buttonText={recordButtonText}
+              buttonHandler={handleRecordButtonClick}
+              isFinished={isFinished}
+            />
+          </div>
 
-      <div className="w-1/3 flex justify-center items-center">
-        <TimerComponent pauseTimer={startTimer} />
-      </div>
-    
+          <div className="w-1/3 flex justify-center items-center">
+            <TimerComponent pauseTimer={startTimer} isFinished={isFinished} />
+          </div>
+        </>
+      {/* )} */}
 
       <div className="w-1/3 flex justify-end items-center">
         <button
           onClick={() => {
             if (!isFinished) {
               nextButtonHandler();
+            } else {
+              handleDoneClick(); // Navigate only when "Done" is clicked and recording has stopped
             }
           }}
-          className="bg-[#333] rounded-md text-white p-4 max-md:text-sm max-md:p-2 hover:cursor-pointer hover:bg-gray-600"
+          className="bg-[#333] rounded-md text-white p-4 max-md:p-2 hover:cursor-pointer hover:bg-gray-600"
         >
           {isFinished ? (
             <span className="font-bold">Done</span>

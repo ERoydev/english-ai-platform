@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function TimerComponent({ pauseTimer }: { pauseTimer: boolean }) {
+export default function TimerComponent({ pauseTimer, isFinished }: { pauseTimer: boolean, isFinished: boolean}) {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -40,9 +40,10 @@ export default function TimerComponent({ pauseTimer }: { pauseTimer: boolean }) 
   return (
       <div className="bg-blue-600 py-3 px-5 rounded-lg max-md:px-3">
 
+
         {!isRunning ? (
             <div>
-                <h1 className='font-bold text-white'>Paused</h1>
+                <h1 className='font-bold text-white'>{!isFinished ? 'Paused' : 'Finished'}</h1>
             </div>
 
         ) : 
