@@ -28,6 +28,7 @@ export default function App() {
   // I use this to disable nav and footer in PracticeApp !
   const isPracticeApp = location.pathname == Path.PracticeApp || location.pathname == Path.Signup || location.pathname == Path.Login || location.pathname == Path.IeltsSpeaking;
 
+  const isAnalysPage = location.pathname == Path.SpeechAnalysis;
 
   return (
     <main>
@@ -45,7 +46,7 @@ export default function App() {
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
           <Route path={Path.Logout} element={<Logout />} />
         </Routes>
-        {!isPracticeApp && <Footer />}
+        {!isPracticeApp || !isAnalysPage && <Footer />}
       </UserLoader>
     </main>
   )

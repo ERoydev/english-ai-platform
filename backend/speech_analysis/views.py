@@ -27,9 +27,10 @@ def analyze_audio(request):
             # Delete the file manually after transcription
             os.remove(temp_audio_file.name)
 
-            results = analyze(transcription)
+            # Apply analysis
+            analysis_result = analyze(transcription)
 
-            return JsonResponse({'analysis_result': results})
+            return JsonResponse({'analysis_result': analysis_result})
         except Exception as e:
             # Clean up the file in case of error
             if os.path.exists(temp_audio_file.name):

@@ -1,5 +1,5 @@
 # Count words in the text
 
-def word_count_analyzer(text):
+def analyze(text):
     word_count = len(text.split())
-    return {'word_count': word_count}
+    return word_count
