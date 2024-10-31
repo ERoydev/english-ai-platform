@@ -18,10 +18,10 @@ analyzer_paths = [
     # Add more
 ]
 
-# Instantiate the AnalyzerLoader
-analyzer_instance = Analyzer(analyzer_paths, DEFAULT_ANALYZER_ROOT)
-
+# Load all analyzers when i start my django app
 
 # Perform an analysis
 def analyze(text):
+    # Load analyzers when needed
+    analyzer_instance = Analyzer(analyzer_paths, DEFAULT_ANALYZER_ROOT)
     return analyzer_instance.analyze(text)

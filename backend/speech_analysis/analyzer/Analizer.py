@@ -69,6 +69,9 @@ class AnalyzerLoader(BaseAnalyserClass):
 
 
 class Analyzer(AnalyzerLoader):
+    """
+       Analyzer class for performing analysis with loaded analyzers.
+    """
     def analyze(self, text):
         results = {}
         for analyzer_type, analyses in self.analyzers.items():
@@ -80,3 +83,4 @@ class Analyzer(AnalyzerLoader):
                 results[analyzer_type][analysis_name] = analysis_func(text)
 
         return results
+

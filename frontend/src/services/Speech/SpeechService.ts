@@ -14,7 +14,7 @@ type AnalysisResponse = AnalysisResult | AnalysisError;
 
 const URL = `${baseUrl}/speech_analysis/analyze_audio/`;
 
-export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined): Promise<AnalysisResponse> => {
+export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined, mediaDuration: string): Promise<AnalysisResponse> => {
     try {
         if (!mediaBlobUrl) {
             console.error("No mediaBlobUrl provided");
@@ -33,6 +33,7 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined)
         // Create FormData and append the audio Blob
         const formData = new FormData();
         formData.append('audio', audioBlob, 'speech.wav'); // 'audio' should match Django's expectation
+        formData.append('audio_duration', mediaDuration);
 
         // Send the formData to the Django backend using axios
         const result = await axios.post<AnalysisResponse>(URL, formData, {
@@ -40,6 +41,7 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined)
         });
 
         // Return the response data
+        console.log(result)
         return result.data;
     } catch (error) {
         console.error("Error in send_speech_for_analysis:", error);
