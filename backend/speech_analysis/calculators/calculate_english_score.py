@@ -120,10 +120,10 @@ class EnglishCalculator(BaseLanguageCalculator):
         grade = self.get_grade_description(total_score)
 
         return {
-            'vocab_diversity_score': vocab_score,
-            'sentence_structure_score': sentence_structure_score,
-            'readability_score': readability_score,
-            'grammar_score': grammar_score,
+            'vocab_diversity_score': vocab_score / self.WEIGHTS['vocab_diversity'],
+            'sentence_structure_score': sentence_structure_score / self.WEIGHTS['sentence_structure'],
+            'readability_score': readability_score / self.WEIGHTS['readability'],
+            'grammar_score': grammar_score['grammar'],
             'total_score': f'{total_score:.2f}',
             'unique_words': unique_words,
             'grade': grade,
