@@ -1,52 +1,68 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .serializers import UserSerializer
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-
 from django.shortcuts import get_object_or_404
+
+from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from .serializers import UserSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 UserModel = get_user_model() # I get my userModel
 
+class LoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        # Check that email and password are provided
+        if 'email' not in request.data or 'password' not in request.data:
+            return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def login(request):
+        try:
+            # Try to authenticate user with provided email and password
+            user = authenticate(email=request.data['email'], password=request.data['password'])
 
-    # Check that email and password are provided in the request.data
-    if 'email' not in request.data or 'password' not in request.data:
-        return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
-    
-    # Fetch the user by email or return error 404
-    user = get_object_or_404(UserModel, email=request.data['email'])
+            if user is None:
+                # User was not authenticated, return error response
+                return Response({"detail": "Invalid email or password."}, status=status.HTTP_401_UNAUTHORIZED)
 
-    # Check if the password is correct
-    if not user.check_password(request.data['password']):
-        return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+            # Create or get the user token
+            token, created = Token.objects.get_or_create(user=user)
 
-    # Create or get the user token
-    token, created = Token.objects.get_or_create(user=user)
+            # Serialize user data
+            serializer = UserSerializer(instance=user)
 
-    # Serialize the user data
-    serializer = UserSerializer(instance=user)
+            return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
 
-    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            # Log the exception for debugging purposes
+            logger.error(f"Error during authentication: {str(e)}")
+            # Return a generic error message to the client
+            return Response({"detail": "An error occurred during login."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['POST'])
-def signup(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        user = UserModel.objects.get(email=request.data['email'])
-        user.set_password(request.data['password'])
-        user.save()
-        token = Token.objects.create(user=user)
-        return Response({"token": token.key, "user": serializer.data})
+class SignupView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = UserModel.objects.create_user(
+                email=request.data['email'],
+                password=request.data['password']
+            )
+            token = Token.objects.create(user=user)
+            user_serializer = UserSerializer(user)
+            return Response({"token": token.key, "user": user_serializer.data}, status=status.HTTP_201_CREATED)
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 from rest_framework.decorators import authentication_classes, permission_classes
@@ -54,24 +70,26 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 
-@api_view(['GET'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def test_token(request):
-    return Response({"detail": f"passed for {request.user.email}", "passed": True})
+class TestTokenView(APIView):
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        return Response({"detail": f"passed for {request.user.email}", "passed": True})
 
-@api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def logout(request):
-    user = request.user
-    try:
-        # Delete the user's token to log them out
-        user.auth_token.delete()
-        return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
-    except:
-        return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
+class LogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        try:
+            # Delete the user's token to log them out
+            user.auth_token.delete()
+            return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+        except:
+            return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 # Might delete when i implement JWT
