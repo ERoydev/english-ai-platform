@@ -6,7 +6,6 @@ from .managers import AccountUserManager
 from django.utils import timezone
 
 
-
 class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     email = models.EmailField(
         unique=True,
@@ -39,7 +38,6 @@ class Profile(models.Model):
     """
     Here i store information that is going to be displayed on the frontend.
     """
-
     # I set OneToOneField with my User system
     user = models.OneToOneField(
         AccountUser,

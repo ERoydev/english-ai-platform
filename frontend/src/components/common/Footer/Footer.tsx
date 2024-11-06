@@ -16,11 +16,11 @@ export default function Footer() {
                     <div className="">
                         <h4 className="max-xl:text-md text-lg font-semibold mb-4">Quick Links</h4>
                         <ul className="space-y-2">
-                        <li><a href="/home" className="hover:underline max-xl:text-sm">Home</a></li>
-                        <li><a href="/features" className="hover:underline max-xl:text-sm">Features</a></li>
-                        <li><a href="/pricing" className="hover:underline max-xl:text-sm">Pricing</a></li>
-                        <li><a href="/about" className="hover:underline max-xl:text-sm">About Us</a></li>
-                        <li><a href="/contact" className="hover:underline max-xl:text-sm">Contact Us</a></li>
+                        <li><a href="#" className="hover:underline max-xl:text-sm">Home</a></li>
+                        <li><a href="#" className="hover:underline max-xl:text-sm">Features</a></li>
+                        <li><a href="#" className="hover:underline max-xl:text-sm">Pricing</a></li>
+                        <li><a href="#" className="hover:underline max-xl:text-sm">About Us</a></li>
+                        <li><a href="#" className="hover:underline max-xl:text-sm">Contact Us</a></li>
                         </ul>
                     </div>
                     

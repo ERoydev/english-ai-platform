@@ -21,6 +21,13 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined,
             return { error: "No mediaBlobUrl provided" };
         }
 
+        // Fetch the token from localStorage
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+            console.error("Authentication token not found");
+            return { error: "Authentication token not found" };
+        }
+
         // Fetch the Blob from mediaBlobUrl
         const response = await fetch(mediaBlobUrl);
         if (!response.ok) {
@@ -37,11 +44,12 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined,
 
         // Send the formData to the Django backend using axios
         const result = await axios.post<AnalysisResponse>(URL, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
+            headers: { 
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Token ${token}`, // Include token here
+            },
         });
 
-        // Return the response data
-        console.log(result)
         return result.data;
     } catch (error) {
         console.error("Error in send_speech_for_analysis:", error);

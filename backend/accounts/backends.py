@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
 
+
 class EmailBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
         try:

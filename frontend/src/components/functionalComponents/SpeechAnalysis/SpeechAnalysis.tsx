@@ -7,8 +7,6 @@ const SpeechAnalysis: React.FC = () => {
   const location = useLocation();
   const { audioBlob, analysis } = location.state || {};
 
-  console.log(analysis)
-
   return (
     <div className="py-16 px-20">
       <Header title="IELTS Basic" size="text-2xl" customClass="mb-2 font-bold" />
@@ -42,9 +40,9 @@ const SpeechAnalysis: React.FC = () => {
 
         <div className='flex gap-28'>
           <ScoreItem title={'Unique Words'} main_text={analysis.language_scores.unique_words} info_text='words' description='words that are used only once'/>
-          <ScoreItem title={'Comprehension Score'} main_text={analysis.language_scores.readability_score} description='how much of speech is comprehensive'/>
-          <ScoreItem title={'Sentence Score'} main_text={analysis.language_scores.sentence_structure_score} description='how good sentences are structured'/>
-          <ScoreItem title={'Grammar Score'} main_text={analysis.language_scores.grammar_score} description='the words you use'/>
+          <ScoreItem title={'Comprehension Score'} main_text={analysis.language_scores.readability_score} description='how much of speech is comprehensive' percentage={true} />
+          <ScoreItem title={'Sentence Score'} main_text={analysis.language_scores.sentence_structure_score} description='how good sentences are structured' percentage={true}/>
+          <ScoreItem title={'Grammar Score'} main_text={analysis.language_scores.grammar_score} description='the words you use' percentage={true}/>
         </div>
       </div>
 

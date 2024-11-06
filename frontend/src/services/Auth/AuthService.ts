@@ -64,9 +64,17 @@ export const logout = async(values: values) => {
   }
 }
 
-export const getUserByToken = async(token: string) => {
-  const response = await axios.post(`${baseUrl}/auth/getUserByToken/`, {"token": token});
+export const getUserDetails = async () => {
+  const token = localStorage.getItem('userToken');  // Retrieve token from storage
+  if (!token) {
+      throw new Error("Authentication token not found");
+  }
 
-  const data = response.data;
-  return data;
-}
+  const response = await axios.get(`${baseUrl}/auth/getUserDetails/`, {
+      headers: {
+          'Authorization': `Token ${token}`
+      }
+  });
+
+  return response.data;
+};

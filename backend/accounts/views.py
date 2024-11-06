@@ -1,6 +1,4 @@
 from django.contrib.auth import get_user_model, authenticate
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer
@@ -14,14 +12,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
+from rest_framework.permissions import AllowAny
 import logging
 
 logger = logging.getLogger(__name__)
 
+from django.contrib.auth.middleware import AuthenticationMiddleware
 
 UserModel = get_user_model() # I get my userModel
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]  # Allow all users to access this view
     def post(self, request, *args, **kwargs):
         # Check that email and password are provided
         if 'email' not in request.data or 'password' not in request.data:
@@ -51,6 +52,8 @@ class LoginView(APIView):
 
 
 class SignupView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -67,7 +70,7 @@ class SignupView(APIView):
 
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class TestTokenView(APIView):
@@ -91,23 +94,29 @@ class LogoutView(APIView):
             return Response({"detail": "Something went wrong."}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# @api_view(['POST'])
+# def getUserByToken(request):
+#     try:
+#         token = request.data.get('token')
+#         if not token:
+#             return Response({"detail": "Token is required."}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         token_object = get_object_or_404(Token.objects.select_related('user'), pk=token)
+#         user = token_object.user
+#
+#         serializer = UserSerializer(user)
+#         return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+#
+#     except Token.DoesNotExist:
+#         return Response({"detail": "Invalid token."}, status=status.HTTP_404_NOT_FOUND)
+#
+#     except Exception as e:
+#         return Response({"detail": f"Something went wrong: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
-# Might delete when i implement JWT
-@api_view(['POST'])
-def getUserByToken(request):
-    try:
-        token = request.data.get('token')
-        if not token:
-            return Response({"detail": "Token is required."}, status=status.HTTP_400_BAD_REQUEST)
-
-        token_object = get_object_or_404(Token.objects.select_related('user'), pk=token)
-        user = token_object.user
-
-        serializer = UserSerializer(user)
-        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
-
-    except Token.DoesNotExist:
-        return Response({"detail": "Invalid token."}, status=status.HTTP_404_NOT_FOUND)
-    
-    except Exception as e:
-        return Response({"detail": f"Something went wrong: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def getUserDetails(request):
+    user = request.user
+    serializer = UserSerializer(user)
+    return Response({"user": serializer.data}, status=status.HTTP_200_OK)

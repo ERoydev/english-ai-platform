@@ -43,6 +43,9 @@ class AnalyzerLoader(BaseAnalyserClass):
             relative_path = os.path.relpath(path, start=self.analyzer_root).replace(os.sep, '.')
 
             for filename in os.listdir(path):
+                """
+                    Just loading all analyzers from folders
+                """
                 if filename.endswith('_analyzer.py'):
                     module_name = f"{relative_path}.{filename[:-3]}"
                     print(f"Trying to import module: {module_name}")

@@ -34,6 +34,7 @@ class BaseLanguageCalculator(ABC):
             return self.WEIGHTS['sentence_structure']
         return (avg_sentence_length / 8) * self.WEIGHTS['sentence_structure']
 
+
 class EnglishCalculator(BaseLanguageCalculator):
     LANGUAGE = 'en'
     GRADE_MAPPING = {
@@ -69,6 +70,7 @@ class EnglishCalculator(BaseLanguageCalculator):
 
     def __init__(self, text):
         super().__init__(text)
+
     def detect_specified_language(self):
         try:
             detected_lang = detect(self.text)
@@ -81,11 +83,13 @@ class EnglishCalculator(BaseLanguageCalculator):
         return readability_score
 
     def get_grade_description(self, total_score):
+        rounded_score = int(total_score)
         for score_range, grade_info in self.GRADE_MAPPING.items():
-            if score_range[0] <= total_score <= score_range[1]:
+            if score_range[0] <= rounded_score <= score_range[1]:
                 return grade_info
 
     def calculate_score(self):
+        # Check if the specified language (e.g., English) is detected
         if not self.detect_specified_language():
             return {
                 'vocab_diversity_score': 0,
@@ -93,6 +97,7 @@ class EnglishCalculator(BaseLanguageCalculator):
                 'readability_score': 0,
                 'grammar_score': 0,
                 'total_score': 0,
+                'grade': 'F',
                 'message': 'Non-English text detected. Please provide English text for accurate scoring.'
             }
 
@@ -108,22 +113,23 @@ class EnglishCalculator(BaseLanguageCalculator):
         avg_sentence_length = sum(len(s.split()) for s in sentences) / sentence_count if sentence_count > 0 else 0
         sentence_structure_score = self.calculate_sentence_structure_score(avg_sentence_length)
 
-        # Readability score
+        # Readability score calculation
         flesch_reading_ease = textstat.flesch_reading_ease(self.text)
         readability_score = min(flesch_reading_ease / 100, 1) * self.WEIGHTS['readability']
 
-        # Grammar score (placeholder)
-        grammar_score = (80 / 100) * self.WEIGHTS['grammar']  # Placeholder
+        # Grammar score (placeholder) - This needs a real implementation
+        grammar_score = (80 / 100) * self.WEIGHTS['grammar']  # Placeholder score at 80% accuracy
 
-        # Calculate total score
+        # Calculate total score by summing all weighted components and capping at 100
         total_score = min(vocab_score + sentence_structure_score + readability_score + grammar_score, 100)
         grade = self.get_grade_description(total_score)
 
+        # Return detailed scoring with percentage calculations
         return {
-            'vocab_diversity_score': vocab_score / self.WEIGHTS['vocab_diversity'],
-            'sentence_structure_score': sentence_structure_score / self.WEIGHTS['sentence_structure'],
-            'readability_score': readability_score / self.WEIGHTS['readability'],
-            'grammar_score': grammar_score['grammar'],
+            'vocab_diversity_score': f'{(vocab_score / self.WEIGHTS['vocab_diversity']) * 100:.1f}',
+            'sentence_structure_score': f'{(sentence_structure_score / self.WEIGHTS['sentence_structure']) * 100:.1f}',
+            'readability_score': f'{(readability_score / self.WEIGHTS['readability']) * 100:.1f}',
+            'grammar_score': f'{(grammar_score / self.WEIGHTS['grammar']) * 100:.1f}',
             'total_score': f'{total_score:.2f}',
             'unique_words': unique_words,
             'grade': grade,

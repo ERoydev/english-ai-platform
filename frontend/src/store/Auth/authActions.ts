@@ -86,7 +86,7 @@ export const loadUserFromToken = createAsyncThunk(
   'auth/getUserByToken',
   async ({token}, {dispatch, rejectWithValue}) => {
     try {
-      const data = await authService.getUserByToken(token);
+      const data = await authService.getUserDetails();
 
       return data;
     } catch(error) {
