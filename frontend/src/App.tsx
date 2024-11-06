@@ -20,6 +20,7 @@ import AuthGuard from "./components/guards/AuthGuard.tsx";
 import IELTS from "./components/common/PracticeApp/IELTS/IELTS.tsx";
 import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/IeltsSpeaking.tsx";
 import SpeechAnalysis from "./components/functionalComponents/SpeechAnalysis/SpeechAnalysis.tsx";
+import Vocabulary from "./components/common/PracticeApp/Vocabulary/Vocabulary.tsx";
 
 
 export default function App() {
@@ -31,8 +32,9 @@ export default function App() {
       Path.PracticeApp,
       Path.Signup,
       Path.Login,
-      Path.IeltsSpeaking,
-      Path.SpeechAnalysis,
+      Path.Practice.IeltsSpeaking,
+      Path.Practice.SpeechAnalysis,
+      Path.Practice.Vocabulary
     ];
     return !noFooterPaths.includes(location.pathname);
   };
@@ -41,7 +43,8 @@ export default function App() {
     Path.PracticeApp,
     Path.Signup,
     Path.Login,
-    Path.IeltsSpeaking,
+    Path.Practice.IeltsSpeaking,
+    Path.Practice.Vocabulary
   ].includes(location.pathname);
 
   return (
@@ -50,14 +53,20 @@ export default function App() {
         {!isPracticeApp && <Navigation />}
         <Routes>
           <Route path={Path.Home} element={<Home />} />
+
+          {/* Practice App Routes */}
           <Route path={Path.PracticeApp} element={<AuthGuard><PracticeApp/></AuthGuard>} />
-          <Route path={Path.IELTS} element={<IELTS />} />
-          <Route path={Path.IeltsSpeaking} element={<IeltsSpeaking />} />
-          <Route path={Path.SpeechAnalysis} element={<SpeechAnalysis />} />
-          <Route path={Path.Courses} element={<Courses />} />
+          <Route path={Path.Practice.IELTS} element={<AuthGuard><IELTS/></AuthGuard>} />
+          <Route path={Path.Practice.IeltsSpeaking} element={<AuthGuard><IeltsSpeaking /></AuthGuard>} />
+          <Route path={Path.Practice.SpeechAnalysis} element={<AuthGuard><SpeechAnalysis /></AuthGuard>} />
+          <Route path={Path.Practice.Vocabulary} element={<AuthGuard><Vocabulary /></AuthGuard>} />
+
+          {/* <Route path={Path.Courses} element={<Courses />} /> */}
+
+          {/* Auth Routes */}
           <Route path={Path.Signup} element={<AuthScreen authActionName="Sign up"/>} />
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
-          <Route path={Path.Logout} element={<Logout />} />
+          <Route path={Path.Logout} element={<AuthGuard><Logout /></AuthGuard>} />
         </Routes>
         {shouldShowFooter() && <Footer />}
       </UserLoader>

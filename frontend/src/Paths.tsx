@@ -4,9 +4,15 @@
 const Path = {
     Home: "/",
     PracticeApp: "/Practice&Quizzes",
-    IELTS: "/Practice&Quizzes/IELTS",
-    IeltsSpeaking: "/Practice&Quizzes/IELTS/Speaking",
-    SpeechAnalysis: "/Practice&Quizzes/SpeechAnalysis",
+    Practice: {
+        IELTS: "/Practice&Quizzes/IELTS",
+        IeltsSpeaking: "/Practice&Quizzes/IELTS/Speaking",
+        SpeechAnalysis: "/Practice&Quizzes/SpeechAnalysis",
+        Vocabulary: "/Practice&Quizzes/Vocabulary",
+        Grammar: "/Practice&Quizzes/Grammar",
+        Speaking: "/Practice&Quizzes/Speaking",
+        ReadingWriting: "/Practice&Quizzes/ReadingWriting",
+    },
     Courses: "/Courses",
     Signup: "/Signup",
     Login: "/Login",

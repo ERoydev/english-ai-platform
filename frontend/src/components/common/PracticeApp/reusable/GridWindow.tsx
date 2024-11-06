@@ -10,22 +10,23 @@ export default function GridWindow({
     label: string;
     size: string; /* pass sizes like `h-32 md:h-64`, ` */
     img: string;
-    labelClass?: string;
-    customClass?:string;
+    labelClass?: string; /* Used for custom label styling */
+    customClass?:string; /* Thats used to override the defaultTextColor */
 }) {
-    const defaultLabelClasses = 'absolute top-5 left-5 font-bold text-white text-2xl'
+    const defaultLabelClasses = 'absolute top-5 left-5 font-bold text-2xl'
     let appliedClass = defaultLabelClasses;
+    const defaultTextColor = 'text-white';
 
     if (labelClass) {
         appliedClass = labelClass;
     } 
     if (customClass) {
-        appliedClass += ' ' + customClass;
+        appliedClass += ' ' + customClass + defaultTextColor;
 
     }
 
     if (!labelClass && !customClass) {
-        appliedClass = defaultLabelClasses;
+        appliedClass = defaultLabelClasses + ' ' + defaultTextColor;
     }
     return(
         <div className={`${size} window relative hover:cursor-pointer overflow-hidden flex justify-center items-center`}>

@@ -50,16 +50,17 @@ const Menu: React.FC<MenuProps> = ({
                     <FontAwesomeIcon icon={faXmark} className='absolute w-[36px] h-[36px] top-5 right-5'/>
                 </div>
                 
-                <li className={isOpen ? `text-lg`: ''}>
+                {/* Add when its time to create Courses */}
+                {/* <li className={isOpen ? `text-lg`: ''}>
                     <LinkComponent label='Courses' path={Path.Courses} />
-                </li>
+                </li> */}
 
                 <li className={isOpen ? `text-lg`: ''}>
                     <LinkComponent label='Practice & Quizzes' path={Path.PracticeApp} />
                 </li>
 
                 <li className={isOpen ? `text-lg`: ''}>
-                    <LinkComponent label="IELTS" path={Path.IELTS} />
+                    <LinkComponent label="IELTS" path={Path.Practice.IELTS} />
                 </li>
 
 

@@ -6,7 +6,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .analyzer import analyze
 from django.views import View
 from .mixins.TranscriptionMixin import TranscriptionMixin
-from .mixins.DatabaseUploadMixin import DatabaseUploadMixin
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
