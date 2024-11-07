@@ -1,6 +1,7 @@
 // Here i keep my paths as a seperate file
 
 
+
 const Path = {
     Home: "/",
     PracticeApp: "/Practice&Quizzes",
@@ -12,6 +13,7 @@ const Path = {
         Grammar: "/Practice&Quizzes/Grammar",
         Speaking: "/Practice&Quizzes/Speaking",
         ReadingWriting: "/Practice&Quizzes/ReadingWriting",
+        MultipleChoiceQuestion: "/Practice&Quizzes/MultipleChoiceQuestion",
     },
     Courses: "/Courses",
     Signup: "/Signup",
