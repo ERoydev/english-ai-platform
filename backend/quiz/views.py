@@ -44,5 +44,3 @@ class VocabularyView(APIView):
             return Response(serializer.data, status=200)
         except VocabQuestion.DoesNotExist:
             return Response({'error': 'No question available for the selected category'}, status=404)
-
-

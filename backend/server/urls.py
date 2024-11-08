@@ -22,4 +22,6 @@ urlpatterns = [
     path('auth/', include("accounts.urls")),
     path('speech_analysis/', include('speech_analysis.urls')),
     path('quiz/', include('quiz.urls')),
+    path('questions/', include('questions.urls')),
+
 ]

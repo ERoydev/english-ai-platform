@@ -1,5 +1,6 @@
 import axios from "axios";
 import baseUrl from "../ApiEndPoints";
+import { checkIfTokenExist } from "../AuthorizationTokenMixin";
 
 
 export const fetchVocabularyQuestions = async (category, difficulty) => {
@@ -13,12 +14,8 @@ export const fetchVocabularyQuestions = async (category, difficulty) => {
         }
 
         // Fetch the token from localStorage
-        const token = localStorage.getItem('userToken');
-        if (!token) {
-            console.error("Authentication token not found");
-            return { error: "Authentication token not found" };
-        }
-        
+        const token = checkIfTokenExist();
+
         const response = await axios.get(apiUrl.toString(), {
             headers: {
                 'Authorization': `Token ${token}`

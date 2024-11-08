@@ -1,10 +1,3 @@
-import vocabulary from '../../../assets/images/Practice/vocabulary.jpg';
-import grammar from '../../../assets/images/Practice/grammar.jpg';
-import reading from '../../../assets/images/Practice/reading.jpg';
-import speaking from '../../../assets/images/Practice/speaking.jpg';
-import ielts from '../../../assets/images/Practice/ielts.jpg';
-import listening from '../../../assets/images/Practice/listening.jpg';
-import synonyms from '../../../assets/images/Practice/synonyms.jpg';
 
 import multiple_choice from '../../../assets/images/Practice/vocabulary/multiple_choice.jpg';
 import fill_the_blank from '../../../assets/images/Practice/vocabulary/fill_the_blank.jpg';
@@ -23,13 +16,6 @@ export const Icons = {
 }
 
 export const Images = {
-    vocabulary: vocabulary,
-    grammar: grammar,
-    reading: reading,
-    speaking: speaking,
-    ielts: ielts,
-    listening: listening,
-    synonyms: synonyms,
     multiple_choice: multiple_choice,
     fill_the_blank: fill_the_blank,
     matching: matching,

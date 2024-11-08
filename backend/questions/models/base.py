@@ -1,14 +1,20 @@
 from django.db import models
+from .category import Category
 
-
-class BaseQuestion(models.Model):
-    section = models.CharField(max_length=50)  # High-level category (e.g., "Vocabulary", "IELTS")
-    category = models.CharField(max_length=50)  # Specific type (e.g., "Multiple Choice", "Fill in the Blank")
-    difficulty = models.IntegerField(default=1)  # Common field for difficulty level
-    question_text = models.TextField(null=True, blank=True)  # Optional, depending on the question type
-
+class Question(models.Model):
     class Meta:
-        abstract = True  # This makes it an abstract model
+        abstract = True
+
+    question_text = models.TextField()
+    media_prompt = models.URLField(null=True, blank=True)  # YouTube or other media URLs
+    difficulty = models.IntegerField(default=1)
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.section} - {self.category}: {self.question_text[:50] if self.question_text else 'No Text'}"
+        return f"{self.category} - {self.question_text[:50]}"
+
+    def is_correct_answer(self, user_answer):
+        pass
+
+    def check_answer(self, user_answer):
+        pass

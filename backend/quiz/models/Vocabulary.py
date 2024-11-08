@@ -41,10 +41,3 @@ class VocabQuestion(models.Model):
     def _is_fill_blank_correct(self, user_answer):
         return user_answer.strip().lower() == self.answer.strip().lower()
 
-    def _is_matching_correct(self, user_answer):
-        # Implement matching logic here
-        pass
-
-    def _is_sentence_complete_correct(self, user_answer):
-        # Implement sentence completion logic here
-        pass

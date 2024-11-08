@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Applications
     'accounts',
     'speech_analysis',
+    'questions',
     'quiz',
 ]
 
@@ -60,6 +61,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server.urls'
+
+STATIC_URL = 'static'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 TEMPLATES = [
     {
