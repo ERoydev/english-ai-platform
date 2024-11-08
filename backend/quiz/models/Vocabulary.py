@@ -1,18 +1,21 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
+UserModel = get_user_model()
 
 # Handles Vocabulary related Questions following this specific needs
-class VocabQuestion(models.Model):
-    CATEGORY_CHOICES = [
-        ('MCQ', 'Multiple Choice'),
-        ('FILL', 'Fill in the Blank'),
-        ('MATCH', 'Synonym/Antonym Matching'),
-        ('COMPLETE', 'Sentence Completion'),
-    ]
 
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+class VocabularyCategoryChoices(models.TextChoices):
+    MCQ = 'MCQ', 'Multiple Choice'
+    FILL = 'FILL', 'Fill in the Blank'
+    MATCH = 'MATCH', 'Synonym/Antonym Matching'
+    COMPLETE = 'COMPLETE', 'Sentence Completion'
+
+class VocabQuestion(models.Model):
+
+    category = models.CharField(max_length=20, choices=VocabularyCategoryChoices)
     question_text = models.TextField()  # The main question or prompt
-    choices = models.JSONField(null=True, blank=True)  # Only needed for MCQ
+    choices = models.JSONField(null=True, blank=True)
     answer = models.CharField(max_length=255)  # The correct answer (single word/phrase for vocab)
     difficulty = models.IntegerField(default=1)
 

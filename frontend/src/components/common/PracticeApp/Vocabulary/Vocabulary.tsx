@@ -15,9 +15,9 @@ export default function Vocabulary() {
                 <div>
                     <FourRowItems
                         item1={{label: 'Multiple Choice Questions', path: Path.Practice.MultipleChoiceQuestion, img: Images.multiple_choice}}
-                        item2={{label: 'Fill in the Blank', path: Path.Practice.Vocabulary, img: Images.fill_the_blank}}
-                        item3={{label: 'Synonym/Antonym Matching', path: Path.Practice.Vocabulary, img: Images.matching}}
-                        item4={{label: 'Sentence Completion', path: Path.Practice.Vocabulary, img: Images.sentence_completion}}
+                        item2={{label: 'Fill in the Blank', path: Path.Practice.FillTheBlank, img: Images.fill_the_blank}}
+                        item3={{label: 'Synonym/Antonym Matching', path: Path.Practice.Matching, img: Images.matching}}
+                        item4={{label: 'Sentence Completion', path: Path.Practice.SentenceCompletion, img: Images.sentence_completion}}
                     />
                 </div>
            </div>

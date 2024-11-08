@@ -1,9 +1,9 @@
 import Button from "../../shared/Button/Button";
 import microphone from '../../../../assets/images/Practice/ielts/microphone.svg';
 import writing from '../../../../assets/images/Practice/ielts/writing.svg';
-import SubWindow from "./subWindow";
 import { Link } from "react-router-dom";
 import Path from "../../../../Paths";
+import SubWindow from "./SubWindow";
 
 
 export default function IELTS() {
@@ -20,7 +20,7 @@ export default function IELTS() {
                             <p className="info-text">Practice</p>
                             <h1 className="font-normal text-3xl pb-10">Start your <span className="font-bold">IELTS Speaking</span> with our free test</h1>
 
-                            <Link to={Path.IeltsSpeaking}>
+                            <Link to={Path.Practice.IeltsSpeaking}>
                                 <Button label="Start the test"/>
                             </Link>
                         </div>

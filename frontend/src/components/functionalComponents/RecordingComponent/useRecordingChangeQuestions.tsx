@@ -16,7 +16,7 @@ export const useRecordingChangeQuestions = (chapter: Chapter[]) => {
 
 
     const nextButtonHandler = () => {
-        // Chapter means chapter with multiple questions inside.
+        // Chapter means chapter with multiple question inside.
         // "First Chapter": ["question1", "question2", ...]
 
         const currChapterLength = chapter[currentChapterIndex].questions.length - 1

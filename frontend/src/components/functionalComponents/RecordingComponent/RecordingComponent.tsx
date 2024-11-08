@@ -78,7 +78,7 @@ const RecordingComponent: React.FC<RecordingComponentProps> = ({
       } else {
           console.log("Received Analysis:", analysisResult);
           // After success i want to navigate to analysis page
-          navigate(Path.SpeechAnalysis, { state: { audioBlob: mediaBlobUrl, analysis: analysisResult} });
+          navigate(Path.Practice.SpeechAnalysis, { state: { audioBlob: mediaBlobUrl, analysis: analysisResult} });
       }
     }
 };

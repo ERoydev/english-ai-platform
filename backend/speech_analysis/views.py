@@ -4,7 +4,6 @@ from django.utils.decorators import method_decorator
 from .calculators.calculate_english_score import LanguageCalculatorFactory
 from django.views.decorators.csrf import csrf_exempt
 from .analyzer import analyze
-from django.views import View
 from .mixins.TranscriptionMixin import TranscriptionMixin
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -13,7 +12,8 @@ from rest_framework.response import Response
 
 from .models import SpeechAnalysis
 
-model = whisper.load_model("base")  # Load model globally to avoid reloading each time
+# VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
+model = whisper.load_model("small")  # Load model globally to avoid reloading each time
 
 
 @method_decorator(csrf_exempt, name='dispatch')

@@ -21,7 +21,11 @@ import IELTS from "./components/common/PracticeApp/IELTS/IELTS.tsx";
 import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/IeltsSpeaking.tsx";
 import SpeechAnalysis from "./components/functionalComponents/SpeechAnalysis/SpeechAnalysis.tsx";
 import Vocabulary from "./components/common/PracticeApp/Vocabulary/Vocabulary.tsx";
-import MultipleChoiceQuestion from "./components/common/PracticeApp/Vocabulary/MultipleChoiceQuestion.tsx/MultipleChoiceQuestion.tsx";
+import MultipleChoiceQuestion from "./components/common/PracticeApp/Vocabulary/MultipleChoiceQuestion/MultipleChoiceQuestion.tsx";
+import FillTheBlank from "./components/common/PracticeApp/Vocabulary/FillTheBlank/FillTheBlank.tsx";
+import { M } from "vitest/dist/chunks/reporters.C_zwCd4j.js";
+import Matching from "./components/common/PracticeApp/Vocabulary/Matching.tsx/Matching.tsx";
+import SentenceComplete from "./components/common/PracticeApp/Vocabulary/SentenceComplete/SentenceComplete.tsx";
 
 
 export default function App() {
@@ -37,6 +41,9 @@ export default function App() {
       Path.Practice.SpeechAnalysis,
       Path.Practice.Vocabulary,
       Path.Practice.MultipleChoiceQuestion,
+      Path.Practice.FillTheBlank,
+      Path.Practice.Matching,
+      Path.Practice.SentenceCompletion,
     ];
     return !noFooterPaths.includes(location.pathname);
   };
@@ -48,6 +55,9 @@ export default function App() {
     Path.Practice.IeltsSpeaking,
     Path.Practice.Vocabulary,
     Path.Practice.MultipleChoiceQuestion,
+    Path.Practice.FillTheBlank,
+    Path.Practice.Matching,
+    Path.Practice.SentenceCompletion,
   ].includes(location.pathname);
 
   return (
@@ -64,6 +74,9 @@ export default function App() {
           <Route path={Path.Practice.SpeechAnalysis} element={<AuthGuard><SpeechAnalysis /></AuthGuard>} />
           <Route path={Path.Practice.Vocabulary} element={<AuthGuard><Vocabulary /></AuthGuard>} />
           <Route path={Path.Practice.MultipleChoiceQuestion} element={<AuthGuard><MultipleChoiceQuestion /></AuthGuard>} />
+          <Route path={Path.Practice.FillTheBlank} element={<AuthGuard><FillTheBlank /></AuthGuard>} />
+          <Route path={Path.Practice.Matching} element={<AuthGuard><Matching /></AuthGuard>} />
+          <Route path={Path.Practice.SentenceCompletion} element={<AuthGuard><SentenceComplete /></AuthGuard>} />
           {/* <Route path={Path.Courses} element={<Courses />} /> */}
 
           {/* Auth Routes */}

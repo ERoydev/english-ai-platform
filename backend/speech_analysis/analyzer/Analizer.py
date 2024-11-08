@@ -1,6 +1,5 @@
 import importlib
 import os
-import sys
 
 """
     This File handles loading all analyzers from the modules dynamically and to apply the analysis

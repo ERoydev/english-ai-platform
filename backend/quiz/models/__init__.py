@@ -1,2 +1,2 @@
 
-from .VocabQuestion import VocabQuestion
+from .Vocabulary import VocabQuestion

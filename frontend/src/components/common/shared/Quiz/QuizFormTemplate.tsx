@@ -3,7 +3,7 @@ import { fetchVocabularyQuestions } from "../../../../services/Vocabulary/Vacuba
 import AnswerItem from "./Components/AnwerItem";
 import Button from "../Button/Button";
 
-interface Question {
+interface QuestionInterface {
     id: number;
     question_text: string;
     difficulty: number;
@@ -11,7 +11,7 @@ interface Question {
     choices: string[];
 }
 
-interface SelectedAnswers {
+interface AnswerDataInterface {
     [questionId: number]: string;
 }
 
@@ -22,8 +22,10 @@ export default function QuizFormTemplate({
     QUESTIONCATEGORY: string;
     QUESTIONDIFFICULTY: string | null;
 }) {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [selectedAnswers, setSelectedAnswers] = useState<SelectedAnswers>({}); // Track selected answers by question ID
+    const [questions, setQuestions] = useState<QuestionInterface[]>([]);
+    const [selectedAnswers, setSelectedAnswers] = useState<AnswerDataInterface>({}); // Track selected answers by question ID
+    const [validationErrors, setValidationErrors] = useState<AnswerDataInterface>({});
+
 
     useEffect(() => {
         const loadQuestions = async () => {
@@ -31,7 +33,7 @@ export default function QuizFormTemplate({
                 const fetchedQuestions = await fetchVocabularyQuestions(QUESTIONCATEGORY, QUESTIONDIFFICULTY);
                 setQuestions(fetchedQuestions);
             } catch (error) {
-                console.error("Error fetching questions:", error);
+                console.error("Error fetching question:", error);
             }
         };
 
@@ -43,16 +45,34 @@ export default function QuizFormTemplate({
             ...prevSelectedAnswers,
             [questionId]: answerId,
         }));
+
+        setValidationErrors((prevErrors) => {
+            const { [questionId]: removedError, ...remainingErrors } = prevErrors;
+            return remainingErrors;
+        });
     };
 
     const handleSubmit = (event: Event) => {
         event.preventDefault();
-        // Here you can handle the selected answers, e.g., sending to an API
-        console.log("Selected answers:", selectedAnswers);
-        // Add API call or form submission logic here
-    };
 
-    console.log(questions)
+        // Validate if all question have been answered
+        const newValidationErrors: AnswerDataInterface = {};
+        questions.forEach((question) => {
+            if (!selectedAnswers[question.id]) {
+                newValidationErrors[question.id] = "Please select an answer.";
+            }
+        });
+
+        if (Object.keys(newValidationErrors).length > 0) {
+            // If there are validation errors, update state and prevent submission
+            setValidationErrors(newValidationErrors);
+            
+        } else {
+            // If no validation errors, proceed with form submission
+            console.log("Selected answers:", selectedAnswers);
+            // Add API call or form submission logic here
+        }
+    };
 
     return(
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-20">
@@ -62,7 +82,7 @@ export default function QuizFormTemplate({
                         <span className="text-yellow-600">{questionIndex + 1}.</span> {question.question_text}
                     </h1>
 
-                    {question.choices.map((choice, index) => (
+                    {question.choices !== null && question.choices.map((choice, index) => (
                         <AnswerItem
                             key={index}
                             text={choice}
@@ -71,6 +91,11 @@ export default function QuizFormTemplate({
                             onSelect={() => handleAnswerSelect(question.id, `${question.id}-${index}`)}
                         />
                     ))}
+
+                    {/* Display validation error for the question if not answered */}
+                    {validationErrors[question.id] && (
+                        <p className="text-red-500 text-sm">{validationErrors[question.id]}</p>
+                    )}
 
                     {/* Optional hidden input to simulate form field for each question */}
                     <input

@@ -1,6 +1,5 @@
 import textstat
 import re
-from collections import Counter
 from langdetect import detect
 from abc import ABC, abstractmethod
 

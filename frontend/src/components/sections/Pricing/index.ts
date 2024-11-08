@@ -4,7 +4,7 @@ const data = [
     {title: 'Free Plan', price: '0', description: 'Users who want to try out the platform before committing to a paid plan.', benefits: [
         'Access to limited number of lessons',
         'Basic practice tests for IELTS',
-        'Limited access to job interview questions',
+        'Limited access to job interview question',
         'Basic progress tracking',
         'Community support'
     ]},

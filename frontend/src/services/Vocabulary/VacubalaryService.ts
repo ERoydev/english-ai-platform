@@ -27,7 +27,7 @@ export const fetchVocabularyQuestions = async (category, difficulty) => {
 
         return response.data;
     } catch (error) {
-        console.error('Error fetching vocabulary questions:', error);
+        console.error('Error fetching vocabulary question:', error);
         throw error;
     }
 }
