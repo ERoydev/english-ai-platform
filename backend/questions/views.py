@@ -9,3 +9,7 @@ class SectionView(APIView):
         all_sections = Section.objects.all()
         serializer = SectionSerializer(all_sections, many=True, context={'request': request})
         return Response(serializer.data)
+
+
+class SubtopicsView(APIView):
+    pass

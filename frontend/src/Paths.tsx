@@ -1,5 +1,7 @@
 // Here i keep my paths as a seperate file
 
+import ListItem from "./components/common/shared/EducationContentDisplay/ListItem";
+
 
 
 const Path = {
@@ -10,11 +12,7 @@ const Path = {
         IeltsSpeaking: "/Practice&Quizzes/IELTS/Speaking",
         SpeechAnalysis: "/Practice&Quizzes/SpeechAnalysis",
         Vocabulary: "/Practice&Quizzes/Vocabulary",
-        DailyLife: "/Practice&Quizzes/DailyLife",
-        TravelAndDirections: "/Practice&Quizzes/TravelAndDirections",
-        CommunicationSkills: "/Practice&Quizzes/CommunicationSkills",
-        ProfessionalandAcademic: "/Practice&Quizzes/Professional",
-        GlobalEvents: "/Practice&Quizzes/GlobalEvents",
+        ListItem: "/Practice&Quizzes/ListItem",
     },
     Courses: "/Courses",
     Signup: "/Signup",

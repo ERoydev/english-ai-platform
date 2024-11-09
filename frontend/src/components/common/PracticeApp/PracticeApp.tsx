@@ -1,7 +1,6 @@
 // Components
 import Header from "../shared/Header/Header";
 import BasePracticeApp from "./BasePracticeApp.tsx";
-import SectionsList from "./Section/SectionList.tsx";
 
 // Services
 import { getSections } from "../../../services/Questions/getSections.ts";
@@ -14,6 +13,7 @@ import { useSelector } from "react-redux";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionType } from "./types.ts";
+import ContentList from "../shared/EducationContentDisplay/ContentList.tsx";
 
 
 export default function PracticeApp() {
@@ -48,8 +48,7 @@ export default function PracticeApp() {
                     </div>
                 </div>
                 
-
-                <SectionsList sections={sections} />
+                <ContentList sections={sections} />
     
             </div> 
         </section>

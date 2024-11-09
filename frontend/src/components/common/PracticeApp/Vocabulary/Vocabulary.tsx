@@ -2,7 +2,7 @@ import { Images } from "..";
 import Path from "../../../../Paths";
 import Header from "../../shared/Header/Header";
 import BasePracticeApp from "../BasePracticeApp";
-import FourRowItems from "../reusable/FourRowItems";
+import FourRowItems from "../../shared/EducationContentDisplay/FourRowItems";
 
 export default function Vocabulary() {
     return(
