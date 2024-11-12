@@ -1,44 +1,34 @@
-import { useEffect, useState } from "react";
-import { fetchVocabularyQuestions } from "../../../../services/Vocabulary/VacubalaryService";
+import { useState } from "react";
 import AnswerItem from "./Components/AnwerItem";
 import Button from "../Button/Button";
+import QuestionInterface from "../../../../types/Quiz/QuestionInterface";
 
-interface QuestionInterface {
-    id: number;
-    question_text: string;
-    difficulty: number;
-    answer: string;
-    choices: string[];
-}
 
 interface AnswerDataInterface {
     [questionId: number]: string;
 }
 
 export default function QuizFormTemplate({
-    QUESTIONCATEGORY,
-    QUESTIONDIFFICULTY,
+    questions,
 }: {
-    QUESTIONCATEGORY: string;
-    QUESTIONDIFFICULTY: string | null;
+    questions: QuestionInterface[];
 }) {
-    const [questions, setQuestions] = useState<QuestionInterface[]>([]);
     const [selectedAnswers, setSelectedAnswers] = useState<AnswerDataInterface>({}); // Track selected answers by question ID
     const [validationErrors, setValidationErrors] = useState<AnswerDataInterface>({});
 
 
-    useEffect(() => {
-        const loadQuestions = async () => {
-            try {
-                const fetchedQuestions = await fetchVocabularyQuestions(QUESTIONCATEGORY, QUESTIONDIFFICULTY);
-                setQuestions(fetchedQuestions);
-            } catch (error) {
-                console.error("Error fetching question:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const loadQuestions = async () => {
+    //         try {
+    //             const fetchedQuestions = await fetchVocabularyQuestions(QUESTIONCATEGORY, QUESTIONDIFFICULTY);
+    //             setQuestions(fetchedQuestions);
+    //         } catch (error) {
+    //             console.error("Error fetching question:", error);
+    //         }
+    //     };
 
-        loadQuestions();
-    }, []);
+    //     loadQuestions();
+    // }, []);
 
     const handleAnswerSelect = (questionId: number, answerId: string) => {
         setSelectedAnswers((prevSelectedAnswers) => ({

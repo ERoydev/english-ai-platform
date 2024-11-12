@@ -3,10 +3,10 @@ import axios from "axios";
 import { checkIfTokenExist } from "../AuthorizationTokenMixin";
 
 
-const basApiUrl: string = `${baseUrl}/questions`
+const baseApiUrl: string = `${baseUrl}/questions`
 
 export const getSections = async () => {
-    const apiUrl = `${basApiUrl}/get_sections/`;
+    const apiUrl = `${baseApiUrl}/get_sections/`;
 
     const token = checkIfTokenExist();
 

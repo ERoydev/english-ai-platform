@@ -5,4 +5,4 @@ from .subtopics import Subtopic
 from .subtopics_category import SubtopicCategory
 
 from .question_types import MultipleChoiceQuestion
-from .question_types import OpenEnded
+from .question_types import OpenEndedQuestion

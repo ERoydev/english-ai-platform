@@ -13,6 +13,7 @@ const Path = {
         SpeechAnalysis: "/Practice&Quizzes/SpeechAnalysis",
         Vocabulary: "/Practice&Quizzes/Vocabulary",
         ListItem: "/Practice&Quizzes/ListItem",
+        Quiz: "/Practice&Quizzes/Quiz",
     },
     Courses: "/Courses",
     Signup: "/Signup",

@@ -20,12 +20,13 @@ import AuthGuard from "./components/guards/AuthGuard.tsx";
 import IELTS from "./components/common/PracticeApp/IELTS/IELTS.tsx";
 import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/IeltsSpeaking.tsx";
 import SpeechAnalysis from "./components/functionalComponents/SpeechAnalysis/SpeechAnalysis.tsx";
-import Vocabulary from "./components/common/PracticeApp/Vocabulary/Vocabulary.tsx";
 import MultipleChoiceQuestion from "./components/common/PracticeApp/Vocabulary/MultipleChoiceQuestion/MultipleChoiceQuestion.tsx";
 import FillTheBlank from "./components/common/PracticeApp/Vocabulary/FillTheBlank/FillTheBlank.tsx";
 import { M } from "vitest/dist/chunks/reporters.C_zwCd4j.js";
 import Matching from "./components/common/PracticeApp/Vocabulary/Matching.tsx/Matching.tsx";
 import SentenceComplete from "./components/common/PracticeApp/Vocabulary/SentenceComplete/SentenceComplete.tsx";
+import ListItem from "./components/common/shared/EducationContentDisplay/ListItem.tsx";
+import Quiz from "./components/common/shared/Quiz/Quiz.tsx";
 
 
 export default function App() {
@@ -39,7 +40,7 @@ export default function App() {
       Path.Login,
       Path.Practice.IeltsSpeaking,
       Path.Practice.SpeechAnalysis,
-      Path.Practice.Vocabulary,
+      Path.Practice.ListItem
     ];
     return !noFooterPaths.includes(location.pathname);
   };
@@ -49,7 +50,7 @@ export default function App() {
     Path.Signup,
     Path.Login,
     Path.Practice.IeltsSpeaking,
-    Path.Practice.Vocabulary,
+    Path.Practice.ListItem
   ].includes(location.pathname);
 
   return (
@@ -64,9 +65,8 @@ export default function App() {
           <Route path={Path.Practice.IELTS} element={<AuthGuard><IELTS/></AuthGuard>} />
           <Route path={Path.Practice.IeltsSpeaking} element={<AuthGuard><IeltsSpeaking /></AuthGuard>} />
           <Route path={Path.Practice.SpeechAnalysis} element={<AuthGuard><SpeechAnalysis /></AuthGuard>} />
-          <Route path={Path.Practice.Vocabulary} element={<AuthGuard><Vocabulary /></AuthGuard>} />
-          <Route path={}
-
+          <Route path={Path.Practice.ListItem} element={<AuthGuard><ListItem /></AuthGuard>} />
+          <Route path={Path.Practice.Quiz} element={<AuthGuard><Quiz /></AuthGuard>} />
           {/* Add when its time to create course material */}
           {/* <Route path={Path.Courses} element={<Courses />} /> */}
 

@@ -1,32 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FourRowItems from './FourRowItems';
 import GridWindow from './GridWindow';
 import { SectionType } from '../../PracticeApp/types';
 import Path from '../../../../Paths';
 
 /* 
-Created to load dynamically sections from database data into PracticeApp
+Created to load dynamically sections from database data into PracticeApp with specific design
 */
 
 
-const ContentList = ({ sections }: { sections: SectionType[]}) => {
-
-    const getPathByName = (name: string): string => {
-        const nameToPathMap = {
-            Vocabulary: Path.Practice.Vocabulary,
-            "Travel and Directions": Path.Practice.TravelAndDirections,
-            "Daily Life": Path.Practice.DailyLife,
-            "Communication Skills": Path.Practice.CommunicationSkills,
-            "IELTS": Path.Practice.IELTS,
-            "Professional and Academic": Path.Practice.ProfessionalandAcademic,
-            "Global Events": Path.Practice.GlobalEvents,
-        };
-
-        return nameToPathMap[name] || '/'; // Fallback path if name not found
-    }
-
-
+const ContentList = ({
+        sections, handleItemClick 
+    }: {
+        sections: SectionType[],
+        handleItemClick: () => void; // Passed function when the content item is clicked passed in frontrowsitems component too.
+    }) => {
     // Sort sections by id in ascending order
     const sortedSections = sections.sort((a: SectionType, b: SectionType) => a.id - b.id);
 
@@ -54,16 +43,17 @@ const ContentList = ({ sections }: { sections: SectionType[]}) => {
             <React.Fragment key={index}>
                 <div>
                     <FourRowItems
-                        item1={chunk.fourItems[0] && { label: chunk.fourItems[0].name, path: getPathByName(chunk.fourItems[0].name), img: chunk.fourItems[0].image_url }}
-                        item2={chunk.fourItems[1] && { label: chunk.fourItems[1].name, path: getPathByName(chunk.fourItems[1].name), img: chunk.fourItems[1].image_url }}
-                        item3={chunk.fourItems[2] && { label: chunk.fourItems[2].name, path: getPathByName(chunk.fourItems[2].name), img: chunk.fourItems[2].image_url }}
-                        item4={chunk.fourItems[3] && { label: chunk.fourItems[3].name, path: getPathByName(chunk.fourItems[3].name), img: chunk.fourItems[3].image_url }}
+                        item1={chunk.fourItems[0] && { label: chunk.fourItems[0].name, img: chunk.fourItems[0].image_url, sectionId: chunk.fourItems[0].id }}
+                        item2={chunk.fourItems[1] && { label: chunk.fourItems[1].name, img: chunk.fourItems[1].image_url, sectionId: chunk.fourItems[1].id }}
+                        item3={chunk.fourItems[2] && { label: chunk.fourItems[2].name, img: chunk.fourItems[2].image_url, sectionId: chunk.fourItems[2].id }}
+                        item4={chunk.fourItems[3] && { label: chunk.fourItems[3].name, img: chunk.fourItems[3].image_url, sectionId: chunk.fourItems[3].id }}
+                        itemClickHandler={handleItemClick} // Important pass of function
                     />
                 </div>
 
                 {chunk.ieltsItem && (
                     <div className="window h-96 mb-8 overflow-hidden upwards">
-                        <Link to={getPathByName(chunk.ieltsItem.name)}>
+                        <Link to={Path.Practice.IELTS}>
                             <GridWindow
                                 label={chunk.ieltsItem.name}
                                 labelClass="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-4xl"

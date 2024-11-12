@@ -14,11 +14,14 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionType } from "./types.ts";
 import ContentList from "../shared/EducationContentDisplay/ContentList.tsx";
+import { useNavigate } from "react-router-dom";
+import Path from "../../../Paths.tsx";
 
 
 export default function PracticeApp() {
     const userData = useSelector(state => state.auth.userInfo);
     const [sections, setSections] = useState<SectionType[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadSections = async () => {
@@ -28,6 +31,11 @@ export default function PracticeApp() {
 
         loadSections();
     }, [])
+
+    const handleClick = (item) => {
+        /* I pass this function in contentList so when content item is clicked this will trigger */
+        navigate(Path.Practice.ListItem, { state: {sectionId: item.sectionId}});
+    }
 
     return(
         <section className="">
@@ -48,7 +56,7 @@ export default function PracticeApp() {
                     </div>
                 </div>
                 
-                <ContentList sections={sections} />
+                <ContentList sections={sections} handleItemClick={handleClick} />
     
             </div> 
         </section>

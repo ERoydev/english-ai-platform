@@ -3,6 +3,6 @@
 export interface SectionType {
     id: number;
     name: string;
-    description: string;
+    description?: string;
     image_url: string;
 }
