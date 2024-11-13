@@ -3,9 +3,10 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .mixins.ScoringMixin import ScoringMixin
-
 from .models.generic import GenericScore
 from .serializers import GenericScoreSerializer
+from backend.core.mixins import GradeMixin
+
 
 class ScoringView(APIView, ScoringMixin):
     def post(self, request, *args, **kwargs):
@@ -20,7 +21,6 @@ class ScoringView(APIView, ScoringMixin):
             max_score=max_score,
             time_duration=time_duration
         )
-
 
         serializer = GenericScoreSerializer(generic_score)
         return Response(serializer.data)

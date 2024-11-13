@@ -4,6 +4,7 @@ MultipleChoiceQuestion = apps.get_model('questions', 'MultipleChoiceQuestion')
 
 
 class ScoringMixin:
+
     SCORING_WEIGHT = {
         1: 1,
         2: 2,
@@ -31,3 +32,6 @@ class ScoringMixin:
         question_ids = list(answers.keys())
         questions = MultipleChoiceQuestion.objects.filter(id__in=question_ids)
         return {str(question.id): question for question in questions}
+
+    def get_grade(self, total_score, max_score):
+        percent = (total_score / max_score) * 100

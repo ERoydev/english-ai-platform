@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'speech_analysis',
     'questions',
     'scoring',
+    'core',
 ]
 
 MIDDLEWARE = [
