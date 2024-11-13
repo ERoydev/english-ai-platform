@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-export default function TimerComponent({ pauseTimer, isFinished }: { pauseTimer: boolean, isFinished: boolean}) {
+
+
+export default function TimerComponent({
+    pauseTimer,
+    isFinished,
+    isTimerStarting = false, 
+    onTimeEnd,
+  }: {
+    pauseTimer: boolean, 
+    isFinished: boolean, 
+    isTimerStarting?: boolean,
+    onTimeEnd?: void
+    }) {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(() => isTimerStarting);
+
 
   // Effect to control the timer based on `isRunning` state
   useEffect(() => {
@@ -19,6 +32,10 @@ export default function TimerComponent({ pauseTimer, isFinished }: { pauseTimer:
           return prevSeconds + 1;
         });
       }, 1000);
+    } else if (isFinished) {
+      if (onTimeEnd) {
+        onTimeEnd(minutes, seconds);
+      }
     }
 
     // Cleanup the interval when the component is unmounted or `isRunning` changes

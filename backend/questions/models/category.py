@@ -1,9 +1,6 @@
-# questions/models/category.py
 from django.db import models
-from .subtopics_category import SubtopicCategory
-from .question_types.MultipleChoiceQuestion import MultipleChoiceQuestion
-from .question_types.OpenEndedQuestion import OpenEndedQuestion
-from django.contrib.contenttypes.models import ContentType
+from .subtopics_category import SubtopicCategory\
+
 
 """
 Represents categories like "Fill the blank", "Context Writing" that are parts of a section

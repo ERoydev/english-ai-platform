@@ -7,6 +7,7 @@ from .serializers import SectionSerializer, SubtopicSerializer
 from .serializers import PolymorphicQuestionSerializer
 from itertools import chain
 
+
 class SectionView(APIView):
     def get(self, request, *args, **kwargs):
         all_sections = Section.objects.all()
@@ -32,7 +33,6 @@ class QuestionsView(APIView):
 
         all_questions = list(chain.from_iterable(all_questions)) # Flat into one list
 
-        serializer = PolymorphicQuestionSerializer(all_questions, many=True)
+        serializer = PolymorphicQuestionSerializer(all_questions, many=True) # It will pick the serializer for the type of question
         serializer_data = serializer.data
-        print(serializer_data)
         return Response(serializer.data)

@@ -27,6 +27,7 @@ import Matching from "./components/common/PracticeApp/Vocabulary/Matching.tsx/Ma
 import SentenceComplete from "./components/common/PracticeApp/Vocabulary/SentenceComplete/SentenceComplete.tsx";
 import ListItem from "./components/common/shared/EducationContentDisplay/ListItem.tsx";
 import Quiz from "./components/common/shared/Quiz/Quiz.tsx";
+import QuizResult from "./components/common/shared/Quiz/QuizResult.tsx";
 
 
 export default function App() {
@@ -40,7 +41,9 @@ export default function App() {
       Path.Login,
       Path.Practice.IeltsSpeaking,
       Path.Practice.SpeechAnalysis,
-      Path.Practice.ListItem
+      Path.Practice.ListItem,
+      Path.Practice.Quiz,
+      Path.Practice.QuizResult,
     ];
     return !noFooterPaths.includes(location.pathname);
   };
@@ -50,7 +53,9 @@ export default function App() {
     Path.Signup,
     Path.Login,
     Path.Practice.IeltsSpeaking,
-    Path.Practice.ListItem
+    Path.Practice.ListItem,
+    Path.Practice.Quiz,
+    Path.Practice.QuizResult,
   ].includes(location.pathname);
 
   return (
@@ -67,6 +72,7 @@ export default function App() {
           <Route path={Path.Practice.SpeechAnalysis} element={<AuthGuard><SpeechAnalysis /></AuthGuard>} />
           <Route path={Path.Practice.ListItem} element={<AuthGuard><ListItem /></AuthGuard>} />
           <Route path={Path.Practice.Quiz} element={<AuthGuard><Quiz /></AuthGuard>} />
+          <Route path={Path.Practice.QuizResult} element={<AuthGuard><QuizResult /></AuthGuard>} />
           {/* Add when its time to create course material */}
           {/* <Route path={Path.Courses} element={<Courses />} /> */}
 

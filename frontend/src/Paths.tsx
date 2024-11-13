@@ -14,6 +14,7 @@ const Path = {
         Vocabulary: "/Practice&Quizzes/Vocabulary",
         ListItem: "/Practice&Quizzes/ListItem",
         Quiz: "/Practice&Quizzes/Quiz",
+        QuizResult: "/Practice&Quizzes/QuizResult",
     },
     Courses: "/Courses",
     Signup: "/Signup",

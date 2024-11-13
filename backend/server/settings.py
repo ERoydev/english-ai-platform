@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'speech_analysis',
     'questions',
-    'quiz',
+    'scoring',
 ]
 
 MIDDLEWARE = [
