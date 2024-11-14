@@ -66,19 +66,23 @@ const ContentList = ({
 
                 <div className="grid grid-cols-2 gap-4 mb-8">
                     {chunk.twoItems[0] && (
-                        <GridWindow
-                            label={chunk.twoItems[0].name}
-                            size="h-32 md:h-64"
-                            img={chunk.twoItems[0].image_url}
-                        />
+                        <span onClick={() => handleItemClick({sectionId: chunk.twoItems[0].id})}>
+                            <GridWindow
+                                label={chunk.twoItems[0].name}
+                                size="h-32 md:h-64"
+                                img={chunk.twoItems[0].image_url}
+                                />
+                        </span>
                     )}
                     
                     {chunk.twoItems[1] && (
-                        <GridWindow
-                            label={chunk.twoItems[1].name}
-                            size="h-32 md:h-64"
-                            img={chunk.twoItems[1].image_url}
-                        />
+                        <span onClick={() => handleItemClick({sectionId: chunk.twoItems[1].id})}>
+                            <GridWindow
+                                label={chunk.twoItems[1].name}
+                                size="h-32 md:h-64"
+                                img={chunk.twoItems[1].image_url}
+                                />
+                        </span>
                     )}
                 </div>
             </React.Fragment>

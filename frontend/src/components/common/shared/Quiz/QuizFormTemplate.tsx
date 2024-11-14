@@ -8,6 +8,8 @@ import AnswerDataInterface from "../../../../types/Quiz/AnswerDataInterface";
 import logger from "../../../../logger";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../../Paths";
+import MediaRecorder from "../../../functionalComponents/RecordingComponent/MediaRecorder";
+import RecordingComponent from "../../../functionalComponents/RecordingComponent/RecordingComponent";
 
 export default function QuizFormTemplate({
     questions,
@@ -98,6 +100,12 @@ export default function QuizFormTemplate({
                                 onSelect={() => handleAnswerSelect(question.id, `${choice}`)}
                             />
                         ))}
+
+                        {!question.choices && (
+                            <div>
+                                <MediaRecorder />
+                            </div>
+                        )}
 
                         {/* Display validation error for the question if not answered */}
                         {validationErrors[question.id] && (

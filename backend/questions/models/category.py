@@ -14,6 +14,10 @@ class Category(models.Model):
     description = models.TextField(blank=True, null=True)  # Optional: describe what this category involves
     subtopic = models.ManyToManyField(to="questions.Subtopic", through=SubtopicCategory, related_name="categories_for_subtopic")
 
+    @property
+    def limit(self):
+        return self.DEFAULT_LIMIT
+
     def get_all_questions_for_category(self, LIMIT=DEFAULT_LIMIT):
         """Get dynamically all related questions for this category from all the question_types models"""
         all_questions = []

@@ -16,3 +16,4 @@ class MultipleChoiceQuestion(Question):
     #
     # def check_answer(self, user_answer):
     #     return user_answer.strip().lower() == self.correct_answer.strip().lower()
+
