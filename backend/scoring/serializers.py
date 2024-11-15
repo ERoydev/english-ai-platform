@@ -12,7 +12,7 @@ class GenericScoreSerializer(serializers.ModelSerializer, GradeMixin):
         # Get the initial serialized data
         data = super().to_representation(instance)
 
-        # Add grade information using GradeMixin's method
+        # Add grade information using GradeMixin.py's method
         grade_info = self.get_grade_description(total_score=self.instance.total_score, max_score=instance.max_score)
         data['grade_info'] = grade_info
 

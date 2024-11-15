@@ -1,8 +1,8 @@
-from django.http import JsonResponse
 import whisper
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
-from .calculators.calculate_english_score import LanguageCalculatorFactory
 from django.views.decorators.csrf import csrf_exempt
+from .calculators.LanguageCalculatorFactory import LanguageCalculatorFactory
 from .analyzer import analyze
 from .mixins.TranscriptionMixin import TranscriptionMixin
 from rest_framework.authentication import TokenAuthentication

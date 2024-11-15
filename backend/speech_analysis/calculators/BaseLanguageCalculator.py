@@ -19,12 +19,10 @@ class BaseLanguageCalculator(ABC):
         """Override this method to implement language-specific scoring."""
         return {}
 
+    @abstractmethod
     def _detect_specified_language(self):
         """Override in child classes to define language detection."""
         pass
-
-    def _calculate_unique_words(self, words):
-        return len(set(words))
 
     def _calculate_vocabulary_score(self, unique_words, word_count):
         return (unique_words / word_count) * self.WEIGHTS['vocab_diversity'] if word_count > 0 else 0
@@ -33,3 +31,9 @@ class BaseLanguageCalculator(ABC):
         if avg_sentence_length >= 8:
             return self.WEIGHTS['sentence_structure']
         return (avg_sentence_length / 8) * self.WEIGHTS['sentence_structure']
+
+    @staticmethod
+    def _calculate_total_score(vocab_score, sentence_structure_score, readability_score, grammar_score):
+        formula = (vocab_score + sentence_structure_score + readability_score + grammar_score, 100)
+        result = min(formula)
+        return result
