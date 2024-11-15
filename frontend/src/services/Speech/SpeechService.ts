@@ -1,5 +1,7 @@
 import axios from 'axios';
 import baseUrl from '../ApiEndPoints';
+import logger from '../../logger';
+import { log } from 'loglevel';
 
 // Define the expected response from the backend
 interface AnalysisResult {
@@ -12,26 +14,26 @@ interface AnalysisError {
 
 type AnalysisResponse = AnalysisResult | AnalysisError;
 
-const URL = `${baseUrl}/speech_analysis/analyze_audio/`;
+const URL = `${baseUrl}/speech_analysis/`;
 
 export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined, mediaDuration: string): Promise<AnalysisResponse> => {
     try {
         if (!mediaBlobUrl) {
-            console.error("No mediaBlobUrl provided");
+            logger.error("No mediaBlobUrl provided")
             return { error: "No mediaBlobUrl provided" };
         }
 
         // Fetch the token from localStorage
         const token = localStorage.getItem('userToken');
         if (!token) {
-            console.error("Authentication token not found");
+            logger.error("Authentication token not found")
             return { error: "Authentication token not found" };
         }
 
         // Fetch the Blob from mediaBlobUrl
         const response = await fetch(mediaBlobUrl);
         if (!response.ok) {
-            console.error("Failed to fetch mediaBlobUrl:", response.statusText);
+            logger.error("Failed to fetch mediaBlobUrl:", response.statusText)
             return { error: `Failed to fetch mediaBlobUrl: ${response.statusText}` };
         }
 
@@ -50,9 +52,10 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined,
             },
         });
 
+        logger.info("service response: " + result.data);
         return result.data;
     } catch (error) {
-        console.error("Error in send_speech_for_analysis:", error);
+        logger.error("Error in send_speech_for_analysis:", error)
         return { error: "An error occurred while sending audio for analysis" };
     }
 };

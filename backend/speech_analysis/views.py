@@ -9,7 +9,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from pydub import AudioSegment
+import io
 from .models import SpeechAnalysis
 
 # VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
@@ -23,14 +24,21 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
     def post(self, request, *args, **kwargs):
         # Check if 'audio' file and 'audio_duration' are provided in the request
+
         if 'audio' not in request.FILES or 'audio_duration' not in request.POST:
             return JsonResponse({'error': 'Missing audio file or duration'}, status=400)
+
 
         audio_file = request.FILES['audio']
         audio_duration = request.POST['audio_duration']  # duration for the audio file
 
         # Create a temporary file without auto-deletion
         try:
+            # audio = self._load_audio_file(audio_file)
+            # audio_duration2 = len(audio) / 1000.0  # Duration in seconds
+            # print('AUDIO1', audio_duration)
+            # print('AUDIO2', audio_duration2)
+
             transcription = self.transcribe_audio(audio_file)
             # Apply additional analysis
             analysis_result = analyze(transcription)
@@ -40,7 +48,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
             self.upload_to_database(**analysis_result, **language_score, **{'audio_duration': audio_duration})
 
-            return JsonResponse({
+            return Response({
                 'transcription': transcription,
                 'analysis_result': analysis_result,
                 'language_scores': language_score,
@@ -48,7 +56,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             })
 
         except Exception as e:
-            return JsonResponse({'error': 'Transcription failed', 'details': str(e)}, status=500)
+            return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
     def upload_to_database(self, *args, **kwargs):
         """
@@ -69,3 +77,14 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
         }
 
         SpeechAnalysis.objects.create(**data)
+
+    def _load_audio_file(self, audio_file):
+        """
+        Load audio file into a format that can be processed by Whisper
+        """
+        try:
+            # Convert the file to a byte stream and load it with pydub
+            audio = AudioSegment.from_file(io.BytesIO(audio_file.read()))
+            return audio
+        except Exception as e:
+            raise ValueError(f"Error loading audio file: {str(e)}")

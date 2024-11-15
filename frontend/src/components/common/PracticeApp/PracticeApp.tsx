@@ -56,7 +56,7 @@ export default function PracticeApp() {
                     </div>
                 </div>
                 
-                <ContentList sections={sections} handleItemClick={handleClick} />
+                <ContentList sections={sections} handleItemClick={handleClick} withSpecialItem={true} />
     
             </div> 
         </section>

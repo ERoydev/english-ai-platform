@@ -3,7 +3,7 @@ import axios from "axios";
 import { checkIfTokenExist } from "../AuthorizationTokenMixin";
 
 
-const baseApiUrl: string = `${baseUrl}/questions/get_subtopics`;
+const baseApiUrl: string = `${baseUrl}/questions/subtopics`;
 
 export const getSubtopics = async (id) => {
     const token = checkIfTokenExist();

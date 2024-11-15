@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'questions',
     'scoring',
     'core',
+    'drf_spectacular', # for swagger
 ]
 
 MIDDLEWARE = [
@@ -169,4 +170,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# For my SWAGGER
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ai_english ',
+    'DESCRIPTION': 'AI English Language learning app',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
 }

@@ -4,6 +4,7 @@ import FourRowItems from './FourRowItems';
 import GridWindow from './GridWindow';
 import { SectionType } from '../../PracticeApp/types';
 import Path from '../../../../Paths';
+import SpecialItem from './SpecialItem';
 
 /* 
 Created to load dynamically sections from database data into PracticeApp with specific design
@@ -11,10 +12,12 @@ Created to load dynamically sections from database data into PracticeApp with sp
 
 
 const ContentList = ({
-        sections, handleItemClick 
+        sections, handleItemClick,
+        withSpecialItem
     }: {
         sections: SectionType[],
         handleItemClick: () => void; // Passed function when the content item is clicked passed in frontrowsitems component too.
+        withSpecialItem: boolean; // If true, add a special item at the middle like (IELTS) or dont add it
     }) => {
     // Sort sections by id in ascending order
     const sortedSections = sections.sort((a: SectionType, b: SectionType) => a.id - b.id);
@@ -28,7 +31,7 @@ const ContentList = ({
         while (i < array.length) {
             chunks.push({
                 fourItems: array.slice(i, i + 4),
-                ieltsItem: array[i + 4] || null,
+                midItem: array[i + 4] || null,
                 twoItems: array.slice(i + 5, i + 7),
             });
             i += 7; // Move to the next group
@@ -51,17 +54,8 @@ const ContentList = ({
                     />
                 </div>
 
-                {chunk.ieltsItem && (
-                    <div className="window h-96 mb-8 overflow-hidden upwards">
-                        <Link to={Path.Practice.IELTS}>
-                            <GridWindow
-                                label={chunk.ieltsItem.name}
-                                labelClass="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-4xl"
-                                size="h-[400px]"
-                                img={chunk.ieltsItem.image_url}
-                            />
-                        </Link>
-                    </div>
+                {chunk.midItem && withSpecialItem && (
+                    <SpecialItem item={chunk.midItem}/>
                 )}
 
                 <div className="grid grid-cols-2 gap-4 mb-8">

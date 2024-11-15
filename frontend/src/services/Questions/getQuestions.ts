@@ -7,7 +7,7 @@ import { checkIfTokenExist } from "../AuthorizationTokenMixin";
 const baseApiUrl: string = `${baseUrl}/questions`
 
 export const getQuestions = async (id) => {
-    const apiUrl = `${baseApiUrl}/get_questions`;
+    const apiUrl = `${baseApiUrl}`;
 
     const token = checkIfTokenExist();
 

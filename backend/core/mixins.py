@@ -40,3 +40,13 @@ class GradeMixin:
         for score_range, grade_info in self.GRADE_MAPPING.items():
             if score_range[0] <= rounded_score <= score_range[1]:
                 return grade_info
+
+    @staticmethod
+    def get_grade_for_unrecognized_language():
+        grade = {
+            "grade": "N/A",
+            "description": "The language is not recognized. Please ensure the input contains valid and recognizable language content.",
+            "status": "Unrecognized Language"
+        }
+
+        return grade
