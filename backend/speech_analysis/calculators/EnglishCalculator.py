@@ -24,6 +24,15 @@ class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
         readability_score = min(flesch_reading_ease / 100, 1) * self.WEIGHTS['readability']
         return readability_score
 
+    def _calculate_result(self, *args):
+        # Return my scores
+        scores = ScoreResultInterface(
+            *args
+        )
+        scores.recognized_language()  # To set my grade to its according value
+
+        return scores
+
     def calculate_score(self):
         if not self._detect_specified_language():
             # Return dictionary with default results
@@ -52,16 +61,6 @@ class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
         # Calculate total score by summing all weighted components and capping at 100
         total_score = self._calculate_total_score(vocab_score, sentence_structure_score, readability_score, grammar_score)
 
-        # Return my scores
-        scores = ScoreResultInterface(
-            vocab_score,
-            sentence_structure_score,
-            readability_score,
-            grammar_score,
-            total_score,unique_words
-        )
-
-        scores.recognized_language() # To set my grade to its according value
+        scores = self._calculate_result(vocab_score, sentence_structure_score, readability_score, grammar_score, total_score)
 
         return scores.to_dict()
-
