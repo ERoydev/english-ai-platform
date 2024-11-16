@@ -26,7 +26,6 @@ class ScoreResultInterface(ABC, GradeMixin, ScoringMixin):
         return cls()
 
     def recognized_language(self):
-
         self.grade = self.get_grade_description(self.total_score)
 
     def to_dict(self):
