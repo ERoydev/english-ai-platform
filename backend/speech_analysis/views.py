@@ -25,21 +25,20 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
     def post(self, request, *args, **kwargs):
         # Check if 'audio' file and 'audio_duration' are provided in the request
 
-        if 'audio' not in request.FILES or 'audio_duration' not in request.POST:
-            return JsonResponse({'error': 'Missing audio file or duration'}, status=400)
-
+        if 'audio' not in request.FILES:
+            return JsonResponse({'error': 'Missing audio file'}, status=400)
 
         audio_file = request.FILES['audio']
-        audio_duration = request.POST['audio_duration']  # duration for the audio file
 
         # Create a temporary file without auto-deletion
         try:
-            # audio = self._load_audio_file(audio_file)
-            # audio_duration2 = len(audio) / 1000.0  # Duration in seconds
-            # print('AUDIO1', audio_duration)
-            # print('AUDIO2', audio_duration2)
+            audio = self._load_audio_file(audio_file)
+            audio_duration = len(audio) / 1000.0  # Duration in seconds
 
+            # Reset the file pointer before passing to transcribe_audio because .read() consumes the file.
+            audio_file.seek(0)
             transcription = self.transcribe_audio(audio_file)
+
             # Apply additional analysis
             analysis_result = analyze(transcription)
             # Calculate English score

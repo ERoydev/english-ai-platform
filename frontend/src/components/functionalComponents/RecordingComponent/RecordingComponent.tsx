@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Path from '../../../Paths';
 
 import { send_speech_for_analysis } from '../../../services/Speech/SpeechService';
-import getAudioDurationFromBlob from './utils';
 
 interface RecordingComponentProps {
   nextButtonHandler: () => void;
@@ -69,9 +68,7 @@ const RecordingComponent: React.FC<RecordingComponentProps> = ({
 
   const handleDoneClick = async (): Promise<void> => {
     if (mediaBlobUrl) {
-      const durationMinutes = await getAudioDurationFromBlob(mediaBlobUrl); // Media Duration in minutes/seconds
-     
-      const analysisResult = await send_speech_for_analysis(mediaBlobUrl, durationMinutes);
+      const analysisResult = await send_speech_for_analysis(mediaBlobUrl);
       if ('error' in analysisResult) {
           console.error("Analysis failed:", analysisResult.error);
           alert("Failed to analyze the audio. Please try again.");
