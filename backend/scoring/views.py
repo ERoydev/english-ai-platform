@@ -1,11 +1,10 @@
-from django.apps import apps
-from django.shortcuts import render
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .mixins.ScoringMixin import ScoringMixin
 from .models.generic import GenericScore
 from .serializers import GenericScoreSerializer
-from backend.core.mixins import GradeMixin
+from .models.ScoringInterface import ScoringInterface
 
 
 class ScoringView(APIView, ScoringMixin):
@@ -13,17 +12,15 @@ class ScoringView(APIView, ScoringMixin):
         answers = request.data.get('answers')
         time_duration = request.data.get('time')
 
-        total_score, max_score = self.calculate_score(answers)
+        score_result = self.calculate_score(answers)
 
-        generic_score = GenericScore.objects.create(
-            user=request.user,
-            total_score=total_score,
-            max_score=max_score,
-            time_duration=time_duration
+        scoring = ScoringInterface(self.request.user, score_result['total_score'], score_result['max_score'], time_duration, score_result['correct_answers'],
+                                   score_result['incorrect_answers'])
+
+        return Response(
+            scoring.to_dict(),
+            status=status.HTTP_200_OK
         )
-
-        serializer = GenericScoreSerializer(generic_score)
-        return Response(serializer.data)
 
     def get(self, request, *args, **kwargs):
         pass

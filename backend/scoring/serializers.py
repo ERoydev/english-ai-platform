@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .views import GenericScore
-from backend.core.mixins import GradeMixin
+from core.mixins import GradeMixin
 
 
 class GenericScoreSerializer(serializers.ModelSerializer, GradeMixin):

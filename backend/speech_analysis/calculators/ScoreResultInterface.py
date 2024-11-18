@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
-from backend.core.mixins.GradeMixin import GradeMixin
+from core.mixins.GradeMixin import GradeMixin
 from ..mixins.ScoringMixin import ScoringMixin
 
 """

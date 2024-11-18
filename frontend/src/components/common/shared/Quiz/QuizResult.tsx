@@ -1,6 +1,9 @@
 import { useLocation } from "react-router-dom";
 import BasePracticeApp from "../../PracticeApp/BasePracticeApp";
 import Header from "../Header/Header";
+import ScoreResult from "../../../functionalComponents/ResultComponents/ScoreResult";
+import ScoreItem from "../../../functionalComponents/SpeechAnalysis/ScoreItem";
+import TopicSectionDisplay from "../../../functionalComponents/ResultComponents/TopicSectionDisplay";
 
 export default function QuizResult() {
     const location = useLocation();
@@ -25,21 +28,21 @@ export default function QuizResult() {
                     <p className='text-md'>
                         <span className='text-gray-500 font-semibold'>Duration:</span> <span className='font-bold text-md'>{data.time_duration}</span>
                     </p>
-                </div>
-                
-                {/* TODO MAKE DESIGN FOR ANALYSIS REUSABLE */}
-                <div className='border-2 border-gray-500 window px-10 py-14 my-10 flex gap-10 items-center'>
+                </div> 
 
-                    <div className='flex flex-col gap-3'>
-                        <p className='text-md font-bold'>Scores</p>
-                        <h1 className='font-bold text-2xl text-gray-700'>Total score: {data.total_score}/{data.max_score}</h1>
-                        <p className='text-gray-800'>{data.grade_info.description}</p>
-                    </div>
+                <ScoreResult 
+                    gradeLevel={data.grade_info.grade}
+                    gradeDescription={data.grade_info.description}
+                    totalScore={`${data.total_score}/${data.max_score}`}
+                />
 
-                    <div className='bg-blue-500 p-5 rounded-lg aspect-square flex items-center'>
-                        <h1 className='text-4xl font-bold text-white'>{data.grade_info.grade}</h1>
-                    </div>
-                </div>
+                <TopicSectionDisplay
+                    headerText="Information"
+                >
+                    <ScoreItem title={'Correct Answers'}  main_text={data.correct_answers} info_text={'Correct answered questions'} />
+                    <ScoreItem title={'Incorrect Answers'}  main_text={data.incorrect_answers} info_text={'Incorrect answered questions'} />
+                </TopicSectionDisplay>
+ 
             </div>
         </section>
         
