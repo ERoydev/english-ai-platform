@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AnswerItem from "./Components/AnwerItem";
 import Button from "../Button/Button";
 import QuestionInterface from "../../../../types/Quiz/QuestionInterface";
@@ -16,6 +16,7 @@ export default function QuizFormTemplate({
 }: {
     questions: QuestionInterface[];
 }) {
+    const hasRun = useRef(false) // Persist across renders
     const [selectedAnswers, setSelectedAnswers] = useState<AnswerDataInterface>({}); // Track selected answers by question ID
     const [validationErrors, setValidationErrors] = useState<AnswerDataInterface>({});
     const [finalTime, setFinalTime] = useState({minutes: 0, seconds: 0});
@@ -88,7 +89,9 @@ export default function QuizFormTemplate({
     }, [questions])
 
     useEffect(() => {
-        if (isFinished && finalTime !== null) {
+        if (isFinished && finalTime !== null && !hasRun.current) {
+            hasRun.current = true; // Mark as executed so there is no error with double requests to the backend
+
             (async () => {
                 try {
                     let response;
@@ -97,14 +100,15 @@ export default function QuizFormTemplate({
                     } else {
                         response = await submitQuestions(selectedAnswers, finalTime, hasQuizQuestions);
                     }
-                
+
                     navigate(Path.ResultPage, { state: { data: response } });
                 } catch (error) {
-                    logger.error('Error while submitting:', error);
+                    console.error('Error while submitting:', error);
                 }
             })();
         }
-    }, [isFinished, finalTime])
+    }, [isFinished, finalTime, selectedAnswers, hasQuizQuestions, mergedBlob, navigate]);
+
 
     return(
         <div>

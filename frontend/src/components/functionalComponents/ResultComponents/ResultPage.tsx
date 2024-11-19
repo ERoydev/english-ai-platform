@@ -55,8 +55,6 @@ export default function ResultPage() {
                             gradeDescription={data.speech_scores.language_scores.grade.description}
                             totalScore={`${data.speech_scores.language_scores.total_score}`}
                         />
-
-    
                     </> 
                 )}
             </div>

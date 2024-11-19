@@ -11,7 +11,7 @@ export default function TimerComponent({
     pauseTimer: boolean, 
     isFinished: boolean, 
     isTimerStarting?: boolean,
-    onTimeEnd?: void
+    onTimeEnd?: (minutes:number, seconds: number) => void
     }) {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
