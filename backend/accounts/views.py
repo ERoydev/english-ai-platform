@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer
@@ -120,3 +121,6 @@ def getUserDetails(request):
     user = request.user
     serializer = UserSerializer(user)
     return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+
+
+ObtainAuthToken

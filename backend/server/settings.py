@@ -181,3 +181,5 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+SPEECH_ANALYSIS_URL = "http://127.0.0.1:8000/speech_analysis/"

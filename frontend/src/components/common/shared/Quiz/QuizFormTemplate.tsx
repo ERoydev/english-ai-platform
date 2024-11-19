@@ -21,6 +21,7 @@ export default function QuizFormTemplate({
     const [finalTime, setFinalTime] = useState({minutes: 0, seconds: 0});
     const [mediablobArray, setMedablobArray] = useState<string[]>([]);
     const [mergedBlob, setMergedBlob] = useState<Blob>();
+    const [hasQuizQuestions, setHasQuizQuestions] = useState(false);
 
     const navigate = useNavigate();
 
@@ -79,23 +80,31 @@ export default function QuizFormTemplate({
     };
 
     useEffect(() => {
+        // Set the state once when questions with choices are found
+        if (questions.some((question) => question.choices && question.choices.length > 0)) {
+            setHasQuizQuestions(true);
+        }
+
+    }, [questions])
+
+    useEffect(() => {
         if (isFinished && finalTime !== null) {
             (async () => {
                 try {
+                    let response;
                     if (mergedBlob) {
-                        const response = await submitQuestions(selectedAnswers, finalTime, mergedBlob);
-                        console.log(response)
+                        response = await submitQuestions(selectedAnswers, finalTime, hasQuizQuestions, mergedBlob);
+                    } else {
+                        response = await submitQuestions(selectedAnswers, finalTime, hasQuizQuestions);
                     }
-                    const response = await submitQuestions(selectedAnswers, finalTime);
-                    console.log(response)
                 
-                    navigate(Path.Practice.QuizResult, { state: { data: response } });
+                    navigate(Path.ResultPage, { state: { data: response } });
                 } catch (error) {
                     logger.error('Error while submitting:', error);
                 }
             })();
         }
-    }, [isFinished, finalTime, selectedAnswers, navigate])
+    }, [isFinished, finalTime])
 
     return(
         <div>

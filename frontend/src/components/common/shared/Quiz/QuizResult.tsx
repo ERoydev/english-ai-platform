@@ -9,7 +9,6 @@ export default function QuizResult() {
     const location = useLocation();
     const {data} = location.state || {};
 
-    console.log(data)
 
     return(
         <section>
@@ -31,16 +30,16 @@ export default function QuizResult() {
                 </div> 
 
                 <ScoreResult 
-                    gradeLevel={data.grade_info.grade}
-                    gradeDescription={data.grade_info.description}
-                    totalScore={`${data.total_score}/${data.max_score}`}
+                    gradeLevel={data.quiz_scores.grade_info.grade}
+                    gradeDescription={data.quiz_scores.grade_info.description}
+                    totalScore={`${data.quiz_scores.total_score}/${data.quiz_scores.max_score}`}
                 />
 
                 <TopicSectionDisplay
                     headerText="Information"
                 >
-                    <ScoreItem title={'Correct Answers'}  main_text={data.correct_answers} info_text={'Correct answered questions'} />
-                    <ScoreItem title={'Incorrect Answers'}  main_text={data.incorrect_answers} info_text={'Incorrect answered questions'} />
+                    <ScoreItem title={'Correct Answers'}  main_text={data.quiz_scores.correct_answers} info_text={'Correct answered questions'} />
+                    <ScoreItem title={'Incorrect Answers'}  main_text={data.quiz_scores.incorrect_answers} info_text={'Incorrect answered questions'} />
                 </TopicSectionDisplay>
  
             </div>

@@ -9,7 +9,7 @@ const baseApiUrl: string = `${baseUrl}/scoring/`;
 
 
 
-export const submitQuestions = async (answers: AnswerDataInterface, time_duration:{minutes: number, seconds: number}, mediaBlob?: Blob) => {
+export const submitQuestions = async (answers: AnswerDataInterface, time_duration:{minutes: number, seconds: number},isQuiz: boolean, mediaBlob?: Blob,) => {
     const token = checkIfTokenExist();
     const time = formatTimeForDjango(time_duration);
 
@@ -20,6 +20,7 @@ export const submitQuestions = async (answers: AnswerDataInterface, time_duratio
     }
 
     formData.append('answers', JSON.stringify(answers));
+    formData.append('is_quiz', JSON.stringify(isQuiz));
     formData.append('time', time);
 
     try {

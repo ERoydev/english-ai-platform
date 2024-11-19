@@ -16,6 +16,7 @@ const Path = {
         Quiz: "/Practice&Quizzes/Quiz",
         QuizResult: "/Practice&Quizzes/QuizResult",
     },
+    ResultPage: "/ExerciseResults",
     Courses: "/Courses",
     Signup: "/Signup",
     Login: "/Login",
