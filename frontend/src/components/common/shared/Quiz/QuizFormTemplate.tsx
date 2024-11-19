@@ -9,7 +9,7 @@ import logger from "../../../../logger";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../../Paths";
 import MediaRecorder from "../../../functionalComponents/RecordingComponent/MediaRecorder";
-import RecordingComponent from "../../../functionalComponents/RecordingComponent/RecordingComponent";
+import mergeAudioBlobs from "../../../../utils/recording/mergeAudioBlobs";
 
 export default function QuizFormTemplate({
     questions,
@@ -19,13 +19,16 @@ export default function QuizFormTemplate({
     const [selectedAnswers, setSelectedAnswers] = useState<AnswerDataInterface>({}); // Track selected answers by question ID
     const [validationErrors, setValidationErrors] = useState<AnswerDataInterface>({});
     const [finalTime, setFinalTime] = useState({minutes: 0, seconds: 0});
+    const [mediablobArray, setMedablobArray] = useState<string[]>([]);
+    const [mergedBlob, setMergedBlob] = useState<Blob>();
+
     const navigate = useNavigate();
 
     // Handles Timer 
     const [isFinished, setIsFinished] = useState(false);
     const [runTimer, setRunTimer] = useState(true);
-    
-    const handleTimeEnd = (minutes, seconds) => {
+
+    const handleTimeEnd = (minutes: number, seconds: number) => {
         // finalTime holds the minutes and seconds that this quiz took
         setFinalTime({minutes, seconds})
     }
@@ -42,8 +45,18 @@ export default function QuizFormTemplate({
         });
     };
 
+    const handleMediaBlobArray = (mediablob: string) => {
+        setMedablobArray((oldArray) => [...oldArray, mediablob])
+    }
+
     const handleSubmit = async (event: Event) => {
         event.preventDefault();
+
+        if (mediablobArray.length > 0) {
+            const mergedBlob = await mergeAudioBlobs(mediablobArray);
+            setMergedBlob(mergedBlob)
+            setMedablobArray([]) // Clear the array after merging
+        }
 
         // Validate if all question have been answered
         const newValidationErrors: AnswerDataInterface = {};
@@ -69,7 +82,13 @@ export default function QuizFormTemplate({
         if (isFinished && finalTime !== null) {
             (async () => {
                 try {
+                    if (mergedBlob) {
+                        const response = await submitQuestions(selectedAnswers, finalTime, mergedBlob);
+                        console.log(response)
+                    }
                     const response = await submitQuestions(selectedAnswers, finalTime);
+                    console.log(response)
+                
                     navigate(Path.Practice.QuizResult, { state: { data: response } });
                 } catch (error) {
                     logger.error('Error while submitting:', error);
@@ -103,7 +122,11 @@ export default function QuizFormTemplate({
 
                         {!question.choices && (
                             <div>
-                                <MediaRecorder />
+                                <MediaRecorder 
+                                    handleMediaArray={handleMediaBlobArray}
+                                    // To not trigger validation error, i need to create it in selectAnswer
+                                    confirmAnswer={() => handleAnswerSelect(question.id, 'answered')}
+                                />
                             </div>
                         )}
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import baseUrl from '../ApiEndPoints';
 import logger from '../../logger';
-import { log } from 'loglevel';
 
 // Define the expected response from the backend
 interface AnalysisResult {
@@ -41,7 +40,7 @@ export const send_speech_for_analysis = async (mediaBlobUrl: string | undefined)
 
         // Create FormData and append the audio Blob
         const formData = new FormData();
-        formData.append('audio', audioBlob, 'speech.wav'); // 'audio' should match Django's expectation
+        formData.append('audio', audioBlob, 'final-audio.webm'); // 'audio' should match Django's expectation
 
         // Send the formData to the Django backend using axios
         const result = await axios.post<AnalysisResponse>(URL, formData, {

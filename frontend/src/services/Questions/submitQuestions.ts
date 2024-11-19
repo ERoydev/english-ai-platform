@@ -8,19 +8,28 @@ import logger from "../../logger";
 const baseApiUrl: string = `${baseUrl}/scoring/`;
 
 
-export const submitQuestions = async (answers: AnswerDataInterface, time_duration:{minutes: number, seconds: number}) => {
-    const token = checkIfTokenExist();
 
+export const submitQuestions = async (answers: AnswerDataInterface, time_duration:{minutes: number, seconds: number}, mediaBlob?: Blob) => {
+    const token = checkIfTokenExist();
     const time = formatTimeForDjango(time_duration);
+
+    const formData = new FormData();
+    
+    if (mediaBlob) {
+        formData.append('audio', mediaBlob);
+    }
+
+    formData.append('answers', JSON.stringify(answers));
+    formData.append('time', time);
 
     try {
         const response = await axios.post(
             baseApiUrl,
-            {answers, time},
+            formData,
             {
                 headers: {
                     'Authorization': `Token ${token}`,
-                    'Content-Type': 'application/json'  // Specify the content type
+                    'Content-Type': 'multipart/form-data'  
             },
         
         });
