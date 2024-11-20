@@ -4,10 +4,14 @@ import Header from "../Header/Header";
 import ScoreResult from "../../../functionalComponents/ResultComponents/ScoreResult";
 import ScoreItem from "../../../functionalComponents/SpeechAnalysis/ScoreItem";
 import TopicSectionDisplay from "../../../functionalComponents/ResultComponents/TopicSectionDisplay";
+import { useSelector } from "react-redux";
 
 export default function QuizResult() {
     const location = useLocation();
     const {data} = location.state || {};
+    const userData = useSelector(state => state.auth.userInfo);
+
+    console.log(userData)
 
 
     return(

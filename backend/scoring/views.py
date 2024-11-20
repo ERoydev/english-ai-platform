@@ -4,22 +4,24 @@ from rest_framework.views import APIView
 from .mixins.ScoringMixin import ScoringMixin
 from .models.ScoringInterface import ScoringInterface
 import json
-from django.conf import settings
-import requests
+from .mixins.RequestToSpeechAnalysis import RequestToSpeechAnalysis
 
 
-class ScoringView(APIView, ScoringMixin):
+class ScoringView(APIView, ScoringMixin, RequestToSpeechAnalysis):
     def post(self, request, *args, **kwargs):
         answers_json = request.data.get('answers')
         time_duration = request.data.get('time')
         audio = request.data.get('audio')
         is_quiz: bool = request.data.get('is_quiz')
-        scores = {}
 
+        scores = {} # hold score results
+
+        # Handles if user had exercise with speaking
         if audio:
             speech_result = self.handle_speech_analysis(audio)
             scores['speech_scores'] = speech_result
 
+        # Handles when user has answered quiz questions
         if answers_json and is_quiz == 'true':
             answers = json.loads(answers_json)
             score_result = self.calculate_score(answers)
@@ -35,27 +37,3 @@ class ScoringView(APIView, ScoringMixin):
     def get(self, request, *args, **kwargs):
         pass
 
-    def handle_speech_analysis(self, audio):
-        """
-        Send speech data to the Speech Analysis Django app.
-        :param audio: InMemoryUploadedFile or TemporaryUploadedFile from a file upload.
-        """
-        try:
-            speech_url = settings.SPEECH_ANALYSIS_URL
-            # Use the file-like object directly
-            files = {
-                'audio': (audio.name, audio, audio.content_type)
-            }
-            headers = {
-                'Authorization': f'Token {self.request.user.auth_token}'
-            }
-            response = requests.post(speech_url, files=files, headers=headers)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-
-            # Debug the response content
-            print(f"Speech Analysis Response: {response.status_code}, {response.json()}")
-
-            return response.json()
-        except requests.RequestException as e:
-            print(f"Error during speech analysis: {str(e)}")  # Log the error
-            return {"error": f"Speech analysis failed: {str(e)}"}

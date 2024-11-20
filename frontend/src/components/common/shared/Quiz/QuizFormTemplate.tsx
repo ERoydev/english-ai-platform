@@ -19,10 +19,10 @@ export default function QuizFormTemplate({
     const hasRun = useRef(false) // Persist across renders
     const [selectedAnswers, setSelectedAnswers] = useState<AnswerDataInterface>({}); // Track selected answers by question ID
     const [validationErrors, setValidationErrors] = useState<AnswerDataInterface>({});
-    const [finalTime, setFinalTime] = useState({minutes: 0, seconds: 0});
     const [mediablobArray, setMedablobArray] = useState<string[]>([]);
     const [mergedBlob, setMergedBlob] = useState<Blob>();
     const [hasQuizQuestions, setHasQuizQuestions] = useState(false);
+    const [finalTime, setFinalTime] = useState({minutes: 0, seconds: 0});
 
     const navigate = useNavigate();
 

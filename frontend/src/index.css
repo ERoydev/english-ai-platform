@@ -80,6 +80,14 @@ html {
     @apply bg-slate-400/[.03] border border-slate-500/[.30] rounded-3xl;
   }
 
+  .secondary-window {
+    @apply border border-slate-500/[.30] rounded-3xl bg-white;
+  }
+  
+  .centered-absolute {
+    @apply absolute top-0 left-1/2 transform -translate-x-1/2;
+  }
+
   .subwindow {
     @apply bg-gray-100 rounded-lg;
   }

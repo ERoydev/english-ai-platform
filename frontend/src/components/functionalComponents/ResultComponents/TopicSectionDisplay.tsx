@@ -9,10 +9,10 @@ export default function TopicSectionDisplay({
     children: React.ReactNode
 }) {
     return(
-        <div className='bg-gray-200 px-14 py-14 mb-20 rounded-xl'>
+        <div className='bg-gray-200 px-10 py-14 mb-20 rounded-xl'>
             <Header title={headerText} size="text-2xl" customClass="mb-8 font-bold" />
 
-            <div className='flex gap-28'>
+            <div className='flex justify-between max-lg:flex-col max-lg:gap-5'>
                 {children}
             </div>
       </div>

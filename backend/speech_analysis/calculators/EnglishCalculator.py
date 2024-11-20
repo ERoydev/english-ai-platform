@@ -61,6 +61,6 @@ class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
         # Calculate total score by summing all weighted components and capping at 100
         total_score = self._calculate_total_score(vocab_score, sentence_structure_score, readability_score, grammar_score)
 
-        scores = self._calculate_result(vocab_score, sentence_structure_score, readability_score, grammar_score, total_score)
+        scores = self._calculate_result(vocab_score, sentence_structure_score, readability_score, grammar_score, total_score, unique_words)
 
         return scores.to_dict()

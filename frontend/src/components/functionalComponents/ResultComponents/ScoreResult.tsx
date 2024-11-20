@@ -11,7 +11,7 @@ export default function ScoreResult({
     totalScore: number | string
 }) {
     return(
-        <div className='border-2 border-gray-400 window px-10 py-14 my-10 flex gap-10 justify-between items-center'>
+        <div className='secondary-window px-10 py-14 my-10 flex gap-10 justify-between items-center'>
             <div className='flex flex-col gap-3'>
                 <p className='text-md font-bold'>Scores</p>
                 <h1 className='font-bold text-2xl text-gray-700'>Level: {gradeLevel}</h1>
