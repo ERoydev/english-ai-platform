@@ -25,6 +25,8 @@ urlpatterns = [
     path('questions/', include('questions.urls')),
     path('scoring/', include('scoring.urls')),
 
+    path('', include('core.urls')),
+
     # SWAGGER PATHS BELLOW
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:

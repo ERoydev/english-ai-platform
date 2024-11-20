@@ -11,10 +11,12 @@ type SubmitHandler = (values: FormValues) => void;
 export default function useForm(SubmitHandler: SubmitHandler, initialValues: FormValues) {
   const [values, setValues] = useState<FormValues>(initialValues);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    const {name, value} = e.target;
+
     setValues((state) => ({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -23,9 +25,14 @@ export default function useForm(SubmitHandler: SubmitHandler, initialValues: For
     SubmitHandler(values);
   };
 
+  const resetValues = () => {
+    setValues(initialValues) // clean
+  }
+
   return {
     values,
     onChange,
     onSubmit,
+    resetValues,
   };
 }

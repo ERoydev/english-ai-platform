@@ -7,17 +7,13 @@ import BasePracticeApp from "../../common/PracticeApp/BasePracticeApp";
 import ResultTitle from "./ResultTitle";
 import MinimalistInfo from "./MinimalistInfo";
 import { useSelector } from "react-redux";
-import { userLogin } from "../../../store/Auth/authActions";
 
 
 export default function ResultPage() {
     const location = useLocation();
     const {data} = location.state || {};
     const userData = useSelector(state => state.auth.userInfo)
-
-    console.log(userData)
-    console.log(data)
-
+    
     return(
         <section>
             <BasePracticeApp />
