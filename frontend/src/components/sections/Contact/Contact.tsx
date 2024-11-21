@@ -36,7 +36,7 @@ function ContactContent() {
         }
 
         setValidationErrors({}); // To clean the errors
-        sendEmail(values)
+        sendEmail(values, 'Contact')
         resetValues()
         setIsSended(true) // I have sended the message successfully
     }
