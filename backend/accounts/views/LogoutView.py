@@ -6,6 +6,7 @@ from .base import BaseAuthentication
 from backend.utils import api_response
 from rest_framework import status
 
+
 class LogoutView(BaseAuthentication):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

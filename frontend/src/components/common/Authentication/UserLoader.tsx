@@ -6,8 +6,6 @@ import { loadUserFromToken } from "../../../store/Auth/authActions";
     I use this component to wrap all my application to make sure i will load the userdata(if logged in) everytime i refresh the page.
 */
 
-
-
 const UserLoader = ({ children }) => {
     const dispatch = useDispatch();
     const userToken = useSelector(state => state.auth.userToken);

@@ -77,6 +77,7 @@ class TestTokenView(APIView):
     def get(self, request):
         return Response({"detail": f"passed for {request.user.email}", "passed": True})
 
+
 class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

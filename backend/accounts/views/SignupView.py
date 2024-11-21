@@ -16,6 +16,12 @@ class SignupView(BaseAuthentication):
 
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
+        email = request.data['email']
+
+        # Check if this email is taken
+        if UserModel.objects.filter(email=email).exists():
+            return api_response(status_str='fail', message='Registration failed', data={'details': 'it does not work'}, errors='This email address is already registered!', http_status=status.HTTP_400_BAD_REQUEST)
+
         if serializer.is_valid():
             user = UserModel.objects.create_user(
                 email=request.data['email'],
@@ -26,3 +32,4 @@ class SignupView(BaseAuthentication):
             return api_response(status_str='success', message='Registration is completed', data={"token": token.key, "user": user_serializer.data}, http_status=status.HTTP_201_CREATED)
 
         return api_response(status_str='fail', message='Registration has failed', http_status=status.HTTP_400_BAD_REQUEST)
+

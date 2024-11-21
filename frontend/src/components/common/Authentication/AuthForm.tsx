@@ -10,10 +10,12 @@ export default function AuthForm({
     authActionName,
     values,
     onChange,
+    authError,
 }:{
     onSubmitHandler: () => void;
     authActionName: string; // Correcting type to string
     onChange: (value: any) => void;
+    authError: string;
 }) {
     const [errors, setErrors] = useState<{email: string[], password: string[]}>(
     {
@@ -38,9 +40,16 @@ export default function AuthForm({
         }
     }
 
-
     return(
-        <form onSubmit={(e) => validateForm(e)}>
+        <form onSubmit={(e) => {
+            if (authActionName === 'Sign up') {
+                validateForm(e);
+            } else {
+                e.preventDefault();
+                onSubmitHandler();
+            }
+            
+        }}>
             <div className="w-full flex-1 mt-8">
                 <div className="flex flex-col items-center">
                     <button
@@ -128,6 +137,13 @@ export default function AuthForm({
                             {authActionName}
                         </span>
                     </button>
+                    
+                    {/* Handles error if registered fail */}
+                    {authError.length > 0 && (
+                        <div>
+                            <p className="font-bold error-text">{authError}</p>
+                        </div>
+                    )}
 
                     {authActionName == 'Sign up' ? (
                         <p className="mt-6 text-sm text-gray-600 text-center">

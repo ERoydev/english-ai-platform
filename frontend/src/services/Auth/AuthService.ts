@@ -28,20 +28,27 @@ export const test_token = async (token: string) => {
 
 
 export const login = async (values: values) => {
+  try {
     const response = await axios.post(`${baseUrl}/auth/login/`, values); 
     const raw_data = response.data;
-
     const data = raw_data.data;
     return data;
+  } catch (err) {
+    return err.response.data
+  }
 };
 
 export const signup = async (values: values) => {
-  const response = await axios.post(`${baseUrl}/auth/signup/`, values);
-  const raw_data = response.data;
+  try {
+    const response = await axios.post(`${baseUrl}/auth/signup/`, values);
+    const raw_data = response.data;
+    const data = raw_data.data;
+    return data;
 
-  const data = raw_data.data;
+  } catch (err) {
+    return err.payload.error;
+  }
 
-  return data;
 }
 
 export const logout = async(values: values) => {

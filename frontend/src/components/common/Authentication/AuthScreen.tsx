@@ -34,6 +34,7 @@ export default function AuthScreen({
 }) {
     const navigate = useNavigate();
     const { isAuthenticated } = useSelector(state => state.auth)
+    const [authError, setAuthError] = useState<string>('');
 
     const dispatch: AppDispatch = useDispatch();
 
@@ -43,13 +44,25 @@ export default function AuthScreen({
         }
     }, [navigate, isAuthenticated])
 
-    const SubmitClickHandler = () => {
+    const SubmitClickHandler = async () => {
         if(authActionName === 'Login') {
-            dispatch(authActions.userLogin({email: values.email, password: values.password}));
+            const result = await dispatch(authActions.userLogin({email: values.email, password: values.password}));
+
+            if (authActions.userLogin.rejected.match(result)) {
+                setAuthError(result.payload.errors);
+            }
+            
 
         } else if (authActionName === 'Sign up') {
-            dispatch(authActions.userRegister({email: values.email, password: values.password}));
+            const result = await dispatch(authActions.userRegister({email: values.email, password: values.password}));
             
+             // Type-safe checking for rejected action
+            if (authActions.userRegister.rejected.match(result)) {
+                // Check if the payload contains errors
+                if (result.payload && 'errors' in result.payload) {
+                    setAuthError(result.payload.errors); // Update your state with the error message
+                }
+            } 
         }
     }
 
@@ -74,6 +87,7 @@ export default function AuthScreen({
                             authActionName={authActionName}
                             values={values}
                             onChange={onChange}
+                            authError={authError}
                         />
                     </div>
                 </div>
