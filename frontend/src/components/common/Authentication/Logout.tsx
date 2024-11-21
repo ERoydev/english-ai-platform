@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as authService from "../../../services/Auth/AuthService.js";
 import { logout } from "../../../store/Auth/authSlice.js";
 import { AppDispatch } from "../../../store/store.js";
+import logger from "../../../logger.js";
 
 export default function Logout() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Logout() {
                 navigate(Path.Home);
             })
             .catch((error) => {
-                console.log(error);
+                logger.error("Failed to logout:", error);
             })
 
     

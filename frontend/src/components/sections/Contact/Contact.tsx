@@ -87,7 +87,7 @@ function ContactContent() {
 
 
     return(
-        <section className="max-container mt-24 flex flex-col items-center">
+        <section className="max-container mt-24 flex flex-col items-center" id="contact">
 
             <div className="text-center">
                 <Header title='Feel Free To ' coloredText="Reach out" coloredClass="secondary-header-color" size="text-4xl" infoText="contacts"/>

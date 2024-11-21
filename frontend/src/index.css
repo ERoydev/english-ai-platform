@@ -76,6 +76,10 @@ html {
     @apply font-montserrat text-gray-500 font-medium lg:text-[0.8rem] xl:text-[1rem] text-[0.7rem];
   }
 
+  .error-text {
+    @apply text-red-500 text-xs italic;
+  }
+
   .window {
     @apply bg-slate-400/[.03] border border-slate-500/[.30] rounded-3xl;
   }

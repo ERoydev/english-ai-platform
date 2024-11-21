@@ -5,7 +5,7 @@ import withScrollAnimation from "../../decoration/WithScrollAnimation";
 
 function PricingContent() {
     return(
-        <section className="max-container py-28">
+        <section className="max-container py-28" id="pricing">
             <div className="text-center">
                 <Header title="Our " coloredText={"Pricing"} coloredClass="secondary-header-color" size="text-4xl" infoText="flexible plans"/>
             </div>

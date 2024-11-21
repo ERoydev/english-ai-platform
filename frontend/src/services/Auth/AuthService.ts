@@ -29,14 +29,17 @@ export const test_token = async (token: string) => {
 
 export const login = async (values: values) => {
     const response = await axios.post(`${baseUrl}/auth/login/`, values); 
-    const data = response.data;
+    const raw_data = response.data;
 
+    const data = raw_data.data;
     return data;
 };
 
 export const signup = async (values: values) => {
   const response = await axios.post(`${baseUrl}/auth/signup/`, values);
-  const data = response.data;
+  const raw_data = response.data;
+
+  const data = raw_data.data;
 
   return data;
 }
@@ -57,7 +60,10 @@ export const logout = async(values: values) => {
     // If successful, you can also remove the token from localStorage
     localStorage.removeItem('userToken');
 
-    return response.data;
+    const raw_data = response.data;
+    const data = raw_data.data;
+
+    return data;
   } catch (error) {
     console.error('Logout failed', error);
     throw error;  // Rethrow the error for further handling
@@ -70,11 +76,13 @@ export const getUserDetails = async () => {
       throw new Error("Authentication token not found");
   }
 
-  const response = await axios.get(`${baseUrl}/auth/getUserDetails/`, {
+  const response = await axios.get(`${baseUrl}/auth/get_user_details/`, {
       headers: {
           'Authorization': `Token ${token}`
       }
   });
 
-  return response.data;
+  const raw_data = response.data;
+  const data = raw_data.data;
+  return data;
 };

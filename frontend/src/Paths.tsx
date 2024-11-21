@@ -1,7 +1,5 @@
 // Here i keep my paths as a seperate file
 
-import ListItem from "./components/common/shared/EducationContentDisplay/ListItem";
-
 
 
 const Path = {

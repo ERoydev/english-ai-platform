@@ -1,10 +1,15 @@
 from django.urls import path, re_path
-from . import views
+from .views.LoginView import LoginView
+from .views.LogoutView import LogoutView
+from .views.GetUserDetails import GetUserDetails
+from .views.SignupView import SignupView
+from .views.TestTokenView import TestTokenView
 
+from . import views
 urlpatterns = [
-    re_path('login', views.LoginView.as_view(), name='login'),
-    re_path('signup', views.SignupView.as_view(), name='signup'),
-    re_path("logout", views.LogoutView.as_view(), name='logout'),
-    re_path('test_token', views.TestTokenView.as_view(), name='test_token'),
-    re_path('getUserDetails', views.getUserDetails, name='getUserByToken')
+    re_path('login', LoginView.as_view(), name='login'),
+    re_path('signup', SignupView.as_view(), name='signup'),
+    re_path("logout", LogoutView.as_view(), name='logout'),
+    re_path('test_token', TestTokenView.as_view(), name='test_token'),
+    re_path('get_user_details', GetUserDetails.as_view(), name='get_user_by_token')
 ]

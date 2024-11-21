@@ -5,7 +5,7 @@ import withScrollAnimation from "../../decoration/WithScrollAnimation.tsx";
 
 function StepsContent() {
     return(
-        <section className="max-container flex flex-col pb-32 px-10">
+        <section className="max-container flex flex-col pb-32 px-10" id="features">
             <div className="text-center">
                 <Header title="What we " coloredText="offer" coloredClass="secondary-header-color" size="text-4xl" infoText="Services"/>
             </div>

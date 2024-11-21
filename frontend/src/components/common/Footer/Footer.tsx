@@ -17,10 +17,10 @@ export default function Footer() {
                         <h4 className="max-xl:text-md text-lg font-semibold mb-4">Quick Links</h4>
                         <ul className="space-y-2">
                         <li><a href="#" className="hover:underline max-xl:text-sm">Home</a></li>
-                        <li><a href="#" className="hover:underline max-xl:text-sm">Features</a></li>
-                        <li><a href="#" className="hover:underline max-xl:text-sm">Pricing</a></li>
-                        <li><a href="#" className="hover:underline max-xl:text-sm">About Us</a></li>
-                        <li><a href="#" className="hover:underline max-xl:text-sm">Contact Us</a></li>
+                        <li><a href="#features" className="hover:underline max-xl:text-sm">Features</a></li>
+                        <li><a href="#pricing" className="hover:underline max-xl:text-sm">Pricing</a></li>
+                        <li><a href="#about" className="hover:underline max-xl:text-sm">About Us</a></li>
+                        <li><a href="#contact" className="hover:underline max-xl:text-sm">Contact Us</a></li>
                         </ul>
                     </div>
                     
@@ -28,9 +28,8 @@ export default function Footer() {
                     <div className="">
                         <h4 className="max-xl:text-md text-lg font-semibold mb-4">Contact Us</h4>
                         <ul className="space-y-2">
-                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Email:</span> support@yourcompany.com</li>
-                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Phone:</span> +123-456-7890</li>
-                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Address:</span> Bulgaria</li>
+                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Email:</span> lexilearn456@gmail.com</li>
+                        <li className="max-xl:text-sm"><span className="font-semibold max-xl:text-sm">Address:</span> Ruse, Bulgaria</li>
                         </ul>
                     </div>
                     
