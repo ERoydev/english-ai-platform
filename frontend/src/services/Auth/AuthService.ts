@@ -46,7 +46,7 @@ export const signup = async (values: values) => {
     return data;
 
   } catch (err) {
-    return err.payload.error;
+    return err.response.data;
   }
 
 }
