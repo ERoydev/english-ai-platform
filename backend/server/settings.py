@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -185,11 +186,11 @@ SPECTACULAR_SETTINGS = {
 SPEECH_ANALYSIS_URL = "http://127.0.0.1:8000/speech_analysis/"
 
 
-# EMAIL CONFIGURATION FOR EMAIL
+# EMAIL CONFIGURATION FOR EMAIL ( SMTP CONFIGURATION FOR GMAIL )
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'lexilearn456@gmail.com'
-EMAIL_HOST_PASSWORD = 'imzxnukpledifmhv'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False

@@ -12,6 +12,7 @@ from backend.server.settings import EMAIL_HOST_USER
 
 class EmailView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request):
         try:
             # Extract data from the request
