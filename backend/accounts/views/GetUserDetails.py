@@ -3,10 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
-from backend.accounts.serializers import UserSerializer
 
+from accounts.serializers import UserSerializer
+from utils import api_response
 # Custom response util
-from backend.utils import api_response
 from .base import BaseAuthentication
 
 

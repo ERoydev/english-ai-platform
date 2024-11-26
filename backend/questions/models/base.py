@@ -1,12 +1,23 @@
 from django.db import models
 
+
+class DifficultyChoices(models.TextChoices):
+    EASY = '1', 'Easy'
+    INTER = '2', 'Intermediate'
+    HARD = '3', 'HARD'
+
+
 class Question(models.Model):
     class Meta:
         abstract = True
 
     question_text = models.TextField()
     media_prompt = models.URLField(null=True, blank=True)  # YouTube or other media URLs
-    difficulty = models.IntegerField(default=1)
+    difficulty = models.IntegerField(
+        max_length=1,
+        choices=DifficultyChoices.choices,
+        default=DifficultyChoices.EASY),
+
     category = models.ForeignKey(to="questions.Category", on_delete=models.CASCADE)
 
     def __str__(self):

@@ -2,9 +2,11 @@ from requests import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+
 from .base import BaseAuthentication
-from backend.utils import api_response
 from rest_framework import status
+
+from utils import api_response
 
 
 class LogoutView(BaseAuthentication):

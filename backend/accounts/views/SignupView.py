@@ -4,9 +4,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .base import BaseAuthentication
-from backend.accounts.serializers import UserSerializer
-from backend.utils import api_response
 from rest_framework import status
+
+from accounts.serializers import UserSerializer
+from utils import api_response
 
 UserModel = get_user_model()
 

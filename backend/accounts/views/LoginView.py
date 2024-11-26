@@ -1,9 +1,14 @@
 from django.contrib.auth import authenticate
-from rest_framework.permissions import AllowAny
 
+#
 from .base import BaseAuthentication
-from backend.accounts.serializers import UserSerializer
-from backend.utils import api_response
+
+# When i start from terminal the import should be like that
+from accounts.serializers import UserSerializer
+from utils import api_response
+
+# REST
+from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 

@@ -1,11 +1,10 @@
 from django.db import models
 from ..base import Question
 
+
 class MultipleChoiceQuestion(Question):
     choices = models.JSONField() # 4 Options to answer the question ["happy", "sad", "evil", "bad"]
     correct_answer = models.CharField(max_length=255)  # Correct answer example: "happy"
-    time_duration = models.TimeField(null=True, blank=True)
-
 
     # def is_correct_answer(self, user_answer):
     #     """Dispatch to the category-specific answer checker."""
