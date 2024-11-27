@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework import status
 
 from accounts.serializers import UserSerializer
-from utils import api_response
 # Custom response util
+from utils import api_response
 from .base import BaseAuthentication
 
 

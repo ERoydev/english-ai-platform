@@ -42,10 +42,10 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             # Apply additional analysis
             analysis_result = analyze(transcription)
             # Calculate English score
-            language_calculator = LanguageCalculatorFactory.get_calculator('en', transcription)
+            language_calculator = LanguageCalculatorFactory.get_calculator('en', transcription, audio_duration)
             language_score = language_calculator.calculate_score()
 
-            self.upload_to_database(**analysis_result, **language_score, **{'audio_duration': audio_duration})
+            # self.upload_to_database(**analysis_result, **language_score, **{'audio_duration': audio_duration})
 
             return Response({
                 'transcription': transcription,
@@ -80,6 +80,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
     def _load_audio_file(self, audio_file):
         """
         Load audio file into a format that can be processed by Whisper
+        Used to get my audio duration
         """
         try:
             # Convert the file to a byte stream and load it with pydub
@@ -87,3 +88,32 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             return audio
         except Exception as e:
             raise ValueError(f"Error loading audio file: {str(e)}")
+
+    def analyze_fluency(self, transcription, audio_duration):
+        """
+        Analyze fluency based on transcription text and audio duration.
+        """
+        if not transcription:
+            return {'error': 'No transcription text available'}
+
+        # Get the transcription text
+        transcript_text = transcription
+
+        # Calculate word count
+        words = transcript_text.split()
+        total_words = len(words)
+
+        # Calculate Words Per Second (WPS)
+        words_per_second = total_words / audio_duration if audio_duration > 0 else 0
+
+        # Assign a fluency score (example: scale of 0-100 based on typical ranges)
+        # A conversational speaking rate is typically 120-160 WPM (Words Per Minute)
+        # or 2-3 WPS. Score penalizes rates outside this range.
+        fluency_score = min(100, max(0, (words_per_second - 2) * 50))  # Scale WPS to 0-100
+
+        return {
+            'total_words': total_words,
+            'words_per_second': round(words_per_second, 2),
+            'fluency_score': round(fluency_score, 2),
+        }
+

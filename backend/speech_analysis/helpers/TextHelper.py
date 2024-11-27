@@ -7,7 +7,7 @@ class TextHelper:
         return words.split()
 
     @staticmethod
-    def get_count_of_words_in_text(words):
+    def get_len_of_words(words):
         return len(words)
 
     @staticmethod

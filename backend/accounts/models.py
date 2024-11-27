@@ -4,6 +4,7 @@ from django.contrib.auth import models as auth_models
 from django.utils.translation import gettext_lazy as _
 from .managers import AccountUserManager
 from django.utils import timezone
+from .choices import LevelChoices
 
 
 class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
@@ -44,3 +45,32 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         primary_key=True
     )
+
+    speaking_time = models.IntegerField(
+        default=0
+    )
+
+    proficiency_level = models.CharField(
+        choices=LevelChoices.choices,
+        default=LevelChoices.A1,
+    )
+
+    completed_exercises = models.IntegerField(
+        default=0,
+        blank=True,
+        null=True
+    )
+
+    # fluency_level = models.CharField()
+    # grammar_level = models.CharField()
+    # vocabulary_level = models.CharField()
+    # pronuciation_level = models.CharField()
+    # interaction_level = models.CharField()
+
+
+    # badges_or_rewards = models.ManyToManyField()  Add later
+
+    last_active_date = models.DateTimeField(
+        auto_now=True,
+    )
+

@@ -14,7 +14,12 @@ const Path = {
         Quiz: "/Practice&Quizzes/Quiz",
         QuizResult: "/Practice&Quizzes/QuizResult",
     },
-    ProfilePage: "/Profile",
+    Profile: {
+        Profile: "/Profile/Profile",
+        Settings: "/Profile/Settings",
+        Billing: "/Profile/Billing",
+        Notification: "/Profile/Progress",
+    },
     ResultPage: "/ExerciseResults",
     Courses: "/Courses",
     Signup: "/Signup",

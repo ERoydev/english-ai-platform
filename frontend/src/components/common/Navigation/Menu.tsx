@@ -77,7 +77,7 @@ const Menu: React.FC<MenuProps> = ({
                                 <Button label='Logout' />
                             </Link>
 
-                            <Link to={Path.ProfilePage}>
+                            <Link to={Path.Profile.Settings}>
                                 <div className="bg-slate-200 rounded-full aspect-square p-3 flex flex-col items-center justify-center hover:bg-gray-300 hover:cursor-pointer transition-all duration-300 ease-in-out">
                                     <svg
                                         className="w-9 h-9 text-gray-700"

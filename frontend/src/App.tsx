@@ -20,15 +20,11 @@ import AuthGuard from "./components/guards/AuthGuard.tsx";
 import IELTS from "./components/common/PracticeApp/IELTS/IELTS.tsx";
 import IeltsSpeaking from "./components/common/PracticeApp/IELTS/IeltsSpeaking/IeltsSpeaking.tsx";
 import SpeechAnalysis from "./components/functionalComponents/SpeechAnalysis/SpeechAnalysis.tsx";
-import MultipleChoiceQuestion from "./components/common/PracticeApp/Vocabulary/MultipleChoiceQuestion/MultipleChoiceQuestion.tsx";
-import FillTheBlank from "./components/common/PracticeApp/Vocabulary/FillTheBlank/FillTheBlank.tsx";
-import { M } from "vitest/dist/chunks/reporters.C_zwCd4j.js";
-import Matching from "./components/common/PracticeApp/Vocabulary/Matching.tsx/Matching.tsx";
-import SentenceComplete from "./components/common/PracticeApp/Vocabulary/SentenceComplete/SentenceComplete.tsx";
 import ListItem from "./components/common/shared/EducationContentDisplay/ListItem.tsx";
 import Quiz from "./components/common/shared/Quiz/Quiz.tsx";
-import QuizResult from "./components/common/shared/Quiz/QuizResult.tsx";
 import ResultPage from "./components/functionalComponents/ResultComponents/ResultPage.tsx";
+import AccountSettings from "./components/common/ProfilePage/components/AccountSettings.tsx";
+import ProfileSettings from "./components/common/ProfilePage/components/ProfileSettings.tsx";
 
 
 export default function App() {
@@ -74,6 +70,10 @@ export default function App() {
           <Route path={Path.Practice.ListItem} element={<AuthGuard><ListItem /></AuthGuard>} />
           <Route path={Path.Practice.Quiz} element={<AuthGuard><Quiz /></AuthGuard>} />
           <Route path={Path.ResultPage} element={<AuthGuard><ResultPage /></AuthGuard>} />
+
+          {/* Profile */}
+          <Route path={Path.Profile.Settings} element={<AuthGuard><AccountSettings /></AuthGuard>} />
+          <Route path={Path.Profile.Profile} element={<AuthGuard><ProfileSettings /></AuthGuard>} />
           {/* Add when its time to create course material */}
           {/* <Route path={Path.Courses} element={<Courses />} /> */}
 

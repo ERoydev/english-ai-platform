@@ -8,14 +8,11 @@ from ..mixins.ScoringMixin import ScoringMixin
 """
 
 @dataclass
-class ScoreResultInterface(ABC, GradeMixin, ScoringMixin):
-    def __init__(self, vocab_diversity_score=0, sentence_structure_score=0, readability_score=0,
-                 grammar_score=0, total_score=0, unique_words=0):
-
-        self.vocab_diversity_score: int = vocab_diversity_score
-        self.sentence_structure_score: int = sentence_structure_score
-        self.readability_score: int = readability_score
-        self.grammar_score: int = grammar_score
+class ScoreResultInterface(GradeMixin, ScoringMixin):
+    def __init__(self, fluency_stats=None, vocabulary_stats=None, grammar_stats=None, total_score=0, unique_words=0):
+        self.fluency_stats = fluency_stats
+        self.vocabulary_stats = vocabulary_stats
+        self.grammar_stats = grammar_stats
         self.total_score: int = total_score
         self.grade: dict = self.get_grade_for_unrecognized_language()
         self.unique_words: int = unique_words
@@ -31,10 +28,9 @@ class ScoreResultInterface(ABC, GradeMixin, ScoringMixin):
     def to_dict(self):
         """Convert the result to a dictionary."""
         return {
-            'vocab_diversity_score': self.calculate_score_with_weight(self.vocab_diversity_score, 'vocab_diversity'),
-            'sentence_structure_score': self.calculate_score_with_weight(self.sentence_structure_score, 'sentence_structure'),
-            'readability_score': self.calculate_score_with_weight(self.readability_score, 'readability'),
-            'grammar_score': self.calculate_score_with_weight(self.grammar_score, 'grammar'),
+            'fluency_score': self.fluency_stats,
+            'vocabulary_stats': self.vocabulary_stats,
+            'grammar_stats': self.grammar_stats,
             'total_score': f'{self.total_score:.2f}',
             'grade': self.grade,
             'unique_words': self.unique_words,
