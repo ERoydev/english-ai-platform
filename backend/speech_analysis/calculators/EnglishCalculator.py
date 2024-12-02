@@ -7,6 +7,7 @@ from ..helpers.TextHelper import TextHelper
 
 from .Vocabulary.VocabularyCalculator import VocabularyCalculator
 from .Grammar.GrammarCalculator import GrammarCalculator
+from .Pronunciation.PronunciationCalculator import PronunciationCalculator
 
 from .analyze_dataset import word_data # variable containing my data_set
 
@@ -14,10 +15,12 @@ from .analyze_dataset import word_data # variable containing my data_set
 class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
     LANGUAGE = 'en'
 
-    def __init__(self, text, audio_duration):
+    def __init__(self, text, audio_duration, transcribed_audio):
         self.text_helper = TextHelper()
+        self.transcribed_audio = transcribed_audio
         self.vocabulary_calculator = VocabularyCalculator()
         self.grammar_calculator = GrammarCalculator()
+        self.pronunciation_calculator = PronunciationCalculator()
         super().__init__(text, audio_duration)
 
     def _detect_specified_language(self):
@@ -61,11 +64,12 @@ class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
         grammar_stats = self.grammar_calculator.analyze_grammar_and_evaluate_level(self.text)
 
         # Pronunciation calculations
-        pronunciation_stats = self.text
+        pronunciation_stats = self.pronunciation_calculator.analyze_pronunciation(self.transcribed_audio, self.text)
 
         # Calculate total score by summing all weighted components and capping at 100
         # total_score = self._calculate_total_score(vocab_score, readability_score, grammar_score)
-        scores = self._calculate_result(fluency_stats, vocabulary_stats, grammar_stats, total_score, unique_words)
+        total_score = 0
+        scores = self._calculate_result(fluency_stats, vocabulary_stats, grammar_stats, pronunciation_stats, total_score, unique_words)
 
         return scores.to_dict()
 
@@ -108,4 +112,3 @@ class EnglishCalculator(BaseLanguageCalculator, ScoreResultInterface):
             'fluency_score': fluency_score,
             'fluency_level': fluency_level,
         }
-

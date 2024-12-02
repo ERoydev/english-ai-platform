@@ -1,7 +1,6 @@
 import language_tool_python
 
 
-
 class GrammarCalculator:
     ERROR_WEIGHTS = {
         "TENSE": 3,  # Critical errors

@@ -9,10 +9,11 @@ from ..mixins.ScoringMixin import ScoringMixin
 
 @dataclass
 class ScoreResultInterface(GradeMixin, ScoringMixin):
-    def __init__(self, fluency_stats=None, vocabulary_stats=None, grammar_stats=None, total_score=0, unique_words=0):
+    def __init__(self, fluency_stats=None, vocabulary_stats=None, grammar_stats=None, pronunciation_stats=None, total_score=0, unique_words=0):
         self.fluency_stats = fluency_stats
         self.vocabulary_stats = vocabulary_stats
         self.grammar_stats = grammar_stats
+        self.pronunciation_stats = pronunciation_stats
         self.total_score: int = total_score
         self.grade: dict = self.get_grade_for_unrecognized_language()
         self.unique_words: int = unique_words
@@ -31,6 +32,7 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
             'fluency_score': self.fluency_stats,
             'vocabulary_stats': self.vocabulary_stats,
             'grammar_stats': self.grammar_stats,
+            'pronunciation_stats': self.pronunciation_stats,
             'total_score': f'{self.total_score:.2f}',
             'grade': self.grade,
             'unique_words': self.unique_words,

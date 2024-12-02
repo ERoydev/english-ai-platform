@@ -8,7 +8,7 @@ from .EnglishCalculator import EnglishCalculator
 class LanguageCalculatorFactory:
     """Factory to create a calculator for the specified language."""
     @staticmethod
-    def get_calculator(language, text, audio_duration):
+    def get_calculator(language, text, audio_duration, transcribed_audio):
         calculators = {
             'en': EnglishCalculator,
             # Add other languages here, e.g., 'fr': FrenchCalculator, 'es': SpanishCalculator
@@ -17,5 +17,5 @@ class LanguageCalculatorFactory:
 
         if not calculator_class:
             raise ValueError(f"No calculator available for language: {language}")
-        return calculator_class(text, audio_duration)
+        return calculator_class(text, audio_duration, transcribed_audio)
 

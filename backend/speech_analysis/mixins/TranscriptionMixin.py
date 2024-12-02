@@ -19,7 +19,7 @@ class TranscriptionMixin:
         try:
             # Pass the path to the transcription model
             result = model.transcribe(temp_audio_file_path)
-            return result["text"]
+            return result["text"], result
         finally:
             # Cleanup the temporary file after transcription
             os.remove(temp_audio_file_path)
