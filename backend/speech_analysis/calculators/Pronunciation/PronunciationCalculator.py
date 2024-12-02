@@ -1,6 +1,6 @@
+from ...mixins.ScoringMixin import ScoringMixin
 
-
-class PronunciationCalculator:
+class PronunciationCalculator(ScoringMixin):
 
     def analyze_pronunciation(self, transcribed_audio, text):
         """
@@ -31,8 +31,8 @@ class PronunciationCalculator:
 
         return {
             'average_confidence': round(average_confidence, 2),
-            'pronunciation_score': pronunciation_score,
-            'pronunciation_level': pronunciation_level,
+            'score': self.get_score(pronunciation_level),
+            'level': pronunciation_level,
         }
 
     def map_pronunciation_to_cefr(self, pronunciation_score):

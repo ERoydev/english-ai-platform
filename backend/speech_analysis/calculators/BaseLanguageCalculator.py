@@ -28,13 +28,6 @@ class BaseLanguageCalculator(ABC):
     def _calculate_vocabulary_score(self, unique_words, word_count):
         return (unique_words / word_count) * self.WEIGHTS['vocab_diversity'] if word_count > 0 else 0
 
-
-    @staticmethod
-    def _calculate_total_score(vocab_score, readability_score, grammar_score):
-        formula = (vocab_score + readability_score + grammar_score, 100)
-        result = min(formula)
-        return result
-
     @staticmethod
     def get_fluency_level(fluency_score):
         """

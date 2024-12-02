@@ -1,7 +1,7 @@
 import language_tool_python
+from ...mixins.ScoringMixin import ScoringMixin
 
-
-class GrammarCalculator:
+class GrammarCalculator(ScoringMixin):
     ERROR_WEIGHTS = {
         "TENSE": 3,  # Critical errors
         "AGREEMENT": 3,  # Critical errors
@@ -27,23 +27,11 @@ class GrammarCalculator:
         tool = language_tool_python.LanguageTool('en-US')
         matches = tool.check(text)
 
-        categorized_issues = {}
         total_weight = 0
 
         for match in matches:
             # Parse ruleId for category
             category = match.ruleId.split('_')[0]
-            if category not in categorized_issues:
-                categorized_issues[category] = []
-
-            categorized_issues[category].append({
-                "error": match.message,
-                "suggestions": match.replacements,
-                "offset": match.offset,
-                "length": match.errorLength,
-                "context": match.context,
-                "rule_id": match.ruleId
-            })
 
             # Add weighted score for this error
             weight = self.ERROR_WEIGHTS.get(category, self.ERROR_WEIGHTS["UNKNOWN"])
@@ -58,14 +46,8 @@ class GrammarCalculator:
             grammar_level = "A1"  # Default to lowest level for very high scores
 
         # Summary
-        summary = {
-            "total_errors": sum(len(issues) for issues in categorized_issues.values()),
-            "total_weight": total_weight,
-            "error_categories": {category: len(issues) for category, issues in categorized_issues.items()},
-            "grammar_level": grammar_level
-        }
-
         return {
-            "issues": categorized_issues,
-            "summary": summary
+            "total_weight": total_weight,
+            "score": self.get_score(grammar_level),
+            "level": grammar_level
         }

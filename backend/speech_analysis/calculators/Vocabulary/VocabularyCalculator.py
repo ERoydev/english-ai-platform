@@ -1,9 +1,8 @@
+from ...mixins.ScoringMixin import ScoringMixin
 
+class VocabularyCalculator(ScoringMixin):
 
-class VocabularyCalculator:
-
-    @staticmethod
-    def calculate_vocabulary_level(lexical_diversity, classified_words):
+    def calculate_vocabulary_level(self, lexical_diversity, classified_words):
         """
         Calculate vocabulary level (A1, A2, B1, etc.) based on lexical diversity and word levels.
         Buffed version to encourage users with positive feedback.
@@ -40,18 +39,19 @@ class VocabularyCalculator:
 
         return {
             'lexical_diversity': lexical_diversity,
-            'vocabulary_level': base_level,
+            'score': self.get_score(base_level),
+            'level': base_level,
         }
 
     @staticmethod
     def calculate_lexical_diversity(words):
         """
-        Calculate lexical diversity: Unique Words / Total Words
+        Calculate lexical diversity: Unique Words / Total Words and return as a percentage.
         """
         total_words = len(words)
         unique_words = len(set(words))
         lexical_diversity = unique_words / total_words if total_words > 0 else 0
-        return round(lexical_diversity, 2)
+        return round(lexical_diversity * 100, 2)  # Return percentage
 
     @staticmethod
     def get_classified_words(words, word_data):

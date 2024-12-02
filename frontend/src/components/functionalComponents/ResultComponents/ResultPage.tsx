@@ -13,7 +13,7 @@ export default function ResultPage() {
     const location = useLocation();
     const {data} = location.state || {};
     const userData = useSelector(state => state.auth.userInfo)
-    
+
     return(
         <section>
             <BasePracticeApp />
