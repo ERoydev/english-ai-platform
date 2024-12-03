@@ -5,6 +5,9 @@ import Button from "../../common/shared/Button/Button";
 import Header from "../../common/shared/Header/Header";
 import withScrollAnimation from "../../decoration/WithScrollAnimation";
 import ContactFormValues from "../../../types/Forms/ContactFormValues";
+import FormField from "../../common/shared/Forms/FormField";
+import TextArea from "../../common/shared/Forms/TextArea";
+import validatePhone from "../../common/shared/Validations/ValidatePhone";
 
 
 const initialValues = {
@@ -94,110 +97,61 @@ function ContactContent() {
             </div>
 
             <div className="w-[80%] max-md:w-full bg-slate-600/[.08] py-14 px-16 max-md:py-5 max-md:px-5 pb-32 rounded-lg relative mb-24">
-
                 <form className="flex flex-col z-20" onSubmit={onSubmit}>
                     <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="px-3 w-[50%] mb-6 md:mb-0">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
-                                First Name
-                            </label>
-                            
-                            <input 
-                                className="input" 
-                                id="grid-first-name" 
-                                type="text" 
-                                placeholder="Jane"
-                                name='firstName' 
-                                value={values.firstName} 
-                                onChange={onChange}
-                            />
-                             {validationErrors.firstName && (
-                                <p className="text-red-500 text-xs italic">{validationErrors.firstName}</p>
-                            )}
-                        </div>
+                        <FormField 
+                            title="First Name"
+                            validationError={validationErrors?.firstName}
+                            fieldValue={values.firstName}
+                            onChange={onChange}
+                            inputName="firstName"
+                            placeholder="John"
+                        />
 
-                        <div className="w-[50%] px-3 mb06 md:mb-0">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-                                Last Name
-                            </label>
-                            <input 
-                                className="input" 
-                                id="grid-last-name" 
-                                type="text" 
-                                placeholder="Doe" 
-                                name='lastName' 
-                                value={values.lastName}
-                                onChange={onChange}
-                            />
-
-                            {validationErrors.lastName && (
-                                <p className="text-red-500 text-xs italic">{validationErrors.lastName}</p>
-                            )}
-                        </div>
+                        <FormField 
+                            title="Last Name"
+                            validationError={validationErrors?.lastName}
+                            fieldValue={values.lastName}
+                            onChange={onChange}
+                            inputName="lastName"
+                            placeholder="Doe"
+                        />
                     </div>
 
                     <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="px-3 w-[50%] mb-6 md:mb-0">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
-                                Email
-                            </label>
-                            
-                            <input 
-                                className="input" 
-                                id="grid-first-name" 
-                                type="email" 
-                                placeholder="Jane@gmail.com" 
-                                name='email' 
-                                value={values.email}
-                                onChange={onChange}
-                            />
 
-                            {validationErrors.email && (
-                                <p className="text-red-500 text-xs italic">{validationErrors.email}</p>
-                            )}
-
-                        </div>
-
-                        <div className=" w-[50%] px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-                                Phone
-                            </label>
-                            <input 
-                                className="input"
-                                id="grid-last-name"
-                                type="text" 
-                                placeholder="08754...." 
-                                name='phone' 
-                                value={values.phone}
-                                onChange={onChange}
-                            />
-                            {validationErrors.phone && (
-                                <p className="text-red-500 text-xs italic">{validationErrors.phone}</p>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="w-full max-md:mb-24">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="message">
-                            Your message here
-                        </label>
-                            
-                        <textarea 
-                            id="message" 
-                            rows='6' 
-                            className="input" 
-                            placeholder="Write your thoughts here..."
-                            name='message' 
-                            value={values.message}
+                        <FormField 
+                            title="Email"
+                            validationError={validationErrors?.email}
+                            fieldValue={values.email}
                             onChange={onChange}
-                        >
-                        </textarea>
-
-                        {validationErrors.message && (
-                            <p className="text-red-500 text-xs italic">{validationErrors.message}</p>
-                        )}
+                            inputName="email"
+                            placeholder="Jane@gmail.com"
+                            inputType="email"
+                        />
+                  
+                        <FormField 
+                            title="Phone"
+                            validationError={validationErrors?.phone}
+                            fieldValue={values.phone}
+                            onChange={onChange}
+                            inputName="phone"
+                            placeholder="08754...."
+                            
+                        />
+                     
                     </div>
 
+                    <TextArea 
+                        title='Your message here'
+                        textareaId='message'
+                        textareaName='message'
+                        value={values.message}
+                        onChange={onChange}
+                        placeholder='Write your thoughts here...'
+                        validationError={validationErrors?.message}
+                    />
+           
                     <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 max-xl:text-sm">
                         {isSended ? (
                             <div className="flex items-center gap-2 animate-bounce">

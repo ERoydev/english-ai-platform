@@ -46,6 +46,10 @@ class Profile(models.Model):
         primary_key=True
     )
 
+    # first_name = models.CharField(null=True, blank=True)
+    # last_name = models.CharField(null=True, blank=True)
+    # age = models.IntegerField(null=True, blank=True)
+
     speaking_time = models.IntegerField(
         default=0
     )
@@ -64,8 +68,7 @@ class Profile(models.Model):
     # fluency_level = models.CharField()
     # grammar_level = models.CharField()
     # vocabulary_level = models.CharField()
-    # pronuciation_level = models.CharField()
-    # interaction_level = models.CharField()
+    # pronunciation_level = models.CharField()
 
 
     # badges_or_rewards = models.ManyToManyField()  Add later

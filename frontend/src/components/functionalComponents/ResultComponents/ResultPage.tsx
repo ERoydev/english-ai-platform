@@ -54,12 +54,12 @@ export default function ResultPage() {
                                 <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_score.level} description='Level for fluency'/>
                             </TopicSectionDisplay>
 
-                            <TopicSectionDisplay key={1} headerText={'Grammar'}>
+                            <TopicSectionDisplay key={2} headerText={'Grammar'}>
                                 <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.grammar_stats.score} description='Score for grammar' />
                                 <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.grammar_stats.level} description='Level for grammar'/>
                             </TopicSectionDisplay>
 
-                            <TopicSectionDisplay key={1} headerText={'Pronunciation'}>
+                            <TopicSectionDisplay key={3} headerText={'Pronunciation'}>
                                 <ScoreItem title={'Confidence'} main_text={data.speech_scores.language_scores.pronunciation_stats.average_confidence} description='Score for grammar' />
                                 <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.pronunciation_stats.score} description='Score for pronunciation'/>
                                 <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.pronunciation_stats.level} description='Level for pronunciation'/>

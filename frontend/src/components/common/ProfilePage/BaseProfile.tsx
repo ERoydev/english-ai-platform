@@ -8,7 +8,7 @@ export default function BaseProfile({children}) {
 
 
     return(
-    <div className="max-container min-h-screen max-w-screen-xl pt-20 px-10 bg-gray-100 rounded-xl">
+    <div className="max-container min-h-screen max-w-screen-xl pt-20 px-10 bg-gray-100 rounded-xl mb-20">
         <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
             <MobileSideBar />
 
