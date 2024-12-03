@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BaseProfile from "../BaseProfile";
 import { deleteUser } from "../../../../services/User/GenericUserService";
 import { useState } from "react";
 import PopUpModal from "../../shared/Modal/popupModal";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../../Paths";
-
+import { AppDispatch } from "../../../../store/store";
+import { logout } from "../../../../store/Auth/authSlice";
 
 
 export default function AccountSettings() {
@@ -13,14 +14,17 @@ export default function AccountSettings() {
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
     const navigate = useNavigate();
 
+    const dispatch: AppDispatch = useDispatch();
+
 
     const deleteUserHandler = () => {
         setIsModalOpen(true); // Open the modal
     }
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
         try {
-            deleteUser(userData.user.id);
+            await deleteUser(userData.user.id);
+            dispatch(logout())
             setIsModalOpen(false); // Close the modal after deletion
             navigate(Path.Home);
         } catch (err) {
