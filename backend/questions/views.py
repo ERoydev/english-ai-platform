@@ -34,5 +34,4 @@ class QuestionsView(APIView):
         all_questions = list(chain.from_iterable(all_questions)) # Flat into one list
 
         serializer = PolymorphicQuestionSerializer(all_questions, many=True) # It will pick the serializer for the type of question
-        serializer_data = serializer.data
         return Response(serializer.data)

@@ -7,12 +7,16 @@ import BasePracticeApp from "../../common/PracticeApp/BasePracticeApp";
 import ResultTitle from "./ResultTitle";
 import MinimalistInfo from "./MinimalistInfo";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 
 export default function ResultPage() {
     const location = useLocation();
     const {data} = location.state || {};
     const userData = useSelector(state => state.auth.userInfo)
+    const [topicId, setTopicId] = useState(0);
+
+    console.log(data)
 
     return(
         <section>
@@ -20,14 +24,14 @@ export default function ResultPage() {
 
             <div className="p-4 md:ml-64 h-auto pt-10 flex flex-col gap-10 relative">
                 <div>
-                    <Header title="Quiz result for " coloredText={userData.user.email} size="text-3xl" coloredClass="secondary-header-color" />
+                    <Header title="Quiz result for " coloredText={userData.user?.email} size="text-3xl" coloredClass="secondary-header-color" />
                 </div>
 
 
 
                 {data.speech_scores && (
                     
-                    <div className="relative bg-blue-300 z-1 rounded-lg p-5 mb-5">
+                    <div className="relative bg-blue-200 z-1 rounded-lg p-5 mb-5">
                         <ResultTitle text="Speaking Exercise" />
                     
                         <ScoreResult
@@ -35,18 +39,38 @@ export default function ResultPage() {
                             gradeDescription={data.speech_scores.language_scores.grade.description}
                             totalScore={`${data.speech_scores.language_scores.total_score}`}
                         />
+
+                        <div>
+                            <TopicSectionDisplay key={0} headerText={'Vocabulary'}>
+                                <ScoreItem title={'Unique Words'} main_text={data.speech_scores.language_scores.unique_words} info_text='words' description='words that are used only once'/>
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.vocabulary_stats.score} description='Score for vocabulary specific' />
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.vocabulary_stats.level} description='Level for vocabulary'/>
+                                <ScoreItem title={'Grammar Score'} main_text={data.speech_scores.language_scores.vocabulary_stats.lexical_diversity} description='How much of speech use unique words' percentage={true} />
+                            </TopicSectionDisplay>
+
+                            <TopicSectionDisplay key={1} headerText={'Fluency'}>
+                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_score.words_per_second} description='Count of words per second' />
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_score.words_per_second} description='Words per second' />
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_score.level} description='Level for fluency'/>
+                            </TopicSectionDisplay>
+
+                            <TopicSectionDisplay key={1} headerText={'Grammar'}>
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.grammar_stats.score} description='Score for grammar' />
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.grammar_stats.level} description='Level for grammar'/>
+                            </TopicSectionDisplay>
+
+                            <TopicSectionDisplay key={1} headerText={'Pronunciation'}>
+                                <ScoreItem title={'Confidence'} main_text={data.speech_scores.language_scores.pronunciation_stats.average_confidence} description='Score for grammar' />
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.pronunciation_stats.score} description='Score for pronunciation'/>
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.pronunciation_stats.level} description='Level for pronunciation'/>
+                            </TopicSectionDisplay>
+                        </div>
                 
-                        <TopicSectionDisplay headerText={'Vocabulary'}>
-                            <ScoreItem title={'Unique Words'} main_text={data.speech_scores.language_scores.unique_words} info_text='words' description='words that are used only once'/>
-                            <ScoreItem title={'Comprehension Score'} main_text={data.speech_scores.language_scores.readability_score} description='how much of speech is comprehensive' percentage={true} />
-                            <ScoreItem title={'Sentence Score'} main_text={data.speech_scores.language_scores.sentence_structure_score} description='how good sentences are structured' percentage={true}/>
-                            <ScoreItem title={'Grammar Score'} main_text={data.speech_scores.language_scores.grammar_score} description='the words you use' percentage={true}/>
-                        </TopicSectionDisplay>
                     </div> 
                 )}
 
                 {data.quiz_scores && (
-                    <div className="relative bg-blue-300 z-1 rounded-lg p-5 py-14 mb-5">
+                    <div className="relative bg-blue-200 z-1 rounded-lg p-5 py-14 mb-5">
                         <ResultTitle text="Quiz Exercise" />
 
                         <MinimalistInfo 

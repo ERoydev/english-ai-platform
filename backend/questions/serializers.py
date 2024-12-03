@@ -29,6 +29,7 @@ class SubtopicSerializer(serializers.ModelSerializer):
         if obj.image_url and request:
             return request.build_absolute_uri(f'/static/{obj.image_url}')
         return None
+
     class Meta:
         model = Subtopic
         fields = ['id', 'name', 'image_url']
@@ -41,6 +42,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = None  # No direct model since `Question` is abstract
         fields = "__all__"
+
 
 class MultipleChoiceQuestionSerializer(QuestionSerializer):
     class Meta:

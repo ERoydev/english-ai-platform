@@ -1,5 +1,4 @@
 
-
 class ScoringMixin:
     LEVEL_SCORES = {
         """

@@ -14,8 +14,8 @@ class Question(models.Model):
     question_text = models.TextField()
     media_prompt = models.URLField(null=True, blank=True)  # YouTube or other media URLs
 
-    difficulty = models.IntegerField(
-        default=1),
+    difficulty = models.IntegerField()
+
 
     category = models.ForeignKey(to="questions.Category", on_delete=models.CASCADE)
 
