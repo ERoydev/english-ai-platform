@@ -14,5 +14,5 @@ urlpatterns = [
     re_path('test_token', TestTokenView.as_view(), name='test_token'),
     re_path('get_user_details', GetUserDetails.as_view(), name='get_user_by_token'),
 
-    re_path('delete', DeleteUser.as_view(), name='delete_user')
+    path('delete/<int:pk>/', DeleteUser.as_view(), name='delete_user')
 ]

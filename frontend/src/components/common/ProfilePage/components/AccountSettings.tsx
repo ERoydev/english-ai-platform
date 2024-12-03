@@ -3,12 +3,15 @@ import BaseProfile from "../BaseProfile";
 import { deleteUser } from "../../../../services/User/GenericUserService";
 import { useState } from "react";
 import PopUpModal from "../../shared/Modal/popupModal";
+import { useNavigate } from "react-router-dom";
+import Path from "../../../../Paths";
 
 
 
 export default function AccountSettings() {
     const userData = useSelector(state => state.auth.userInfo)
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+    const navigate = useNavigate();
 
 
     const deleteUserHandler = () => {
@@ -19,6 +22,7 @@ export default function AccountSettings() {
         try {
             deleteUser(userData.user.id);
             setIsModalOpen(false); // Close the modal after deletion
+            navigate(Path.Home);
         } catch (err) {
             console.log("error occurred");
         }
