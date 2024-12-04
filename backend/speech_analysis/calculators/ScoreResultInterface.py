@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from core.mixins.GradeMixin import GradeMixin
 from ..mixins.ScoringMixin import ScoringMixin
 
+
 """
     Interface for speech_analysis score result
 """
@@ -52,10 +53,11 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
     def recognized_language(self):
         self.grade = self.get_grade_description(self.total_score)
 
+
     def to_dict(self):
         """Convert the result to a dictionary."""
         return {
-            'fluency_score': self.fluency_stats,
+            'fluency_stats': self.fluency_stats,
             'vocabulary_stats': self.vocabulary_stats,
             'grammar_stats': self.grammar_stats,
             'pronunciation_stats': self.pronunciation_stats,

@@ -46,9 +46,10 @@ class Profile(models.Model):
         primary_key=True
     )
 
-    # first_name = models.CharField(null=True, blank=True)
-    # last_name = models.CharField(null=True, blank=True)
-    # age = models.IntegerField(null=True, blank=True)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     speaking_time = models.IntegerField(
         default=0
@@ -65,10 +66,10 @@ class Profile(models.Model):
         null=True
     )
 
-    # fluency_level = models.CharField()
-    # grammar_level = models.CharField()
-    # vocabulary_level = models.CharField()
-    # pronunciation_level = models.CharField()
+    fluency_level = models.JSONField()
+    grammar_level = models.JSONField()
+    vocabulary_level = models.JSONField()
+    pronunciation_level = models.JSONField()
 
 
     # badges_or_rewards = models.ManyToManyField()  Add later

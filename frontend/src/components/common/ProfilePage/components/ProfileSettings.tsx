@@ -22,7 +22,7 @@ export default function ProfileSettings() {
                     <div className="py-4 flex justify-between">
                         <p className="text-md">Completed Exercises: {userData?.profile.completed_exercises}</p>
                         <p className="text-md">Proficiency level: {userData?.profile.proficiency_level}</p>
-                        <p className="text-md">Speaking time: {userData?.profile.speaking_time}</p>
+                        <p className="text-md">Speaking time: {userData?.profile.speaking_time} s</p>
 
                     </div>
 
