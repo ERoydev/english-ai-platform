@@ -31,6 +31,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+MY_APPS = [
+    'roles',
+    'accounts',
+    'speech_analysis',
+    'questions',
+    'scoring',
+    'core',
+    'drf_spectacular', # for swagger
+]
+
 INSTALLED_APPS = [
     'jazzmin', # JAZZMIN Customization for admin
     'django.contrib.admin',
@@ -43,14 +53,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    # Applications
-    'accounts',
-    'speech_analysis',
-    'questions',
-    'scoring',
-    'core',
-    'drf_spectacular', # for swagger
-]
+
+] + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

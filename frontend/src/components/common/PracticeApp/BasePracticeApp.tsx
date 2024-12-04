@@ -57,24 +57,21 @@ export default function BasePracticeApp() {
                     }
           
 
-                    {/* Menu Links */}
-                    <ul className="space-y-4 font-medium">
+                    <ul className="space-y-4 font-medium flex-grow">
                         <MenuItem label="Learning Modules" icon={Icons.LearningModule} />
                         <MenuItem label="Goals and Achievements" icon={Icons.Goals} />
-                        <MenuItem label="Content & Resources" icon={Icons.Resources} />
-                        <MenuItem label="Notifications" icon={Icons.Notifications} />
                         <MenuItem label="Learning Paths" icon={Icons.LearningPaths} />
                         <MenuItem label="Logout" icon={Icons.Logout}/>
 
                         <hr className="border-2 border-gray-300 my-4" />
 
-                        <li className="flex justify-center items-center absolute inset-x-0 bottom-10 pt-5">
-                            <Button label="Upgrade Plan" backgroundColor="bg-white" textColor="text-black"/>
+                        <li className="flex flex-col justify-end items-center pt-5 flex-grow">
+                            <Button className="" label="Upgrade Plan" backgroundColor="bg-white" textColor="text-black" />
                         </li>
 
                         {isSidebarOpen &&
                         (
-                        <Link to={Path.Home} className="flex justify-center items-center pt-5">
+                        <Link to={Path.Home} className="flex flex-col justify-end items-center pt-5 flex-grow">
                             <Button label="Back to Home" backgroundColor="bg-white" textColor="text-black"/>
                         </Link>
                         )

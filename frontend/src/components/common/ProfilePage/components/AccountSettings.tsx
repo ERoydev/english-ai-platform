@@ -6,6 +6,7 @@ import PopUpModal from "../../shared/Modal/popupModal";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../../Paths";
 import { AppDispatch } from "../../../../store/store";
+
 import { logout } from "../../../../store/Auth/authSlice";
 
 

@@ -11,7 +11,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from pydub import AudioSegment
 import io
-from .models import SpeechAnalysis
 
 # VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
 model = whisper.load_model("small")  # Load model globally to avoid reloading each time
@@ -46,8 +45,6 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             language_calculator = LanguageCalculatorFactory.get_calculator('en', transcription, audio_duration, transcribed_audio)
             language_score = language_calculator.calculate_score()
 
-            # self.upload_to_database(**analysis_result, **language_score, **{'audio_duration': audio_duration})
-
             return Response({
                 'transcription': transcription,
                 'analysis_result': analysis_result,
@@ -58,25 +55,6 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
         except Exception as e:
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
-    def upload_to_database(self, *args, **kwargs):
-        """
-            Upload analysis result to the database
-        """
-        data = {
-            'user': self.request.user,  # Ensure this is a valid user instance
-            'audio_duration': float(kwargs['audio_duration']),
-            'word_count': float(kwargs['basic_text_analyzer']['word_count_analyzer']),
-            'sentence_count': float(kwargs['basic_text_analyzer']['sentence_count_analyzer']),
-            'vocab_score': float(kwargs['vocab_diversity_score']),
-            'sentence_structure_score': float(kwargs['sentence_structure_score']),
-            'readability_score': float(kwargs['readability_score']),
-            'grammar_score': float(kwargs['grammar_score']),
-            'total_score': float(kwargs['total_score']),
-            'unique_words': float(kwargs['unique_words']),
-            'grade': kwargs['grade']['grade'],
-        }
-
-        SpeechAnalysis.objects.create(**data)
 
     def _load_audio_file(self, audio_file):
         """
