@@ -28,7 +28,7 @@ export default function FormField({
                 type={inputType ? inputType : 'text'}
                 placeholder={placeholder}
                 name={inputName} 
-                value={fieldValue} 
+                value={fieldValue || ''} 
                 onChange={onChange}
             />
                 {validationError && (
