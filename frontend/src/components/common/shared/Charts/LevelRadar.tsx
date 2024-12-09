@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Radar,
   RadarChart,
@@ -7,7 +8,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Map levels to numeric values
 const levelMapping: { [key: string]: number } = {
   A1: 1,
   A2: 2,
@@ -18,51 +18,81 @@ const levelMapping: { [key: string]: number } = {
 };
 
 const reverseLevelMapping: { [key: number]: string } = Object.entries(levelMapping).reduce(
-    (acc, [key, value]) => {
-      acc[value] = key;
-      return acc;
-    },
-    {} as { [key: number]: string }
-  );
+  (acc, [key, value]) => {
+    acc[value] = key;
+    return acc;
+  },
+  {} as { [key: number]: string }
+);
 
-// Transform the parameters into radar chart data
 const transformData = (parameters: { [key: string]: string[][] }) => {
-    return Object.entries(parameters).map(([key, levels]) => {
-      // Flatten the nested levels and map to numeric values
-      const numericValues = levels.flat().map((level) => levelMapping[level] || 0);
-      // Calculate the average score
-      const averageScore =
-        numericValues.reduce((acc, val) => acc + val, 0) / numericValues.length;
-  
-      // Round the average score and find the corresponding level
-      const roundedScore = Math.round(averageScore);
-      const cefrLevel = reverseLevelMapping[roundedScore] || "Unknown";
-  
-      return {
-        subject: `${key} (${cefrLevel})`, // Include CEFR level in the subject
-        value: roundedScore, // Average score
-      };
-    });
-  };
+  return Object.entries(parameters).map(([key, levels]) => {
+    const numericValues = levels.flat().map((level) => levelMapping[level] || 0);
+    const averageScore =
+      numericValues.reduce((acc, val) => acc + val, 0) / numericValues.length;
+
+    const roundedScore = Math.round(averageScore);
+    const cefrLevel = reverseLevelMapping[roundedScore] || "Unknown";
+
+    return {
+      subject: `${key} (${cefrLevel})`,
+      value: roundedScore,
+    };
+  });
+};
 
 interface LevelRadarProps {
   parameters: { [key: string]: string[][] };
 }
 
 export default function LevelRadar({ parameters }: LevelRadarProps) {
-  // Transform the data for the radar chart
   const radarData = transformData(parameters);
+  const [outerRadius, setOuterRadius] = useState(() => {
+    // Initialize based on current window size
+    const width = window.innerWidth;
+    if (width < 600) return 30;
+    if (width < 1024) return 40;
+    return 50;
+  });
+
+  useEffect(() => {
+    const updateOuterRadius = () => {
+      const width = window.innerWidth;
+      if (width < 600) {
+        setOuterRadius(30);
+      } else if (width < 1024) {
+        setOuterRadius(40);
+      } else {
+        setOuterRadius(50);
+      }
+    };
+
+    window.addEventListener("resize", updateOuterRadius);
+    return () => window.removeEventListener("resize", updateOuterRadius);
+  }, []);
 
   return (
-    <div className="border-2 rounded-xl border-gray-300 my-10">
-        <ResponsiveContainer width="100%" height={400}>
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
-            <Radar dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-            <Legend content={() => null} /> {/* Custom legend with no content */}
+    <div className={`w-full h-80 mx-auto aspect-square border-2 border-gray-200 rounded-xl`}>
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart cx="50%" cy="50%" outerRadius={`${outerRadius}%`} data={radarData}>
+          <PolarGrid stroke="#ccc" strokeWidth={1} />
+          <PolarAngleAxis
+            dataKey="subject"
+            tick={{
+              fontSize: 12,
+              fill: "#666",
+            }}
+          />
+          <Radar
+            dataKey="value"
+            stroke="#8884d8"
+            strokeWidth={2}
+            fill="#8884d8"
+            fillOpacity={0.6}
+          />
+          <Legend content={() => null} />
         </RadarChart>
-        </ResponsiveContainer>
+      </ResponsiveContainer>
     </div>
   );
 }

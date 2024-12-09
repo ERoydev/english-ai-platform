@@ -68,7 +68,7 @@ export default function ProfileSettings() {
 
     return (
         <BaseProfile>
-            <div className="col-span-8 overflow-hidden rounded-xl sm:bg-gray-50 sm:px-8 sm:shadow">
+            <div className="col-span-8 overflow-hidden rounded-xl sm:bg-gray-50 sm:px-8 sm:shadow mb-10">
                 <div className="pt-4">
                     <h1 className="py-2 text-2xl font-semibold">Profile settings</h1>
                     <p className="font-text-slate-600">Change or review your account settings.</p>
@@ -85,7 +85,7 @@ export default function ProfileSettings() {
                     <hr className="mt-4 mb-8" />
                 </div>
 
-                <div>
+                <div className="my-10">
                     <LevelRadar
                         parameters={{
                             'Vocabulary': [userData?.profile.vocabulary_level],
@@ -137,7 +137,7 @@ export default function ProfileSettings() {
 
                     {!isSuccessfull ? (
                         <div className="flex justify-center py-5">
-                            <Button label="Edit Info" className="" type="submit" />
+                            <Button label="Edit Info" className=""/>
                         </div>
                     ) : (
                         <div className="relative pb-20">

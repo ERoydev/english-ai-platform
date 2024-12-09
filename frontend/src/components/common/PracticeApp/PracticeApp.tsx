@@ -16,6 +16,7 @@ import { SectionType } from "./types.ts";
 import ContentList from "../shared/EducationContentDisplay/ContentList.tsx";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../Paths.tsx";
+import LevelRadar from "../shared/Charts/LevelRadar.tsx";
 
 
 export default function PracticeApp() {
@@ -37,6 +38,8 @@ export default function PracticeApp() {
         navigate(Path.Practice.ListItem, { state: {sectionId: item.sectionId}});
     }
 
+    console.log(userData.user?.profile)
+
     return(
         <section className="">
            <BasePracticeApp />
@@ -54,6 +57,7 @@ export default function PracticeApp() {
                         <h1 className="font-bold text-gray-500 text-lg">Speaking Time</h1>
                         <h1 className="font-bold text-black text-3xl leading-8">81 min</h1>
                     </div>
+
                 </div>
                 
                 <ContentList sections={sections} handleItemClick={handleClick} withSpecialItem={true} />
