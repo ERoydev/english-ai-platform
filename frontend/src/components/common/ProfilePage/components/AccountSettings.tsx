@@ -1,13 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import BaseProfile from "../BaseProfile";
-import { deleteUser } from "../../../../services/User/GenericUserService";
+import { changeUserPassword, deleteUser } from "../../../../services/User/GenericUserService";
 import { useState } from "react";
-import PopUpModal from "../../shared/Modal/popupModal";
 import { useNavigate } from "react-router-dom";
 import Path from "../../../../Paths";
 import { AppDispatch } from "../../../../store/store";
 
 import { logout } from "../../../../store/Auth/authSlice";
+import PopUpModal from "../../shared/Modal/PopUpModal";
+import useForm from "../../../../hooks/useForm";
+
+import logger from "../../../../logger";
+import useFormError from "../../../../hooks/useFormError";
+import { validatePassword } from "../../../../utils/validations/PasswordValidation";
+import ErrorDisplay from "../../../../utils/validations/ErrorDisplay";
+
+
+const initialPasswordChangeForm = {
+    currentPassword: '',
+    newPassword: ''
+}
 
 
 export default function AccountSettings() {
@@ -15,9 +27,31 @@ export default function AccountSettings() {
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
     const [passwordInputField, setPasswordInputField] = useState('password');
     const navigate = useNavigate();
-
     const dispatch: AppDispatch = useDispatch();
+    const {errors, setErrorHandler, cleanErrors} = useFormError();
 
+    const changePasswordSubmit = () => {
+        console.log('ALL VALIDATIONS PASSED');
+    }
+
+
+    const changePasswordClickHandler = async () => {
+        const passwordErrors = validatePassword(values.newPassword);
+        if (passwordErrors.length > 0) {
+            cleanErrors();
+            setErrorHandler(passwordErrors)
+            return;
+        }
+
+        const result = await changeUserPassword(userData.user.id, values.currentPassword, values.newPassword);
+        if (result.status !== 'success') {
+            setErrorHandler([result.message])
+            return;
+        } 
+        cleanErrors();
+    }
+
+    const {values, onChange, onSubmit} = useForm(changePasswordClickHandler, initialPasswordChangeForm);
 
     const deleteUserHandler = () => {
         setIsModalOpen(true); // Open the modal
@@ -30,7 +64,7 @@ export default function AccountSettings() {
             setIsModalOpen(false); // Close the modal after deletion
             navigate(Path.Home);
         } catch (err) {
-            console.log("error occurred");
+            logger.error('error occured in deleting', err);
         }
     };
 
@@ -39,12 +73,14 @@ export default function AccountSettings() {
     };
 
     const showHiddenPasswordClickHandler = () => {
+        // Handles the EYE button for password to display with * or text
         if (passwordInputField === 'password') {
             setPasswordInputField('text');
         } else {
             setPasswordInputField('password');
         }
     }
+
 
     return(
         <BaseProfile>
@@ -68,31 +104,54 @@ export default function AccountSettings() {
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Password</p>
 
-                        <div className="flex items-center">
+                        <form onSubmit={(e) => onSubmit(e)}>
 
-                            <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
-                                <label htmlFor="current-password">
-                                    <span className="text-sm text-gray-500">Current Password</span>
-                                    <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                        <input type={passwordInputField} id="current-password" className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="***********" />
-                                    </div>
-                                </label>
+                            <div className="flex items-center">
+                                <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
+                                    <label htmlFor="current-password">
+                                        <span className="text-sm text-gray-500">Current Password</span>
+                                        <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
+                                            <input 
+                                                type={passwordInputField} 
+                                                name='currentPassword'
+                                                value={values.currentPassword}
+                                                onChange={onChange}
+                                                id="current-password" 
+                                                className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" 
+                                                placeholder="***********" 
+                                            />
+                                        </div>
+                                    </label>
 
-                                <label htmlFor="new-password">
-                                    <span className="text-sm text-gray-500">New Password</span>
-                                    <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                        <input type={passwordInputField} id="new-password" className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="***********" />
-                                    </div>
-                                </label>
+                                    <label htmlFor="new-password">
+                                        <span className="text-sm text-gray-500">New Password</span>
+                                        <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
+                                            <input 
+                                                type={passwordInputField} 
+                                                name='newPassword'
+                                                value={values.newPassword}
+                                                onChange={onChange}
+                                                id="new-password" 
+                                                className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" 
+                                                placeholder="***********" 
+                                            />
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <svg onClick={showHiddenPasswordClickHandler} xmlns="http://www.w3.org/2000/svg" className="mt-5 ml-2 h-6 w-6 cursor-pointer text-sm font-semibold text-gray-600 underline decoration-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                </svg>
                             </div>
 
-                            <svg onClick={showHiddenPasswordClickHandler} xmlns="http://www.w3.org/2000/svg" className="mt-5 ml-2 h-6 w-6 cursor-pointer text-sm font-semibold text-gray-600 underline decoration-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                            </svg>
-                        </div>
 
-                        <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">Save Password</button>
-                        <hr className="mt-4 mb-8" />
+                            <ErrorDisplay errorProperty={errors}/>
+
+                            <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">Save Password</button>
+                            <hr className="mt-4 mb-8" />
+
+                        </form>
+                        
                     </div>
                     
                     {/* DELETE ACCOUNT */}

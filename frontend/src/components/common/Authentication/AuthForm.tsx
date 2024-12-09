@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Path from "../../../Paths";
 import React, { useState } from "react";
-import { validatePassword } from "./Validations/PasswordValidaiton";
+import { validatePassword } from "../../../utils/validations/PasswordValidation";
 import emailValidator from "../../../utils/validations/EmailValidation";
 import ErrorDisplay from "../../../utils/validations/ErrorDisplay";
 
