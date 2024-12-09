@@ -47,12 +47,37 @@ export const changeUserPassword = async (userId: number, old_password: string, n
         );
 
         const data = response.data;
-
-        console.log('success', data)
         return data;
     } catch (err) {
         const error = err.response.data
         logger.error('Change Password Error', error.message)
+        return error;
+    }
+}
+
+export const updateProfileData = async (userId: number, formValues: string[]) => {
+    const token = localStorage.getItem('userToken');  // Retrieve token from storage
+    if (!token) {
+        throw new Error("Authentication token not found");
+    }
+
+    try {
+        const response = await axios.post(
+            `${baseUrl}/auth/profile_details/${userId}/`,
+            { formValues},
+            {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('userToken')}`,
+                    'Content-Type': 'application/json',
+                }
+            }
+        )
+
+        const data = response.data;
+        return data;
+    } catch (err) {
+        const error = err.response.data
+        logger.error('Update Profile Error', error.message)
         return error;
     }
 }

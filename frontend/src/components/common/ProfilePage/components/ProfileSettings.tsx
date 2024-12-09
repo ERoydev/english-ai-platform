@@ -2,11 +2,49 @@ import { useSelector } from "react-redux";
 import BaseProfile from "../BaseProfile";
 import FormField from "../../shared/Forms/FormField";
 import Button from "../../shared/Button/Button";
+import useForm from "../../../../hooks/useForm";
+import useFormError from "../../../../hooks/useFormError";
+import { phoneNumberValidation } from "../../../../utils/validations/PhoneNumberValidation";
+import ErrorDisplay from "../../../../utils/validations/ErrorDisplay";
+import { updateProfileData } from "../../../../services/User/GenericUserService";
+import { useState } from "react";
+import SuccessDisplay from "../../shared/Messages/SuccessDisplay";
+
+const initialFormData = {
+    'first_name': '',
+    'last_name': '',
+    'age': 0,
+    'phone_number': '',
+}
 
 export default function ProfileSettings() {
     const userData = useSelector(state => state.auth.userInfo).user;
+    const {errors, setErrorHandler} = useFormError();
+    const [isSuccessfull, setIsSuccessfull] = useState(false);
 
-    console.log(userData?.profile)
+    const validateForm = () => {
+        const errors: string[] = [];
+
+        phoneNumberValidation(values.phone_number, errors);
+
+        setErrorHandler(errors);
+        return errors
+    }
+
+   
+    const submitFormHandler = async (values) => {
+        const errors = validateForm();
+
+        if (errors.length > 0) {
+            return;
+        }
+        
+        const result = await updateProfileData(userData.id, values)
+        setIsSuccessfull(true);
+    }
+    
+    const {values, onChange, onSubmit} = useForm(submitFormHandler, initialFormData);
+
 
     return(
         <BaseProfile>
@@ -30,21 +68,23 @@ export default function ProfileSettings() {
                 </div>
 
                 <div className="py-4 ">
-                    <form className="flex flex-col">
+                    <form className="flex flex-col" onSubmit={onSubmit}>
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <FormField 
                                 title="First Name"
-                                fieldValue=""
+                                fieldValue={values.first_name}
                                 inputName="first_name"
                                 placeholder="Joe"
+                                onChange={onChange}
 
                             />
 
                             <FormField 
                                 title="Last Name"
-                                fieldValue=""
+                                fieldValue={values.last_name}
                                 inputName="last_name"
                                 placeholder="Doe"
+                                onChange={onChange}
 
                             />
                         </div>
@@ -52,26 +92,46 @@ export default function ProfileSettings() {
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <FormField 
                                 title="Age"
-                                fieldValue=""
+                                fieldValue={values.age}
                                 inputName="age"
                                 inputType="number"
                                 placeholder="23"
+                                onChange={onChange}
                             />
 
                             <FormField 
                                 title="Phone Number"
-                                fieldValue=""
-                                inputName="age"
+                                fieldValue={values.phone_number}
+                                inputName="phone_number"
                                 placeholder="087458...."
+                                onChange={onChange}
                             />
                         </div>
 
-                        <div className="flex justify-center py-5">
-                            <Button label="Submit" className="" />
-                        </div>
+                        <ErrorDisplay 
+                            errorProperty={errors}
+                        />
+                    
+                        {!isSuccessfull ? (
+                            <div className="flex justify-center py-5">
+                                <Button label="Edit Info" className="" />
+                            </div>
+                        ): (
+                            <div className="relative pb-20">
+                                <SuccessDisplay 
+                                    text='Profile Information is updated successfully'
+                                    isSended={isSuccessfull}
+                                />
+
+                            </div>
+                        )}
+
 
                     </form>
                 </div>
+
+
+
 
             </div>
 
