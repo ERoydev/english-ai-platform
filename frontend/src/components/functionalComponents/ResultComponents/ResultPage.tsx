@@ -49,9 +49,9 @@ export default function ResultPage() {
                             </TopicSectionDisplay>
 
                             <TopicSectionDisplay key={1} headerText={'Fluency'}>
-                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_score.words_per_second} description='Count of words per second' />
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_score.words_per_second} description='Words per second' />
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_score.level} description='Level for fluency'/>
+                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second} description='Count of words per second' />
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second} description='Words per second' />
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_stats.level} description='Level for fluency'/>
                             </TopicSectionDisplay>
 
                             <TopicSectionDisplay key={2} headerText={'Grammar'}>
