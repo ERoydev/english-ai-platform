@@ -38,9 +38,9 @@ class FluencyCalculator(ScoringMixin):
         fluency_level = self.get_fluency_level(fluency_score)
 
         return {
-            'words_per_second': round(words_per_second, 2),
-            'score': self.get_score(fluency_level),
-            'level': fluency_level,
+            'words_per_second': {'score': round(words_per_second, 2), 'description': 'Count of words per second'},
+            'score': {'score': self.get_score(fluency_level), 'description': 'Words per second'},
+            'level': {'score': fluency_level, 'description': 'Level for fluency'},
         }
 
     @staticmethod

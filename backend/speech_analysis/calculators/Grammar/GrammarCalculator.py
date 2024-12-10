@@ -47,7 +47,7 @@ class GrammarCalculator(ScoringMixin):
 
         # Summary
         return {
-            "total_weight": total_weight,
-            "score": self.get_score(grammar_level),
-            "level": grammar_level
+            "total_weight": {'score': total_weight, 'description': 'Weight of speech'},
+            "score": {'score': self.get_score(grammar_level), 'description': 'Score for grammar'},
+            "level": {'score': grammar_level, 'description': 'Level for grammar'},
         }

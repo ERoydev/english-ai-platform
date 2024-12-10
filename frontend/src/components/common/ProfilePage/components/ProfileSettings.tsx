@@ -87,13 +87,7 @@ export default function ProfileSettings() {
 
                 <div className="my-10">
                     <LevelRadar
-                        parameters={{
-                            'Vocabulary': [userData?.profile.vocabulary_level],
-                            'Fluency': [userData?.profile.fluency_level],
-                            'Grammar': [userData?.profile.grammar_level],
-                            'Pronunciation': [userData?.profile.pronunciation_level],
-                            'Proficiency': [userData?.profile.proficiency_level],
-                        }}
+
                     />
                 </div>
 

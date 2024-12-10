@@ -17,7 +17,8 @@ export default function Quiz() {
             try {
                 const fetchedQuestions = await getQuestions(topicId);
                 // REMOVE THE SLICE AFTER DEVELOPING THE FUNCTIONALITY
-                setQuestions(fetchedQuestions)
+
+                setQuestions(fetchedQuestions.slice(0, 3))
             } catch (error) {
                 console.error("Error fetching question:", error);
             }

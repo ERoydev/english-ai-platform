@@ -66,10 +66,10 @@ class Profile(models.Model):
         null=True
     )
 
-    fluency_level = models.JSONField()
-    grammar_level = models.JSONField()
-    vocabulary_level = models.JSONField()
-    pronunciation_level = models.JSONField()
+    fluency_level = models.JSONField(null=True, blank=True)
+    grammar_level = models.JSONField(null=True, blank=True)
+    vocabulary_level = models.JSONField(null=True, blank=True)
+    pronunciation_level = models.JSONField(null=True, blank=True)
 
 
     # badges_or_rewards = models.ManyToManyField()  Add later

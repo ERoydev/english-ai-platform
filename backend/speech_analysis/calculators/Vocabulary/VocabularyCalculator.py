@@ -38,9 +38,9 @@ class VocabularyCalculator(ScoringMixin):
             base_level = "B2" if base_level == "B1" else "C1"
 
         return {
-            'lexical_diversity': lexical_diversity,
-            'score': self.get_score(base_level),
-            'level': base_level,
+            'lexical_diversity': {'score': lexical_diversity, 'description': 'Words used only once'},
+            'score': {'score': self.get_score(base_level), 'description': 'Score for vocabulary'},
+            'level': {'score': base_level, 'description': 'Level for vocabulary'},
         }
 
     @staticmethod

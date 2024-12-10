@@ -30,9 +30,9 @@ class PronunciationCalculator(ScoringMixin):
         pronunciation_level = self.map_pronunciation_to_cefr(pronunciation_score)
 
         return {
-            'average_confidence': round(average_confidence, 2),
-            'score': self.get_score(pronunciation_level),
-            'level': pronunciation_level,
+            'average_confidence': {'score': round(average_confidence, 2), 'description': 'Average confidence score'},
+            'score': {'score': self.get_score(pronunciation_level), 'description': 'Score for pronunciation'},
+            'level': {'score': pronunciation_level, 'description': 'Level for pronunciation'},
         }
 
     def map_pronunciation_to_cefr(self, pronunciation_score):

@@ -33,7 +33,10 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
         total_score = 0
         ENGLISH_TOPICS = [self.vocabulary_stats, self.grammar_stats, self.fluency_stats, self.pronunciation_stats]
         for topic in ENGLISH_TOPICS:
-            self.total_score += topic['score']
+            if isinstance(topic['score'], dict):
+                self.total_score += topic['score']['score']
+            else:
+                self.total_score += topic['score']
 
         return self.total_score
 
@@ -52,7 +55,6 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
 
     def recognized_language(self):
         self.grade = self.get_grade_description(self.total_score)
-
 
     def to_dict(self):
         """Convert the result to a dictionary."""

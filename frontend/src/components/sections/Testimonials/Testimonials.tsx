@@ -3,9 +3,23 @@ import CustomSlider from "../../common/shared/CustomSlider";
 import data from './index.ts';
 import BorderBar from "../../decoration/BorderBar.tsx";
 import withScrollAnimation from "../../decoration/WithScrollAnimation.tsx";
+import SliderParent from "../../common/shared/SliderParent.tsx";
+import { useEffect, useState } from "react";
+import { getTestimonials } from "../../../services/Testimonials/TestimonialService.ts";
+import TestimonialTemplate from "./TestimonialItemTemplate.tsx";
+import TestimonialInterface from "../../../services/Testimonials/TestimonialInterface.ts";
+
 
 
 function TestimonialsContent() {
+    const [testimonials, setTestimonials] = useState<TestimonialInterface[]>([]);
+
+    useEffect(() => {
+        getTestimonials() 
+            .then((result) => {
+                setTestimonials(result.data);
+            })
+    }, [])
     return(
         <>
             <section className="pt-10">
@@ -14,7 +28,10 @@ function TestimonialsContent() {
                 </div>
 
                 <div className="relative bg-testimonial-texture bg-cover bg-center overlay">
-                    <CustomSlider slides={data} />
+                    <SliderParent 
+                        data={testimonials}    
+                        Component={TestimonialTemplate}
+                    />
                 </div>
                 
             </section>

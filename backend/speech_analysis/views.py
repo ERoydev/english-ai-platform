@@ -60,6 +60,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             })
 
         except Exception as e:
+            print('ERROR', e)
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
     def _load_audio_file(self, audio_file):
@@ -84,7 +85,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
         for field, score_key in field_map.items():
             history = getattr(profile, field) or []
-            history.append(language_scores[score_key]['level'])
+            history.append(language_scores[score_key]['level']['score'])
             setattr(profile, field, history[-10:])  # Keep only the last 10
 
         # Save the profile after all updates
@@ -108,6 +109,8 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
         for field in fields:
             history = getattr(profile, field, [])  # Get the last 10 levels for the field
+            numeric_levels = []
+
             numeric_levels = [level_mapping[level] for level in history if level in level_mapping]
 
             if numeric_levels:  # Avoid division by zero

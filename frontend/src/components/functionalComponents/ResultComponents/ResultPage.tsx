@@ -8,16 +8,17 @@ import ResultTitle from "./ResultTitle";
 import MinimalistInfo from "./MinimalistInfo";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import SliderParent from "../../common/shared/SliderParent";
+import TopicDisplayTemplate from "./TopicDisplayTemplate";
 
 
 export default function ResultPage() {
     const location = useLocation();
     const {data} = location.state || {};
     const userData = useSelector(state => state.auth.userInfo)
-    const [topicId, setTopicId] = useState(0);
 
-    console.log(data)
 
+    console.log(data.speech_scores.language_scores)
     return(
         <section>
             <BasePracticeApp />
@@ -26,8 +27,6 @@ export default function ResultPage() {
                 <div>
                     <Header title="Quiz result for " coloredText={userData.user?.email} size="text-3xl" coloredClass="secondary-header-color" />
                 </div>
-
-
 
                 {data.speech_scores && (
                     
@@ -40,31 +39,30 @@ export default function ResultPage() {
                             totalScore={`${data.speech_scores.language_scores.total_score}`}
                         />
 
-                        <div>
-                            <TopicSectionDisplay key={0} headerText={'Vocabulary'}>
-                                <ScoreItem title={'Unique Words'} main_text={data.speech_scores.language_scores.unique_words} info_text='words' description='words that are used only once'/>
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.vocabulary_stats.score} description='Score for vocabulary specific' />
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.vocabulary_stats.level} description='Level for vocabulary'/>
-                                <ScoreItem title={'Grammar Score'} main_text={data.speech_scores.language_scores.vocabulary_stats.lexical_diversity} description='How much of speech use unique words' percentage={true} />
-                            </TopicSectionDisplay>
-
+                        {/* <div>
                             <TopicSectionDisplay key={1} headerText={'Fluency'}>
-                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second} description='Count of words per second' />
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second} description='Words per second' />
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_stats.level} description='Level for fluency'/>
+                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second.score} description='Count of words per second' />
+                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second.score} description='Words per second' />
+                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_stats.level.score} description='Level for fluency'/>
                             </TopicSectionDisplay>
 
-                            <TopicSectionDisplay key={2} headerText={'Grammar'}>
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.grammar_stats.score} description='Score for grammar' />
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.grammar_stats.level} description='Level for grammar'/>
-                            </TopicSectionDisplay>
+                        </div> */}
 
-                            <TopicSectionDisplay key={3} headerText={'Pronunciation'}>
-                                <ScoreItem title={'Confidence'} main_text={data.speech_scores.language_scores.pronunciation_stats.average_confidence} description='Score for grammar' />
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.pronunciation_stats.score} description='Score for pronunciation'/>
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.pronunciation_stats.level} description='Level for pronunciation'/>
-                            </TopicSectionDisplay>
-                        </div>
+                        <SliderParent 
+                            data={data.speech_scores.language_scores}
+                            Component={TopicDisplayTemplate}
+                            title={{
+                                'vocabulary_stats': 'Vocabulary',
+                                'grammar_stats': 'Grammar',
+                                'fluency_stats': 'Fluency',
+                                'pronunciation_stats': 'Pronunciation',
+                                }
+                            }
+                            customClassNames={{
+                                slide: 'mb-20'
+                            }}
+                        />
+                        
                 
                     </div> 
                 )}

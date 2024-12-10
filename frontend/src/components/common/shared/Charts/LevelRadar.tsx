@@ -7,6 +7,8 @@ import {
   PolarAngleAxis,
   ResponsiveContainer,
 } from "recharts";
+import { getUserDetails } from "../../../../services/Auth/AuthService";
+import { useSelector } from "react-redux";
 
 const levelMapping: { [key: string]: number } = {
   A1: 1,
@@ -45,7 +47,17 @@ interface LevelRadarProps {
   parameters: { [key: string]: string[][] };
 }
 
-export default function LevelRadar({ parameters }: LevelRadarProps) {
+export default function LevelRadar() {
+  const userData = useSelector(state => state.auth.userInfo);
+
+  const parameters = {
+    'Vocabulary': [userData?.user?.profile.vocabulary_level],
+    'Grammar': [userData?.user?.profile.grammar_level],
+    'Fluency': [userData?.user?.profile.fluency_level],
+    'Pronunciation': [userData?.user?.profile.pronunciation_level],
+    'Proficiency': [userData?.user?.profile.proficiency_level]
+  }
+
   const radarData = transformData(parameters);
   const [outerRadius, setOuterRadius] = useState(() => {
     // Initialize based on current window size
