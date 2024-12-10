@@ -1,18 +1,20 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../../common/shared/Header/Header';
-import ScoreItem from './ScoreItem';
 import ScoreResult from '../ResultComponents/ScoreResult';
-import TopicSectionDisplay from '../ResultComponents/TopicSectionDisplay';
+import logger from '../../../logger';
+import SpeechScores from '../ResultComponents/components/SpeechScores';
 
 const SpeechAnalysis: React.FC = () => {
   const location = useLocation();
   const { audioBlob, analysis } = location.state || {};
 
-  console.log(analysis)
+  logger.log('RECEIVED Speech Analysis: ' + analysis)
+
+  console.log(analysis.language_scores)
 
   return (
-    <div className="py-16 px-20">
+    <div className="py-16 px-20 max-md:px-5">
       <Header title="IELTS Basic" size="text-2xl" customClass="mb-2 font-bold" />
 
       <div className="flex gap-5">
@@ -31,12 +33,11 @@ const SpeechAnalysis: React.FC = () => {
         totalScore={analysis.language_scores.total_score}
       />
 
-      <TopicSectionDisplay headerText={'Vocabulary'}>
-        <ScoreItem title={'Unique Words'} main_text={analysis.language_scores.unique_words} info_text='words' description='words that are used only once'/>
-        <ScoreItem title={'Score'} main_text={analysis.language_scores.vocabulary_stats.score} description='Score for vocabulary specific' />
-        <ScoreItem title={'Level'} main_text={analysis.language_scores.vocabulary_stats.level} description='Level for vocabulary'/>
-        <ScoreItem title={'Grammar Score'} main_text={analysis.language_scores.vocabulary_stats.lexical_diversity} description='How much of speech use unique words' percentage={true} />
-      </TopicSectionDisplay>
+      <div className='mb-32'>
+        <SpeechScores 
+          language_scores={analysis.language_scores}
+          />
+      </div>
 
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4 shadow-lg">
         <div className="flex flex-col items-center w-full">

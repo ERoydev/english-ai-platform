@@ -17,8 +17,6 @@ export default function ResultPage() {
     const {data} = location.state || {};
     const userData = useSelector(state => state.auth.userInfo)
 
-
-    console.log(data.speech_scores.language_scores)
     return(
         <section>
             <BasePracticeApp />
@@ -28,6 +26,8 @@ export default function ResultPage() {
                     <Header title="Quiz result for " coloredText={userData.user?.email} size="text-3xl" coloredClass="secondary-header-color" />
                 </div>
 
+
+                {/* TODO ADD SPEECH SCORES COMPONENT HERE */}
                 {data.speech_scores && (
                     
                     <div className="relative bg-blue-200 z-1 rounded-lg p-5 mb-5">
@@ -38,16 +38,7 @@ export default function ResultPage() {
                             gradeDescription={data.speech_scores.language_scores.grade.description}
                             totalScore={`${data.speech_scores.language_scores.total_score}`}
                         />
-
-                        {/* <div>
-                            <TopicSectionDisplay key={1} headerText={'Fluency'}>
-                                <ScoreItem title={'Words per sec'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second.score} description='Count of words per second' />
-                                <ScoreItem title={'Score'} main_text={data.speech_scores.language_scores.fluency_stats.words_per_second.score} description='Words per second' />
-                                <ScoreItem title={'Level'} main_text={data.speech_scores.language_scores.fluency_stats.level.score} description='Level for fluency'/>
-                            </TopicSectionDisplay>
-
-                        </div> */}
-
+                       
                         <SliderParent 
                             data={data.speech_scores.language_scores}
                             Component={TopicDisplayTemplate}
@@ -62,8 +53,7 @@ export default function ResultPage() {
                                 slide: 'py-0'
                             }}
                         />
-                        
-                
+                    
                     </div> 
                 )}
 
