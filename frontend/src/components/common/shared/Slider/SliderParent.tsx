@@ -39,8 +39,8 @@ export default function SliderParent({
     return(
         <div>
             <CustomSlider 
-                    slides={slides}
-                    customClassNames={customClassNames} // Pass custom class names if they exist
+                slides={slides}
+                customClassNames={customClassNames} // Pass custom class names if they exist
             />
         </div>
     );

@@ -13,11 +13,17 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const slideInterval = useRef<number | undefined>();
 
+  // Start the slide timer on mount
   useEffect(() => {
-    startSlideTimer();
-    return () => {
-      stopSlideTimer();
-    };
+    if (slides.length > 0) {
+      startSlideTimer(); // Start the timer only if slides are available
+    }
+    return () => stopSlideTimer(); // Cleanup on unmount
+  }, [slides]); // Re-run if slides change
+
+  // Ensure `onSlideChange` is called when `currentIndex` updates
+  useEffect(() => {
+    onSlideChange?.(currentIndex);
   }, [currentIndex]);
 
   const startSlideTimer = () => {

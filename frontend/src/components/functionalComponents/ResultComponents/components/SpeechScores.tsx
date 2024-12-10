@@ -8,7 +8,7 @@ export default function SpeechScores({
     language_scores
 }) {
     return(
-        <div className="relative bg-blue-200 z-1 rounded-lg p-5 mb-5">
+        <div className="relative bg-slate-200 z-1 rounded-2xl p-5 mb-5">
             <ResultTitle text="Speaking Exercise" />
         
             <ScoreResult
