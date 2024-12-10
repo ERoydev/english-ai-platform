@@ -1,6 +1,11 @@
-import { Component, useEffect, useState } from "react";
 import CustomSlider from "./CustomSlider";
-import { getTestimonials } from "../../../services/Testimonials/TestimonialService";
+import { CustomClassNames } from "./types";
+
+
+/*
+    Used as parent component to create slide and pass custom data to customSlider
+
+*/
 
 
 export default function SliderParent({
@@ -12,6 +17,7 @@ export default function SliderParent({
     data: any,
     Component: React.ComponentType<any>;
     title?: string[]
+    customClassNames?: CustomClassNames
 }) {   
     const filteredData = Object.entries(data).filter(([key]) => {
         // You can optionally add filtering logic here, e.g., filter by `title`
@@ -32,10 +38,9 @@ export default function SliderParent({
 
     return(
         <div>
-
             <CustomSlider 
                     slides={slides}
-                    customClassNames={customClassNames}
+                    customClassNames={customClassNames} // Pass custom class names if they exist
             />
         </div>
     );

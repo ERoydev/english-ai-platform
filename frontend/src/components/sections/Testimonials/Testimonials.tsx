@@ -1,9 +1,9 @@
 import Header from "../../common/shared/Header/Header.tsx";
-import CustomSlider from "../../common/shared/CustomSlider";
+import CustomSlider from "../../common/shared/Slider/CustomSlider.tsx";
 import data from './index.ts';
 import BorderBar from "../../decoration/BorderBar.tsx";
 import withScrollAnimation from "../../decoration/WithScrollAnimation.tsx";
-import SliderParent from "../../common/shared/SliderParent.tsx";
+import SliderParent from "../../common/shared/Slider/SliderParent.tsx";
 import { useEffect, useState } from "react";
 import { getTestimonials } from "../../../services/Testimonials/TestimonialService.ts";
 import TestimonialTemplate from "./TestimonialItemTemplate.tsx";

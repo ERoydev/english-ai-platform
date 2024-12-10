@@ -1,21 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CustomSliderProps } from "./types";
 
-interface Slide {
-  id: number;
-  content: React.ReactNode; // Accept any JSX content for each slide
-}
 
-interface CustomSliderProps {
-  slides: Slide[];
-  autoSlideInterval?: number; // Time interval for auto-sliding
-  renderNavigationDots?: boolean; // Option to render navigation dots
-  onSlideChange?: (index: number) => void; // Callback for slide change
-  customClassNames?: { // I can pass Custom class names to SliderParent which will be passed here when i want custom 'flex' related logic
-    container?: string;
-    slide?: string;
-    navigationDot?: string;
-  };
-}
 
 const CustomSlider: React.FC<CustomSliderProps> = ({
   slides,
@@ -62,7 +48,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
   return (
     <div
       className={`relative overflow-hidden ${
-        customClassNames.container || "h-[27rem]"
+        customClassNames.container || "h-[24rem] max-lg:h-[30rem]"
       }`}
     >
       {/* Slide Container */}

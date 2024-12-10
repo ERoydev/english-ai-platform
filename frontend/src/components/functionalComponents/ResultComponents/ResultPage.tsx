@@ -8,7 +8,7 @@ import ResultTitle from "./ResultTitle";
 import MinimalistInfo from "./MinimalistInfo";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import SliderParent from "../../common/shared/SliderParent";
+import SliderParent from "../../common/shared/Slider/SliderParent";
 import TopicDisplayTemplate from "./TopicDisplayTemplate";
 
 
@@ -59,7 +59,7 @@ export default function ResultPage() {
                                 }
                             }
                             customClassNames={{
-                                slide: 'mb-20'
+                                slide: 'py-0'
                             }}
                         />
                         

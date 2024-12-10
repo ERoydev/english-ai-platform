@@ -46,7 +46,7 @@ export default function TestimonialTemplate({
                     </div>
 
                     </div>
-                </div>
+            </div>
         </div>
     );
 }
