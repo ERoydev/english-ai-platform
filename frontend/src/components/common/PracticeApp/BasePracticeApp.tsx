@@ -7,9 +7,9 @@ import MobileButton from "../shared/Button/MobileButton";
 import Logo from "../shared/Logo/Logo";
 import MenuItem from "./reusable/MenuItem";
 import Button from "../shared/Button/Button";
+import { Icons } from "./index";
 import { Link } from "react-router-dom";
 import Path from "../../../Paths";
-import { Icons } from "./index";
 
 export default function BasePracticeApp() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -58,24 +58,22 @@ export default function BasePracticeApp() {
           
 
                     <ul className="space-y-4 font-medium flex-grow">
-                        <MenuItem label="Learning Modules" icon={Icons.LearningModule} />
+                        <MenuItem label="My Progress" icon={Icons.Progress} />
                         <MenuItem label="Goals and Achievements" icon={Icons.Goals} />
-                        <MenuItem label="Learning Paths" icon={Icons.LearningPaths} />
-                        <MenuItem label="Logout" icon={Icons.Logout}/>
 
-                        <hr className="border-2 border-gray-300 my-4" />
-
-                        <li className="flex flex-col justify-end items-center pt-5 flex-grow">
-                            <Button className="" label="Upgrade Plan" backgroundColor="bg-white" textColor="text-black" />
+                        <li>
+                            <Link to={Path.Pricing}>
+                                <MenuItem label="Update Plan" icon={Icons.UpdatePlan} />
+                            </Link>
                         </li>
 
-                        {isSidebarOpen &&
-                        (
-                        <Link to={Path.Home} className="flex flex-col justify-end items-center pt-5 flex-grow">
-                            <Button label="Back to Home" backgroundColor="bg-white" textColor="text-black"/>
-                        </Link>
-                        )
-                        }
+                        <li>
+                            <Link to={Path.Home}>
+                                <MenuItem label="Back to Home" icon={Icons.Home} />
+                            </Link>
+                        </li>
+
+                        <hr className="border-2 border-gray-300 my-4" />
                     </ul>
 
                 </div>

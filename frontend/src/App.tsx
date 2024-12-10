@@ -25,6 +25,8 @@ import Quiz from "./components/common/shared/Quiz/Quiz.tsx";
 import ResultPage from "./components/functionalComponents/ResultComponents/ResultPage.tsx";
 import AccountSettings from "./components/common/ProfilePage/components/AccountSettings.tsx";
 import ProfileSettings from "./components/common/ProfilePage/components/ProfileSettings.tsx";
+import PricingPage from "./components/pages/PricingPage.tsx";
+import NotFoundPage from "./components/pages/NotFoundPage.tsx";
 
 
 export default function App() {
@@ -53,6 +55,7 @@ export default function App() {
     Path.Practice.ListItem,
     Path.Practice.Quiz,
     Path.ResultPage,
+    
   ].includes(location.pathname);
 
   return (
@@ -61,6 +64,7 @@ export default function App() {
         {!isPracticeApp && <Navigation />}
         <Routes>
           <Route path={Path.Home} element={<Home />} />
+          <Route path={Path.Pricing} element={<PricingPage />} />
 
           {/* Practice App Routes */}
           <Route path={Path.PracticeApp} element={<AuthGuard><PracticeApp/></AuthGuard>} />
@@ -81,6 +85,9 @@ export default function App() {
           <Route path={Path.Signup} element={<AuthScreen authActionName="Sign up"/>} />
           <Route path={Path.Login} element={<AuthScreen authActionName="Login"/>} />
           <Route path={Path.Logout} element={<AuthGuard><Logout /></AuthGuard>} />
+
+          {/* Wildcard Route for 404 Page */}
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
         {shouldShowFooter() && <Footer />}
       </UserLoader>

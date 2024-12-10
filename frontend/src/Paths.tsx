@@ -5,6 +5,7 @@
 const Path = {
     Home: "/",
     PracticeApp: "/Practice&Quizzes",
+    Pricing: "/Pricing",
     Practice: {
         IELTS: "/Practice&Quizzes/IELTS",
         IeltsSpeaking: "/Practice&Quizzes/IELTS/Speaking",
