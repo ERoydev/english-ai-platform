@@ -23,16 +23,21 @@ class PronunciationCalculator(ScoringMixin):
         unique_words = len(set(words))
         vocab_richness = unique_words / total_words if total_words > 0 else 0
 
-        # Step 4: Aggregate metrics into a pronunciation score
+        # Step 4: Calculate articulation rate
+        articulation_rate = (average_confidence * words_per_second) if words_per_second > 0 else 0
+        articulation_rate = round(articulation_rate, 2)
+
+        # Step 5: Aggregate metrics into a pronunciation score
         pronunciation_score = round((words_per_second * 20 + vocab_richness * 40 + average_confidence * 40), 2)
 
-        # Step 5: Map pronunciation score to CEFR level
+        # Step 6: Map pronunciation score to CEFR level
         pronunciation_level = self.map_pronunciation_to_cefr(pronunciation_score)
 
         return {
-            'average_confidence': {'score': round(average_confidence, 2), 'description': 'Average confidence score'},
-            'score': {'score': self.get_score(pronunciation_level), 'description': 'Score for pronunciation'},
             'level': {'score': pronunciation_level, 'description': 'Level for pronunciation'},
+            'score': {'score': self.get_score(pronunciation_level), 'description': 'Score for pronunciation'},
+            'average_confidence': {'score': round(average_confidence, 2), 'description': 'Average confidence score'},
+            'articulation_rate': {'score': articulation_rate, 'description': 'Combination of fluency and clarity'},
         }
 
     def map_pronunciation_to_cefr(self, pronunciation_score):

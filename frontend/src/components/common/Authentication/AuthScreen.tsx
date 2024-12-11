@@ -38,6 +38,10 @@ export default function AuthScreen({
 
     const dispatch: AppDispatch = useDispatch();
 
+    const cleanAuthError = () => {
+        setAuthError('');
+    }
+
     useEffect(() => {
         if (isAuthenticated) {
             navigate(Path.Home);
@@ -88,6 +92,7 @@ export default function AuthScreen({
                             values={values}
                             onChange={onChange}
                             authError={authError}
+                            cleanAuthError={cleanAuthError}
                         />
                     </div>
                 </div>

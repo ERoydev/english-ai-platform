@@ -1,6 +1,7 @@
 import language_tool_python
 from ...mixins.ScoringMixin import ScoringMixin
 
+
 class GrammarCalculator(ScoringMixin):
     ERROR_WEIGHTS = {
         "TENSE": 3,  # Critical errors
@@ -28,6 +29,8 @@ class GrammarCalculator(ScoringMixin):
         matches = tool.check(text)
 
         total_weight = 0
+        total_sentences = len(text.split('.'))  # Basic sentence count based on periods
+        error_sentences = set()
 
         for match in matches:
             # Parse ruleId for category
@@ -36,6 +39,15 @@ class GrammarCalculator(ScoringMixin):
             # Add weighted score for this error
             weight = self.ERROR_WEIGHTS.get(category, self.ERROR_WEIGHTS["UNKNOWN"])
             total_weight += weight
+
+            # Track sentences with errors
+            if match.context:
+                error_sentences.add(match.context)
+
+        # Calculate grammar density
+        correct_sentences = total_sentences - len(error_sentences)
+        grammar_density = max(0, correct_sentences / total_sentences) if total_sentences > 0 else 0
+        grammar_density = round(grammar_density, 2)
 
         # Determine grammar level based on score
         for level, (min_score, max_score) in self.LEVEL_THRESHOLDS.items():
@@ -47,7 +59,8 @@ class GrammarCalculator(ScoringMixin):
 
         # Summary
         return {
-            "total_weight": {'score': total_weight, 'description': 'Weight of speech'},
-            "score": {'score': self.get_score(grammar_level), 'description': 'Score for grammar'},
-            "level": {'score': grammar_level, 'description': 'Level for grammar'},
+            "level": {'score': grammar_level, 'description': 'Grammar proficiency level'},
+            "score": {'score': self.get_score(grammar_level), 'description': 'Grammar proficiency score'},
+            "total_weight": {'score': total_weight, 'description': 'Total weighted errors in the text'},
+            "grammar_density": {'score': grammar_density, 'description': 'Ratio of correct sentences to total sentences'},
         }

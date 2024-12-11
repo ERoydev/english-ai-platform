@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Path from "../../../Paths";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { validatePassword } from "../../../utils/validations/PasswordValidation";
 import emailValidator from "../../../utils/validations/EmailValidation";
 import ErrorDisplay from "../../../utils/validations/ErrorDisplay";
@@ -11,17 +11,27 @@ export default function AuthForm({
     values,
     onChange,
     authError,
+    cleanAuthError,
 }:{
     onSubmitHandler: () => void;
     authActionName: string; // Correcting type to string
     onChange: (value: any) => void;
     authError: string;
+    cleanAuthError: () => void;
 }) {
     const [errors, setErrors] = useState<{email: string[], password: string[]}>(
     {
         email: [],
         password: [],
     });
+
+    const cleanErrors = () => {
+        cleanAuthError();
+        setErrors({
+            email: [],
+            password: [],
+        })
+    }
 
     const validateForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -147,7 +157,7 @@ export default function AuthForm({
 
                     {authActionName == 'Sign up' ? (
                         <p className="mt-6 text-sm text-gray-600 text-center">
-                            Already has an account <Link to={Path.Login}>
+                            Already has an account <Link to={Path.Login} onClick={cleanErrors}>
                                     <span className="border-b border-blue-600 text-md hover:cursor-pointer font-semibold hover:text-gray-500">
                                         Login instead.
                                     </span>
@@ -156,7 +166,7 @@ export default function AuthForm({
                         :
                         (
                         <p className="mt-6 text-sm text-gray-600 text-center">
-                            Don't have an account <Link to={Path.Signup}>
+                            Don't have an account <Link to={Path.Signup} onClick={cleanErrors}>
                                     <span className="border-b border-blue-600 text-md hover:cursor-pointer font-semibold hover:text-gray-500">
                                         Signup.
                                     </span>

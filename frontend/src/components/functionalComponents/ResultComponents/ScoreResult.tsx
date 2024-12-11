@@ -12,7 +12,7 @@ export default function ScoreResult({
 }) {
     return(
         <div className='secondary-window px-10 py-14 my-10 flex gap-10 justify-between items-center'>
-            <div className='flex flex-col gap-3'>
+            <div className='flex flex-col gap-5'>
 
                 <div className="flex gap-2">
                     <p className='text-md font-bold max-md:text-md'>Scores</p>

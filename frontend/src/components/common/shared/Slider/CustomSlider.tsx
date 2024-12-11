@@ -54,7 +54,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
   return (
     <div
       className={`relative overflow-hidden ${
-        customClassNames.container || "h-[24rem] max-lg:h-[30rem]"
+        customClassNames.container || "h-[24rem] max-lg:h-[34rem]"
       }`}
     >
       {/* Slide Container */}

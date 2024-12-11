@@ -37,10 +37,16 @@ class VocabularyCalculator(ScoringMixin):
         elif lexical_diversity >= 0.6 and base_level in ["B1", "B2"]:
             base_level = "B2" if base_level == "B1" else "C1"
 
+        # Calculate advanced word usage
+        advanced_words = len(classified_words["B2"]) + len(classified_words["C1"]) + len(classified_words["C2"])
+        advanced_word_usage = advanced_words / total_words if total_words > 0 else 0
+        advanced_word_usage = round(advanced_word_usage * 100, 2)  # Convert to percentage
+
         return {
-            'lexical_diversity': {'score': lexical_diversity, 'description': 'Words used only once'},
-            'score': {'score': self.get_score(base_level), 'description': 'Score for vocabulary'},
             'level': {'score': base_level, 'description': 'Level for vocabulary'},
+            'score': {'score': self.get_score(base_level), 'description': 'Score for vocabulary'},
+            'lexical_diversity': {'score': lexical_diversity, 'description': 'Percentage of unique words used'},
+            'advanced_word_usage': {'score': advanced_word_usage, 'description': 'Percentage of advanced words used'},
         }
 
     @staticmethod
@@ -70,4 +76,3 @@ class VocabularyCalculator(ScoringMixin):
                 classified_words["C2"].append(word)  # Default to C2 if not found
 
         return classified_words
-

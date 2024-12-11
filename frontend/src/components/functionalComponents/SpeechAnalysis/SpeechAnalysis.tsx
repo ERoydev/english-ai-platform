@@ -17,7 +17,7 @@ const SpeechAnalysis: React.FC = () => {
     <div className="py-16 px-20 max-md:px-5">
       <Header title="IELTS Basic" size="text-2xl" customClass="mb-2 font-bold" />
 
-      <div className="flex gap-5">
+      <div className="flex gap-5 mb-7">
         <p className='text-md'>
           <span className='text-gray-500 font-semibold'>Words:</span> <span className='font-bold text-md'>{analysis.analysis_result.basic_text_analyzer.word_count_analyzer}</span>
         </p>
@@ -26,12 +26,6 @@ const SpeechAnalysis: React.FC = () => {
           <span className='text-gray-500 font-semibold'>Duration:</span> <span className='font-bold text-md'>{analysis?.audio_duration}</span>
         </p>
       </div>
-
-      <ScoreResult 
-        gradeLevel={analysis.language_scores.grade.grade}
-        gradeDescription={analysis.language_scores.grade.description}
-        totalScore={analysis.language_scores.total_score}
-      />
 
       <div className='mb-32'>
         <SpeechScores 

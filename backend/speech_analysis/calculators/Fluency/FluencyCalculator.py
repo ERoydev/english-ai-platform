@@ -34,13 +34,19 @@ class FluencyCalculator(ScoringMixin):
 
         fluency_score = round(fluency_score, 2)
 
+        # Calculate speech density
+        # Speech density is words per second relative to typical maximum WPS
+        speech_density = min(1.0, words_per_second / typical_wps_max)
+        speech_density = round(speech_density, 2)
+
         # Map fluency score to CEFR level
         fluency_level = self.get_fluency_level(fluency_score)
 
         return {
-            'words_per_second': {'score': round(words_per_second, 2), 'description': 'Count of words per second'},
-            'score': {'score': self.get_score(fluency_level), 'description': 'Words per second'},
             'level': {'score': fluency_level, 'description': 'Level for fluency'},
+            'score': {'score': self.get_score(fluency_level), 'description': 'Words per second'},
+            'words_per_second': {'score': round(words_per_second, 2), 'description': 'Count of words per second'},
+            'speech_density': {'score': speech_density, 'description': 'Ratio of meaningful words to total audio duration'}
         }
 
     @staticmethod
