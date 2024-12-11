@@ -1,5 +1,6 @@
 from ...mixins.ScoringMixin import ScoringMixin
 
+
 class VocabularyCalculator(ScoringMixin):
 
     def calculate_vocabulary_level(self, lexical_diversity, classified_words):
@@ -20,16 +21,7 @@ class VocabularyCalculator(ScoringMixin):
         average_level_score = weighted_sum / total_words
 
         # Base level based on weighted average
-        if average_level_score < 2.5:
-            base_level = "A1"
-        elif 2.5 <= average_level_score < 4.0:
-            base_level = "B1"
-        elif 4.0 <= average_level_score < 5.5:
-            base_level = "B2"
-        elif 5.5 <= average_level_score < 6.5:
-            base_level = "C1"
-        else:
-            base_level = "C2"
+        base_level = self.calculate_base_level(average_level_score)
 
         # Add a lexical diversity boost
         if lexical_diversity >= 0.4 and base_level in ["A1", "B1"]:
@@ -38,16 +30,22 @@ class VocabularyCalculator(ScoringMixin):
             base_level = "B2" if base_level == "B1" else "C1"
 
         # Calculate advanced word usage
-        advanced_words = len(classified_words["B2"]) + len(classified_words["C1"]) + len(classified_words["C2"])
-        advanced_word_usage = advanced_words / total_words if total_words > 0 else 0
-        advanced_word_usage = round(advanced_word_usage * 100, 2)  # Convert to percentage
+        advanced_word_usage = self.calculate_advanced_word_usage(classified_words, total_words)
 
         return {
             'level': {'score': base_level, 'description': 'Level for vocabulary'},
             'score': {'score': self.get_score(base_level), 'description': 'Score for vocabulary'},
-            'lexical_diversity': {'score': lexical_diversity, 'description': 'Percentage of unique words used'},
-            'advanced_word_usage': {'score': advanced_word_usage, 'description': 'Percentage of advanced words used'},
+            'lexical_diversity': {'score': lexical_diversity, 'description': 'Percentage of unique words used', 'percentage': 'True'},
+            'advanced_word_usage': {'score': advanced_word_usage, 'description': 'Percentage of advanced words used', 'percentage': 'True', 'classified_words': classified_words},
         }
+
+    @staticmethod
+    def calculate_advanced_word_usage(classified_words, total_words):
+        # Calculate advanced word usage
+        advanced_words = len(classified_words["B2"]) + len(classified_words["C1"]) + len(classified_words["C2"])
+        advanced_word_usage = advanced_words / total_words if total_words > 0 else 0
+        advanced_word_usage = round(advanced_word_usage * 100, 2)  # Convert to percentage
+        return advanced_word_usage
 
     @staticmethod
     def calculate_lexical_diversity(words):
@@ -74,5 +72,21 @@ class VocabularyCalculator(ScoringMixin):
                 classified_words[level].append(word)
             else:
                 classified_words["C2"].append(word)  # Default to C2 if not found
-
         return classified_words
+
+
+
+    @staticmethod
+    def calculate_base_level(average_level_score):
+        if average_level_score < 2.5:
+            base_level = "A1"
+        elif 2.5 <= average_level_score < 4.0:
+            base_level = "B1"
+        elif 4.0 <= average_level_score < 5.5:
+            base_level = "B2"
+        elif 5.5 <= average_level_score < 6.5:
+            base_level = "C1"
+        else:
+            base_level = "C2"
+
+        return base_level
