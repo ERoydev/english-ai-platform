@@ -9,6 +9,7 @@ import TinyBarChart from '../../common/shared/Charts/TinyBarChart';
 import ResultTitle from '../ResultComponents/ResultTitle';
 import VocabularyChart from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
 import PieChartVocabulary from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
+import UsedWordsDisplay from '../ResultComponents/components/UsedWordsDisplay';
 
 const SpeechAnalysis: React.FC = () => {
   const location = useLocation();
@@ -50,9 +51,16 @@ const SpeechAnalysis: React.FC = () => {
       </div> */}
 
 
+      
+      <div className='flex max-lg:flex-col gap-10 mb-32'>
 
-      <div className='w-[50%] mb-32 max-lg:w-full'>
-        <PieChartVocabulary />
+        <div className='w-[50%] max-lg:w-full'>
+          <PieChartVocabulary />
+        </div>
+
+        <div className='w-[50%] max-lg:w-full'>
+          <UsedWordsDisplay classified_words={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words} />
+        </div>
       </div>
 
 

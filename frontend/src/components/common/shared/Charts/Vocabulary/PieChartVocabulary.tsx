@@ -25,11 +25,10 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AA80FF', '#FF8080'
 export default function PieChartVocabulary() {
   return (
     <div
-  style={{ height: 400 }}
-  className="border-2 border-slate-200 rounded-xl flex flex-col md:flex-row items-center justify-center md:justify-start"
+  className="border-window flex flex-col md:flex-row items-center justify-center md:justify-start h-[400px] max-lg:h-[500px]"
 >
   {/* Responsive Container for Chart */}
-  <ResponsiveContainer width="60%" height={300}>
+  <ResponsiveContainer width="50%" height={300}>
     <div className="w-full md:w-1/2 max-md:h-[400px] h-[300px] mx-auto flex items-center justify-center">
       <PieChart width={200} height={300}>
         <Pie
@@ -53,7 +52,7 @@ export default function PieChartVocabulary() {
   <div className="mt-4 md:mt-0 md:ml-4 w-full md:w-auto max-md:mb-20 flex max-md:justify-center">
     <ul className='text-center flex flex-col gap-2'>
       {data.map((item, index) => (
-        <li key={index} className="flex items-center gap-2 text-md max-xl:text-xs">
+        <li key={index} className="flex items-center gap-2 text-md max-2xl:text-xs">
           {/* Color indicator */}
           <span
             style={{
