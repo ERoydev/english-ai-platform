@@ -33,6 +33,11 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
         total_score = 0
         ENGLISH_TOPICS = [self.vocabulary_stats, self.grammar_stats, self.fluency_stats, self.pronunciation_stats]
         for topic in ENGLISH_TOPICS:
+            if not topic:
+                # If english is not recognized in this method init initializes stats with None meaning i cannot do addition operations bellow
+                # In views i have another if for this None inside update_profile_levels() function
+                continue
+
             if isinstance(topic['score'], dict):
                 self.total_score += topic['score']['score']
             else:
@@ -51,7 +56,7 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
     @classmethod
     def unrecognized_language(cls):
         """Factory method for unrecognized language result."""
-        return cls()
+        return cls( )
 
     def recognized_language(self):
         self.grade = self.get_grade_description(self.total_score)

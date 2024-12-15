@@ -32,7 +32,7 @@ def classify_cefr_by_log_frequency(log_freq, thresholds):
     """
     Classify a word's CEFR level based on its log frequency.
     """
-    if log_freq > thresholds['a1']:
+    if thresholds['a1'] < log_freq < thresholds['a2']:
         return "A1"
     elif log_freq > thresholds['a2']:
         return "A2"
@@ -44,6 +44,7 @@ def classify_cefr_by_log_frequency(log_freq, thresholds):
         return "C1"
     else:
         return "C2"
+
 
 # Apply classification
 thresholds = {

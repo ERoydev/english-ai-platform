@@ -75,7 +75,6 @@ class VocabularyCalculator(ScoringMixin):
         return classified_words
 
 
-
     @staticmethod
     def calculate_base_level(average_level_score):
         if average_level_score < 2.5:

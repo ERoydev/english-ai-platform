@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from pydub import AudioSegment
 import io
+import logging
 
 from accounts.models import Profile
 
@@ -60,7 +61,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             })
 
         except Exception as e:
-            print('ERROR', e)
+            logging.error(f'Error {e}')
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
     def _load_audio_file(self, audio_file):
@@ -84,6 +85,9 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
         }
 
         for field, score_key in field_map.items():
+            if not language_scores[score_key]:
+                # If its unrecognized English language the structure will be just None -> Check ScoreResultInterface
+                continue
             history = getattr(profile, field) or []
             history.append(language_scores[score_key]['level']['score'])
             setattr(profile, field, history[-10:])  # Keep only the last 10

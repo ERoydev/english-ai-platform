@@ -1,6 +1,7 @@
 from core.services.Email.EmailService import EmailService
 from django.conf import settings
 
+
 class ContactService(EmailService):
     SUBJECT_TEXT = 'Contact Form Message'
 

@@ -7,7 +7,8 @@ import SpeechScores from '../ResultComponents/components/SpeechScores';
 import LevelRadar from '../../common/shared/Charts/LevelRadar';
 import TinyBarChart from '../../common/shared/Charts/TinyBarChart';
 import ResultTitle from '../ResultComponents/ResultTitle';
-import VocabularyChart from '../../common/shared/Charts/VocabularyChart';
+import VocabularyChart from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
+import PieChartVocabulary from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
 
 const SpeechAnalysis: React.FC = () => {
   const location = useLocation();
@@ -41,17 +42,17 @@ const SpeechAnalysis: React.FC = () => {
         </div>
       </div>
 
-      <div className='bg-slate-200 rounded-xl px-14 py-24 max-md:p-5 relative flex'>
+      {/* <div className='bg-slate-200 rounded-xl px-14 py-24 max-md:p-5 relative flex'>
         <ResultTitle text="Classified used words" />
         <TinyBarChart 
           classifiedWords={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words}
           />
-      </div>
+      </div> */}
 
 
 
-      <div className='mb-32'>
-        <LevelRadar />
+      <div className='w-[50%] mb-32 max-lg:w-full'>
+        <PieChartVocabulary />
       </div>
 
 
