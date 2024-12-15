@@ -1,0 +1,10 @@
+BACKEND
+  1. Go to backend folder and install requirements.txt I have one in my original project but this is updated requrements.txt file
+  2. Setup your own database
+  3. Apply all migrations
+  4. Run this command in terminal `psql -U <database_user_name_here> -d <database_name_here> -f populate_data.sql`
+
+FRONTEND
+  1. Go to frontend folder 
+  2. in terminal type `npm i`
+  3. `npm run dev` to run the frontend
