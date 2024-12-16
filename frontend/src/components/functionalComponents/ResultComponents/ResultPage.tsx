@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import SliderParent from "../../common/shared/Slider/SliderParent";
 import TopicDisplayTemplate from "./TopicDisplayTemplate";
+import SpeechScores from "./components/SpeechScores";
+import WrappedChartsComponent from "../../common/shared/Charts/Vocabulary/WrappedChartsComponent";
 
 
 export default function ResultPage() {
@@ -27,34 +29,15 @@ export default function ResultPage() {
                 </div>
 
 
-                {/* TODO ADD SPEECH SCORES COMPONENT HERE */}
                 {data.speech_scores && (
+                    <>
+                    <SpeechScores language_scores={data.speech_scores.language_scores}/>
                     
-                    <div className="relative bg-slate-200 z-1 rounded-2xl p-5 mb-5">
-                        <ResultTitle text="Speaking Exercise" />
-                    
-                        <ScoreResult
-                            gradeLevel={data.speech_scores.language_scores.grade.grade}
-                            gradeDescription={data.speech_scores.language_scores.grade.description}
-                            totalScore={`${data.speech_scores.language_scores.total_score}`}
+                    <WrappedChartsComponent 
+                        language_scores={data.speech_scores.language_scores}
                         />
-                       
-                        <SliderParent 
-                            data={data.speech_scores.language_scores}
-                            Component={TopicDisplayTemplate}
-                            title={{
-                                'vocabulary_stats': 'Vocabulary',
-                                'grammar_stats': 'Grammar',
-                                'fluency_stats': 'Fluency',
-                                'pronunciation_stats': 'Pronunciation',
-                                }
-                            }
-                            customClassNames={{
-                                slide: 'py-0'
-                            }}
-                        />
-                    
-                    </div> 
+                    </>
+                   
                 )}
 
                 {data.quiz_scores && (

@@ -10,12 +10,12 @@ import ResultTitle from '../ResultComponents/ResultTitle';
 import VocabularyChart from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
 import PieChartVocabulary from '../../common/shared/Charts/Vocabulary/PieChartVocabulary';
 import UsedWordsDisplay from '../ResultComponents/components/UsedWordsDisplay';
+import WrappedChartsComponent from '../../common/shared/Charts/Vocabulary/WrappedChartsComponent';
 
 const SpeechAnalysis: React.FC = () => {
   const location = useLocation();
   const { audioBlob, analysis } = location.state || {};
 
-  logger.log('RECEIVED Speech Analysis: ' + analysis)
 
   return (
     <div className="py-16 px-20 max-md:px-5 flex flex-col gap-16">
@@ -41,18 +41,9 @@ const SpeechAnalysis: React.FC = () => {
         </div>
       </div>
       
-      <div className='flex max-lg:flex-col gap-10 mb-32'>
-
-        <div className='w-[50%] max-lg:w-full'>
-          <PieChartVocabulary 
-            classified_words={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words}
-          />
-        </div>
-
-        <div className='w-[50%] max-lg:w-full'>
-          <UsedWordsDisplay classified_words={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words} />
-        </div>
-      </div>
+      <WrappedChartsComponent 
+        language_scores={analysis.language_scores}
+      />
 
       {/* Listen Media File */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4 shadow-lg">
