@@ -1,66 +1,38 @@
 import pandas as pd
-import numpy as np
-from django.conf import settings
 import os
+from django.conf import settings
+import logging
 
-
-# Handle different environments
-if settings.STATIC_ROOT:  # Production
-    file_path = os.path.join(settings.STATIC_ROOT, 'vocabulary_dataset.csv')
-else:  # Development
-    file_path = os.path.join(settings.BASE_DIR, 'static', 'vocabulary_dataset.csv')
+# Paths for datasets
+primary_file_path = os.path.join(settings.STATIC_ROOT if settings.STATIC_ROOT else settings.BASE_DIR, 'static', 'cerf-vocabulary-dataset.csv')
+c1_c2_file_path = os.path.join(settings.STATIC_ROOT if settings.STATIC_ROOT else settings.BASE_DIR, 'static', 'cerf-vocabulary-c1c2.csv')
 
 try:
-    # Load the dataset
-    word_data = pd.read_csv(file_path)
-    print("Dataset loaded successfully!")
+    # Load the primary dataset
+    primary_data = pd.read_csv(primary_file_path)
+    logging.info("Primary dataset loaded successfully!")
 except FileNotFoundError as e:
-    print(f"File not found: {file_path}")
+    logging.error(f"Primary dataset not found: {primary_file_path}")
+    primary_data = pd.DataFrame()  # Fallback to an empty DataFrame
+
+try:
+    # Load the C1/C2 dataset
+    c1_c2_data = pd.read_csv(c1_c2_file_path)
+    logging.info("C1/C2 dataset loaded successfully!")
+except FileNotFoundError as e:
+    logging.error(f"C1/C2 dataset not found: {c1_c2_file_path}")
+    c1_c2_data = pd.DataFrame()  # Fallback to an empty DataFrame
+
+# Standardize column names in the C1/C2 dataset
+c1_c2_data.rename(columns={'headword': 'headword', 'pos': 'pos', 'CEFR': 'CEFR'}, inplace=True)
+
+# Combine datasets
+word_data = pd.concat([primary_data, c1_c2_data], ignore_index=True)
+
+# Drop duplicates
+word_data.drop_duplicates(subset=['headword', 'pos'], inplace=True)
 
 
-word_data['log_frequency'] = np.log10(word_data['count']) # Using logarithm to downscale my Big numbers to something simple
-
-
-a1_threshold = word_data['log_frequency'].quantile(0.90)  # Top 10%
-a2_threshold = word_data['log_frequency'].quantile(0.75)  # Top 25%
-b1_threshold = word_data['log_frequency'].quantile(0.50)  # Median
-b2_threshold = word_data['log_frequency'].quantile(0.25)  # Bottom 25%
-c1_threshold = word_data['log_frequency'].quantile(0.10)  # Bottom 10%
-
-
-def classify_cefr_by_log_frequency(log_freq, thresholds):
-    """
-    Classify a word's CEFR level based on its log frequency.
-    """
-    if thresholds['a1'] < log_freq < thresholds['a2']:
-        return "A1"
-    elif log_freq > thresholds['a2']:
-        return "A2"
-    elif log_freq > thresholds['b1']:
-        return "B1"
-    elif log_freq > thresholds['b2']:
-        return "B2"
-    elif log_freq > thresholds['c1']:
-        return "C1"
-    else:
-        return "C2"
-
-
-# Apply classification
-thresholds = {
-    'a1': a1_threshold,
-    'a2': a2_threshold,
-    'b1': b1_threshold,
-    'b2': b2_threshold,
-    'c1': c1_threshold
-}
-
-word_data['cefr_level'] = word_data['log_frequency'].apply(
-    lambda x: classify_cefr_by_log_frequency(x, thresholds)
-)
-
-
-
-# for index, row in word_data.iterrows():
-#     if row['cefr_level'] == 'B1':  # Accessing by column name
-#         print(row)
+# Save the combined dataset
+word_data.to_csv(os.path.join(settings.BASE_DIR, 'static', 'combined_cerf_vocabulary.csv'), index=False)
+logging.info("Combined dataset saved successfully!")
