@@ -58,3 +58,9 @@ thresholds = {
 word_data['cefr_level'] = word_data['log_frequency'].apply(
     lambda x: classify_cefr_by_log_frequency(x, thresholds)
 )
+
+
+
+# for index, row in word_data.iterrows():
+#     if row['cefr_level'] == 'B1':  # Accessing by column name
+#         print(row)

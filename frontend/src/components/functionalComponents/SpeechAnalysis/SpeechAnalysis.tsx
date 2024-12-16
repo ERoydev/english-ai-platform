@@ -17,8 +17,6 @@ const SpeechAnalysis: React.FC = () => {
 
   logger.log('RECEIVED Speech Analysis: ' + analysis)
 
-  console.log(analysis.language_scores)
-
   return (
     <div className="py-16 px-20 max-md:px-5 flex flex-col gap-16">
 
@@ -42,20 +40,13 @@ const SpeechAnalysis: React.FC = () => {
             />
         </div>
       </div>
-
-      {/* <div className='bg-slate-200 rounded-xl px-14 py-24 max-md:p-5 relative flex'>
-        <ResultTitle text="Classified used words" />
-        <TinyBarChart 
-          classifiedWords={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words}
-          />
-      </div> */}
-
-
       
       <div className='flex max-lg:flex-col gap-10 mb-32'>
 
         <div className='w-[50%] max-lg:w-full'>
-          <PieChartVocabulary />
+          <PieChartVocabulary 
+            classified_words={analysis.language_scores.vocabulary_stats.advanced_word_usage.classified_words}
+          />
         </div>
 
         <div className='w-[50%] max-lg:w-full'>
@@ -63,7 +54,7 @@ const SpeechAnalysis: React.FC = () => {
         </div>
       </div>
 
-
+      {/* Listen Media File */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4 shadow-lg">
         <div className="flex flex-col items-center w-full">
           <audio

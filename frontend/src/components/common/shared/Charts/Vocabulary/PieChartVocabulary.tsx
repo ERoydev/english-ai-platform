@@ -2,27 +2,22 @@ import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import level from './cerflevels'; // Human-readable level descriptions
 
-const classifiedWords = {
-  A1: ['I', 'want', 'to', 'see', 'the', 'my', 'statistics', 'that', 'I', 'created', 'to', 'classify', 'it', 'so', 'see', 'what', 'is', 'returned', 'from', 'my'],
-  A2: [],
-  B1: [],
-  B2: [],
-  C1: [],
-  C2: ['words,', "let's", 'backhand.'],
-};
 
-// Calculate total word count
-const totalWords = Object.values(classifiedWords).reduce((acc, words) => acc + words.length, 0);
+export default function PieChartVocabulary({
+  classified_words
+}) {
 
-// Transform classifiedWords into percentages for PieChart
-const data = Object.keys(classifiedWords).map((levelKey) => ({
-  name: levelKey,
-  value: totalWords > 0 ? Math.round((classifiedWords[levelKey].length / totalWords) * 100) : 0, // Calculate percentage
-}));
+    // Calculate total word count
+  const totalWords = Object.values(classified_words).reduce((acc, words) => acc + words.length, 0);
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AA80FF', '#FF8080'];
+  // Transform classifiedWords into percentages for PieChart
+  const data = Object.keys(classified_words).map((levelKey) => ({
+    name: levelKey,
+    value: totalWords > 0 ? Math.round((classified_words[levelKey].length / totalWords) * 100) : 0, // Calculate percentage
+  }));
 
-export default function PieChartVocabulary() {
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AA80FF', '#FF8080'];
+
   return (
     <div
   className="border-window flex flex-col md:flex-row items-center justify-center md:justify-start h-[400px] max-lg:h-[500px]"

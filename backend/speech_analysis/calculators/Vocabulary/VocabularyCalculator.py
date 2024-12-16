@@ -61,6 +61,7 @@ class VocabularyCalculator(ScoringMixin):
     def get_classified_words(words, word_data):
         """
         Classify words from a user's transcription into CEFR levels.
+        This function maps words into their according level!
         """
         classified_words = {"A1": [], "A2": [], "B1": [], "B2": [], "C1": [], "C2": []}
 
