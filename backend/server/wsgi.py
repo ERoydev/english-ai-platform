@@ -14,3 +14,19 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 
 application = get_wsgi_application()
+
+"""
+
+manage.py
+
+1. One instance of the project
+2. Hot reloading
+3. Serves static files
+
+gunicorn
+
+1. Specify how many workers you want
+2. No hot reload, totally stable
+3. Doesn't server static files
+
+"""
