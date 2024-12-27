@@ -1,4 +1,3 @@
-import textstat
 from langdetect import detect
 from .BaseLanguageCalculator import BaseLanguageCalculator
 from .ScoreResultInterface import ScoreResultInterface

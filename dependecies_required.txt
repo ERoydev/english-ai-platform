@@ -1,0 +1,2 @@
+1. Install ffmpeg (Audio duration feature) https://www.ffmpeg.org/download.html -> I have installed from here and configured in environment PATH on my windows
+2. Install Java to use language_tool_python used in Grammar

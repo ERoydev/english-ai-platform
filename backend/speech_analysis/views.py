@@ -1,4 +1,4 @@
-import whisper
+from whisper import load_model
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
@@ -11,13 +11,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from pydub import AudioSegment
+
 import io
 import logging
 
 from accounts.models import Profile
 
 # VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
-model = whisper.load_model("small")  # Load model globally to avoid reloading each time
+model = load_model("small")  # Load model globally to avoid reloading each time
 
 
 @method_decorator(csrf_exempt, name='dispatch')
