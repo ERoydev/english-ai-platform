@@ -1,4 +1,3 @@
-from whisper import load_model
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
@@ -17,8 +16,8 @@ import logging
 
 from accounts.models import Profile
 
-# VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
-model = load_model("small")  # Load model globally to avoid reloading each time
+# This loads whisper model in instance called `model`
+from .whisper_lang_loader import model
 
 
 @method_decorator(csrf_exempt, name='dispatch')

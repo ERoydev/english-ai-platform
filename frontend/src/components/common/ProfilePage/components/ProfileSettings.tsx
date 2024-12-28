@@ -65,6 +65,8 @@ export default function ProfileSettings() {
         formData || initialFormData // Use initialFormData as a fallback
     );
 
+    console.log(userData)
+
 
     return (
         <BaseProfile>
