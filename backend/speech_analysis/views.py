@@ -2,23 +2,25 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+
+# Custom
 from .calculators.LanguageCalculatorFactory import LanguageCalculatorFactory
 from .analyzer import analyze
 from .mixins.TranscriptionMixin import TranscriptionMixin
+from accounts.models import Profile
+
+# Rest
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from pydub import AudioSegment
 
-import io
 import logging
-
-from accounts.models import Profile
 
 # This loads whisper model in instance called `model`
 from .whisper_lang_loader import model
 
+from .utils import load_audio_file
 
 @method_decorator(csrf_exempt, name='dispatch')
 class AnalyzeAudioView(APIView, TranscriptionMixin):
@@ -35,7 +37,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
         # Create a temporary file without auto-deletion
         try:
-            audio = self._load_audio_file(audio_file)
+            audio = load_audio_file(audio_file)
             audio_duration = len(audio) / 1000.0  # Duration in seconds
 
             # Reset the file pointer before passing to transcribe_audio because .read() consumes the file.
@@ -64,17 +66,6 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             logging.error(f'Error {e}')
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
-    def _load_audio_file(self, audio_file):
-        """
-        Load audio file into a format that can be processed by Whisper
-        Used to get my audio duration
-        """
-        try:
-            # Convert the file to a byte stream and load it with pydub
-            audio = AudioSegment.from_file(io.BytesIO(audio_file.read()))
-            return audio
-        except Exception as e:
-            raise ValueError(f"Error loading audio file: {str(e)}")
 
     def update_profile_levels(self, profile, language_scores):
         field_map = {
