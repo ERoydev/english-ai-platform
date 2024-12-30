@@ -71,4 +71,11 @@ Make sure you have the following installed on your machine:
 
 ![Screenshot 2024-08-13 152852](https://github.com/user-attachments/assets/3ae778ed-2aea-4b23-b2ba-b5399e399960)
 
+## License
+
+This project is proprietary and all rights are reserved.  
+You may not copy, modify, or distribute this code without prior written permission from the author.
+
+Unauthorized use, especially for commercial purposes, is strictly prohibited and may result in legal action.
+
    
