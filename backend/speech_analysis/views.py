@@ -53,16 +53,9 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
             profile = get_object_or_404(Profile, pk=self.request.user.pk)
 
-            # After moving functions
+            # Update profile properties
             Profile.update_profile_speaking_time(profile, audio_duration)
             Profile.update_profile_levels(profile, language_score)
-
-            """
-                I have removed my [.update_profile, .update_profile_speaking_time] functions from this view to Profile model
-                When you approve that this change works as expected delete these rows.
-            """
-            # self.update_profile_speaking_time(profile, audio_duration)
-            # self.update_profile_levels(profile, language_score)
 
             return Response({
                 'transcription': transcription,
@@ -75,33 +68,6 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             logging.error(f'Error {e}')
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
-    # TODO: MOVE THIS TO PROFILE MODEL-> DELETE AFTER IS CONFIRMED
-    # def update_profile_levels(self, profile, language_scores):
-    #     field_map = {
-    #         'fluency_level': 'fluency_stats',
-    #         'grammar_level': 'grammar_stats',
-    #         'vocabulary_level': 'vocabulary_stats',
-    #         'pronunciation_level': 'pronunciation_stats'
-    #     }
-    #
-    #     for field, score_key in field_map.items():
-    #         if not language_scores[score_key]:
-    #             # If its unrecognized English language the structure will be just None -> Check ScoreResultInterface
-    #             continue
-    #         history = getattr(profile, field) or []
-    #         history.append(language_scores[score_key]['level']['score'])
-    #         setattr(profile, field, history[-10:])  # Keep only the last 10
-
-        # Save the profile after all updates
-        # overall_level = self.calculate_combined_level(profile)
-        # profile.proficiency_level = overall_level
-        # profile.save()
-    # --------------------------------------------------------------------- TO BE REMOVED
-
-    # TODO: MOVE THIS TO PROFILE MODEL-> DELETE AFTER IS CONFIRMED
-    # def update_profile_speaking_time(self, profile, audio_duration):
-    #     profile.speaking_time += audio_duration
-    #     profile.save()
 
     @staticmethod
     def calculate_combined_level(profile):
