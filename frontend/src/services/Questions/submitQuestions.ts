@@ -4,6 +4,8 @@ import { checkIfTokenExist } from "../AuthorizationTokenMixin";
 import AnswerDataInterface from "../../types/Quiz/AnswerDataInterface";
 import { formatTimeForDjango } from "../../utils/formatTimeForDjango";
 import logger from "../../logger";
+import { loadUserFromToken } from "../../store/Auth/authActions";
+import store from "../../store/store";
 
 const baseApiUrl: string = `${baseUrl}/scoring/`;
 
@@ -35,6 +37,10 @@ export const submitQuestions = async (answers: AnswerDataInterface, time_duratio
         
         });
         logger.info("Submited quiz successfully!")
+
+        // I do this to change the userData inside my redux Store 
+        await store.dispatch(loadUserFromToken(token))
+
         return response.data;
     } catch (err) {
         logger.error("Error occured in submitQuestion service " + err)
