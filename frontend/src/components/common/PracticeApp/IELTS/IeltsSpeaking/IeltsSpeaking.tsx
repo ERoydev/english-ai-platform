@@ -25,9 +25,32 @@ export default function IeltsSpeaking() {
                 <Navigation />
             </div>
 
-            {!isLoading && (
-                <InteractiveLoader />
+            {isLoading && (
+                <div>
+                    <InteractiveLoader />
+                </div>
             )}
+
+            {!isLoading && (
+                <div className="flex-grow flex items-center justify-center">
+                    <div className="w-full px-5 py-14 text-center">
+                        {/* Question */}
+                        <div className="mb-52">
+                            <h1 className="font-semibold info-text text-lg mb-10">
+                                {chapter1[currentChapterIndex].title}
+                            </h1>
+                            <p className=" font-bold text-3xl">
+                                {chapter1[currentChapterIndex].questions[currentQuestionIndex]}
+                            </p>
+
+                            <p className="text-sm text-slate-400">The longer you talk the better</p>
+                        </div>
+                        {/* Recording Component with timer and FN from my custom hook is used here  */}
+                        <RecordingComponent nextButtonHandler={nextButtonHandler} isFinished={isFinished} startLoading={startLoading} stopLoading={stopLoading}/>
+                    </div>
+                </div>
+            )}
+      
 
         </section>
 

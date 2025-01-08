@@ -78,7 +78,8 @@ class Profile(models.Model):
         auto_now=True,
     )
 
-    def update_profile_levels(self, profile, language_scores):
+    @staticmethod
+    def update_profile_levels(profile, language_scores):
         field_map = {
             'fluency_level': 'fluency_stats',
             'grammar_level': 'grammar_stats',
@@ -94,6 +95,7 @@ class Profile(models.Model):
             history.append(language_scores[score_key]['level']['score'])
             setattr(profile, field, history[-10:])  # Keep only the last 10
 
-    def update_profile_speaking_time(self, profile, audio_duration):
+    @staticmethod
+    def update_profile_speaking_time(profile, audio_duration):
         profile.speaking_time += audio_duration
         profile.save()
