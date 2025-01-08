@@ -1,25 +1,26 @@
-from whisper import load_model
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+
+# Custom
 from .calculators.LanguageCalculatorFactory import LanguageCalculatorFactory
 from .analyzer import analyze
 from .mixins.TranscriptionMixin import TranscriptionMixin
+from accounts.models import Profile
+
+# Rest
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from pydub import AudioSegment
 
-import io
 import logging
 
-from accounts.models import Profile
+# This loads whisper model in instance called `model`
+from .whisper_lang_loader import model
 
-# VERY IMPORTANT THIS IS THE LINE THAT LOADS THE MODEL SIZE FROM WHISPER
-model = load_model("small")  # Load model globally to avoid reloading each time
-
+from .utils import load_audio_file
 
 @method_decorator(csrf_exempt, name='dispatch')
 class AnalyzeAudioView(APIView, TranscriptionMixin):
@@ -36,7 +37,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
         # Create a temporary file without auto-deletion
         try:
-            audio = self._load_audio_file(audio_file)
+            audio = load_audio_file(audio_file)
             audio_duration = len(audio) / 1000.0  # Duration in seconds
 
             # Reset the file pointer before passing to transcribe_audio because .read() consumes the file.
@@ -51,8 +52,10 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             language_score = language_calculator.calculate_score()
 
             profile = get_object_or_404(Profile, pk=self.request.user.pk)
-            self.update_profile_speaking_time(profile, audio_duration)
-            self.update_profile_levels(profile, language_score)
+
+            # Update profile properties
+            Profile.update_profile_speaking_time(profile, audio_duration)
+            Profile.update_profile_levels(profile, language_score)
 
             return Response({
                 'transcription': transcription,
@@ -65,42 +68,6 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             logging.error(f'Error {e}')
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
-    def _load_audio_file(self, audio_file):
-        """
-        Load audio file into a format that can be processed by Whisper
-        Used to get my audio duration
-        """
-        try:
-            # Convert the file to a byte stream and load it with pydub
-            audio = AudioSegment.from_file(io.BytesIO(audio_file.read()))
-            return audio
-        except Exception as e:
-            raise ValueError(f"Error loading audio file: {str(e)}")
-
-    def update_profile_levels(self, profile, language_scores):
-        field_map = {
-            'fluency_level': 'fluency_stats',
-            'grammar_level': 'grammar_stats',
-            'vocabulary_level': 'vocabulary_stats',
-            'pronunciation_level': 'pronunciation_stats'
-        }
-
-        for field, score_key in field_map.items():
-            if not language_scores[score_key]:
-                # If its unrecognized English language the structure will be just None -> Check ScoreResultInterface
-                continue
-            history = getattr(profile, field) or []
-            history.append(language_scores[score_key]['level']['score'])
-            setattr(profile, field, history[-10:])  # Keep only the last 10
-
-        # Save the profile after all updates
-        overall_level = self.calculate_combined_level(profile)
-        profile.proficiency_level = overall_level
-        profile.save()
-
-    def update_profile_speaking_time(self, profile, audio_duration):
-        profile.speaking_time += audio_duration
-        profile.save()
 
     @staticmethod
     def calculate_combined_level(profile):
