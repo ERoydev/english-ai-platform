@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 # Application definition
 
 MY_APPS = [
-    'roles',
     'accounts',
+    'roles',
     'speech_analysis',
     'questions',
     'scoring',
@@ -190,6 +190,10 @@ SPECTACULAR_SETTINGS = {
 
 SPEECH_ANALYSIS_URL = "http://127.0.0.1:8000/speech_analysis/"
 
+# CELERY CONFIGURATION
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 
 # EMAIL CONFIGURATION FOR EMAIL ( SMTP CONFIGURATION FOR GMAIL )
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

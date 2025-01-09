@@ -28,6 +28,7 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
         self.unique_words: int = unique_words
         self.total_score = 0 # DEFAULT VALUE
         self.overall_level = 'A1'
+        self.is_language_recognized = False
 
     def calculate_total_score(self):
         total_score = 0
@@ -60,6 +61,7 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
 
     def recognized_language(self):
         self.grade = self.get_grade_description(self.total_score)
+        self.is_language_recognized = True
 
     def to_dict(self):
         """Convert the result to a dictionary."""
@@ -72,4 +74,5 @@ class ScoreResultInterface(GradeMixin, ScoringMixin):
             'overall_level': self.get_overall_level(),
             'grade': self.get_grade_description(self.overall_level),
             'unique_words': self.unique_words,
+            'is_language_recognized': self.is_language_recognized,
         }

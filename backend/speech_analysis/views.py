@@ -17,6 +17,7 @@ from rest_framework.response import Response
 
 import logging
 
+from .tasks import analyze_speech
 # This loads whisper model in instance called `model`
 from .whisper_lang_loader import model
 
@@ -28,6 +29,7 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        # analyze_speech().delay()
         # Check if 'audio' file and 'audio_duration' are provided in the request
 
         if 'audio' not in request.FILES:
@@ -68,31 +70,31 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
             logging.error(f'Error {e}')
             return Response({'error': 'Transcription failed', 'details': str(e)}, status=500)
 
-    # @staticmethod
-    # def calculate_combined_level(profile):
-    #     # Mapping of levels to numeric values
-    #     level_mapping = {'A1': 1, 'A2': 2, 'B1': 3, 'B2': 4, 'C1': 5, 'C2': 6}
-    #     reverse_mapping = {v: k for k, v in level_mapping.items()}
-    #
-    #     # Get all fields and calculate averages
-    #     fields = ['fluency_level', 'grammar_level', 'vocabulary_level', 'pronunciation_level']
-    #     field_averages = []
-    #
-    #     for field in fields:
-    #         history = getattr(profile, field, [])  # Get the last 10 levels for the field
-    #         numeric_levels = []
-    #
-    #         numeric_levels = [level_mapping[level] for level in history if level in level_mapping]
-    #
-    #         if numeric_levels:  # Avoid division by zero
-    #             average = sum(numeric_levels) / len(numeric_levels)
-    #             field_averages.append(average)
-    #
-    #     # Calculate the overall average of all field averages
-    #     if field_averages:  # Avoid division by zero
-    #         overall_average = sum(field_averages) / len(field_averages)
-    #         overall_level = reverse_mapping[round(overall_average)]
-    #     else:
-    #         overall_level = None  # No valid levels to calculate from
-    #
-    #     return overall_level
+    @staticmethod
+    def calculate_combined_level(profile):
+        # Mapping of levels to numeric values
+        level_mapping = {'A1': 1, 'A2': 2, 'B1': 3, 'B2': 4, 'C1': 5, 'C2': 6}
+        reverse_mapping = {v: k for k, v in level_mapping.items()}
+
+        # Get all fields and calculate averages
+        fields = ['fluency_level', 'grammar_level', 'vocabulary_level', 'pronunciation_level']
+        field_averages = []
+
+        for field in fields:
+            history = getattr(profile, field, [])  # Get the last 10 levels for the field
+            numeric_levels = []
+
+            numeric_levels = [level_mapping[level] for level in history if level in level_mapping]
+
+            if numeric_levels:  # Avoid division by zero
+                average = sum(numeric_levels) / len(numeric_levels)
+                field_averages.append(average)
+
+        # Calculate the overall average of all field averages
+        if field_averages:  # Avoid division by zero
+            overall_average = sum(field_averages) / len(field_averages)
+            overall_level = reverse_mapping[round(overall_average)]
+        else:
+            overall_level = None  # No valid levels to calculate from
+
+        return overall_level

@@ -8,7 +8,6 @@ export default function SpeechScores({
     language_scores
 }) {
 
-    console.log(language_scores)
     return(
         <div className="relative bg-slate-200 z-1 rounded-2xl p-5 mb-5">
             <ResultTitle text="Speaking Exercise" />
@@ -19,20 +18,22 @@ export default function SpeechScores({
                 totalScore={`${language_scores.total_score}`}
             />
             
-            <SliderParent
-                data={language_scores}
-                Component={TopicDisplayTemplate}
-                title={{
-                    'vocabulary_stats': 'Vocabulary',
-                    'grammar_stats': 'Grammar',
-                    'fluency_stats': 'Fluency',
-                    'pronunciation_stats': 'Pronunciation',
+            {language_scores.is_language_recognized == true && (
+                <SliderParent
+                    data={language_scores}
+                    Component={TopicDisplayTemplate}
+                    title={{
+                        'vocabulary_stats': 'Vocabulary',
+                        'grammar_stats': 'Grammar',
+                        'fluency_stats': 'Fluency',
+                        'pronunciation_stats': 'Pronunciation',
+                        }
                     }
-                }
-                customClassNames={{
-                    slide: 'py-0'
-                }}
-            />
+                    customClassNames={{
+                        slide: 'py-0'
+                    }}
+                />
+            )}
         
         </div> 
     );
