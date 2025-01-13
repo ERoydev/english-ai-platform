@@ -1,5 +1,7 @@
 # AI English Learning Platform
 
+# Paused till i develop Celery in Rust for async requests
+
 Welcome to the **AI English Learning Platform**! This project aims to create an intelligent platform for learning English, leveraging the power of Artificial Intelligence (AI) to provide personalized lessons, quizzes, and practice sessions. The platform will be implemented using React for the frontend and Django for the backend.
 
 ## Table of Contents
