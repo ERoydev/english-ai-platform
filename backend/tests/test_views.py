@@ -16,3 +16,6 @@ class TestViews(TestCase):
 
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+    def test(self):
+        pass
