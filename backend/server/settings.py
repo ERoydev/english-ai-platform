@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'roles',
     'speech_analysis',
     'questions',
-    ''
     'scoring.apps.ScoringConfig',
     'core',
     'drf_spectacular', # for swagger
@@ -100,11 +99,11 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config('DATABASE_NAME'),
+        "NAME": "ai_english",
         "USER": config('DATABASE_USER'),
         "PASSWORD": config('DATABASE_PASSWORD'),
-        "HOST": config('DATABASE_HOST'),
-        "PORT": config('DATABASE_PORT'),
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
