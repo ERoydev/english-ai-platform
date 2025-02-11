@@ -8,26 +8,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
     env:
       DATABASE_USER: test_user
       DATABASE_PASSWORD: test_password
 
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
+        image: postgres:13
         env:
-          POSTGRES_USER: ${{ env.DATABASE_USER }}
-          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
-        # Set health checks to wait until postgres has started
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: ai_english
+        ports:
+          - 5432:5432
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
+          --health-cmd "pg_isready -U test_user" 
+          --health-interval 10s 
+          --health-timeout 5s 
           --health-retries 5
 
     defaults:
@@ -35,25 +34,22 @@ jobs:
         working-directory: backend
 
     steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-      
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.12.5
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install/Upgrade pip
-      run: python -m pip install --upgrade pip
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.12.5
 
-    - name: Install Dependencies
-      run: pip install -r requirements.txt
-        
-    - name: Run Tests
-      env:
-        DATABASE_USER: ${{ secrets.DATABASE_USER }}
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-        EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+      - name: Install/Upgrade pip
+        run: python -m pip install --upgrade pip
 
-      run: python manage.py test tests
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        env:
+          DATABASE_USER: test_user
+          DATABASE_PASSWORD: test_password
+        run: python manage.py test tests
