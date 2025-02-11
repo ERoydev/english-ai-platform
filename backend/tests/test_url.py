@@ -3,7 +3,6 @@ from django.urls import resolve, reverse
 from speech_analysis.views import AnalyzeAudioView
 from accounts.views import LoginView, LogoutView, ChangePassword, GetUserDetails, SignupView, TestTokenView, DeleteUser
 
-
 class TestUrls(SimpleTestCase):
 
     def test_speech_analysis_url_is_resolved(self):

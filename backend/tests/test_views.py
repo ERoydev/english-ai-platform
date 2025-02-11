@@ -1,20 +1,18 @@
-from django.test import Client, TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
+import os
 UserModel = get_user_model()
 
 class TestViews(TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = APIClient()
         # Create a test user
         self.user = UserModel.objects.create_user(email='testuser@abv.bg', password='secret')
 
-    def test_speech_analysis_GET(self):
-        logged_in = self.client.login(email='testuser@abv.bg', password='secret')
-
-        self.assertTrue(logged_in, "Login failed, check your credentials")
-
-        response = self.client.get(reverse('analyze_audio'))
-        print(response)
-
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)

@@ -1,0 +1,79 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
+from django.urls import reverse
+from django.contrib.auth import get_user_model
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
+import os
+
+UserModel = get_user_model()
+
+class TestSpeechAnalysis(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        # Create a test user
+        self.user = UserModel.objects.create_user(email='testuser@abv.bg', password='secret')
+
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.url = reverse('analyze_audio')
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_dir, 'test_audio.wav')
+
+        with open(file_path, 'rb') as f:
+            audio_content = f.read()
+
+        audio_file = SimpleUploadedFile(
+            name='test_audio.wav',
+            content=audio_content,
+            content_type='audio/wav'
+        )
+
+        self.data = {'audio': audio_file}
+
+    def test_speech_analysis_without_audio_should_return_400_bad_request(self):
+        response = self.client.post(reverse('analyze_audio'))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        json_response = response.json()
+        self.assertEqual(json_response['error'], "Missing audio file")
+
+    def test_speech_analysis_should_return_response_with_all_objects(self):
+        response = self.client.post(self.url, self.data, format='multipart')
+
+        json_response = response.json()
+        transcription = json_response['transcription']
+        analysis_result = json_response['analysis_result']
+        audio_duration = json_response['audio_duration']
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(transcription, " Hello, I want to test the functionality of my website. Let's find out what is going to be the result of this speech.")
+        self.assertEqual(analysis_result,{'basic_text_analyzer': {'sentence_count_analyzer': 2, 'word_count_analyzer': 23}})
+        self.assertEqual(audio_duration, 9.3)
+
+    def test_speech_analysis_language_score_all_stats_objects_should_be_valid(self):
+        response = self.client.post(self.url, self.data, format='multipart')
+
+        json_response = response.json()
+        fluency_stats = json_response['language_scores']['fluency_stats']
+        vocabulary_stats = json_response['language_scores']['vocabulary_stats']
+        grammar_stats = json_response['language_scores']['grammar_stats']
+        pronunciation_stats = json_response['language_scores']['pronunciation_stats']
+        total_score = json_response['language_scores']['total_score']
+        overall_level = json_response['language_scores']['overall_level']
+        grade = json_response['language_scores']['grade']
+        unique_words = json_response['language_scores']['unique_words']
+        is_language_recognized = json_response['language_scores']['is_language_recognized']
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(fluency_stats, {'level': {'score': 'C2', 'description': 'Level for fluency'}, 'score': {'score': 50, 'description': 'Words per second'}, 'words_per_second': {'score': 2.47, 'description': 'Count of words per second'}, 'speech_density': {'score': 0.82, 'description': 'Ratio of meaningful words to total audio duration'}})
+        self.assertEqual(vocabulary_stats, {'level': {'score': 'B2', 'description': 'Level for vocabulary'}, 'score': {'score': 30, 'description': 'Score for vocabulary'}, 'lexical_diversity': {'score': 86.96, 'description': 'Percentage of unique words used', 'percentage': 'True'}, 'advanced_word_usage': {'score': 30.43, 'description': 'Percentage of advanced words used', 'percentage': 'True', 'classified_words': {'A1': ['I', 'to', 'test', 'the', 'of', 'my', 'find', 'out', 'what', 'is', 'to', 'be', 'the', 'result', 'of', 'this'], 'A2': [], 'B1': [], 'B2': ['want', 'functionality'], 'C1': [], 'C2': ['Hello,', 'website.', "Let's", 'going', 'speech.']}}})
+        self.assertEqual(grammar_stats, {'level': {'score': 'C2', 'description': 'Grammar proficiency level'}, 'score': {'score': 50, 'description': 'Grammar proficiency score'}, 'total_weight': {'score': 0, 'description': 'Total weighted errors in the text'}, 'grammar_density': {'score': 1.0, 'description': 'Ratio of correct sentences to total sentences'}})
+        self.assertEqual(pronunciation_stats, {'level': {'score': 'C2', 'description': 'Level for pronunciation'}, 'score': {'score': 50, 'description': 'Score for pronunciation'}, 'average_confidence': {'score': 0.85, 'description': 'Average confidence score'}, 'articulation_rate': {'score': 19.55, 'description': 'Combination of fluency and clarity'}})
+        self.assertEqual(total_score, 180)
+        self.assertEqual(unique_words, 20)
+        self.assertEqual(overall_level, 'C1')
+        self.assertEqual(grade, {'grade': 'C1', 'description': 'Very Good - You have a strong command of English. You can communicate comfortably and handle complex conversations with ease, though minor errors may occur occasionally. Your vocabulary is broad, and your sentences are well-structured. You may benefit from refining your grammar for advanced fluency but are otherwise a proficient communicator.'})
+        self.assertEqual(True, is_language_recognized)
