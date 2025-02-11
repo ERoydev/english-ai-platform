@@ -17,7 +17,6 @@ from rest_framework.response import Response
 
 import logging
 
-from .tasks import analyze_speech
 # This loads whisper model in instance called `model`
 from .whisper_lang_loader import model
 

@@ -58,8 +58,8 @@ export default function BasePracticeApp() {
           
 
                     <ul className="space-y-4 font-medium flex-grow">
-                        <MenuItem label="My Progress" icon={Icons.Progress} />
-                        <MenuItem label="Goals and Achievements" icon={Icons.Goals} />
+                        {/* <MenuItem label="My Progress" icon={Icons.Progress} />
+                        <MenuItem label="Goals and Achievements" icon={Icons.Goals} /> */}
 
                         <li>
                             <Link to={Path.Pricing}>

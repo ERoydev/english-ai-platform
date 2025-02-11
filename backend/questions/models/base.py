@@ -10,6 +10,7 @@ class DifficultyChoices(models.TextChoices):
 class Question(models.Model):
     class Meta:
         abstract = True
+        app_label = 'questions'
 
     question_text = models.TextField()
     media_prompt = models.URLField(null=True, blank=True)  # YouTube or other media URLs

@@ -30,17 +30,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
-
-MY_APPS = [
-    'accounts',
-    'roles',
-    'speech_analysis',
-    'questions',
-    'scoring',
-    'core',
-    'drf_spectacular', # for swagger
-]
-
 INSTALLED_APPS = [
     'jazzmin', # JAZZMIN Customization for admin
     'django.contrib.admin',
@@ -54,7 +43,18 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
 
-] + MY_APPS
+    # My apps
+    'accounts',
+    'roles',
+    'speech_analysis',
+    'questions',
+    ''
+    'scoring.apps.ScoringConfig',
+    'core',
+    'drf_spectacular', # for swagger
+
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -203,3 +203,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+# settings.py
+TEST_DISCOVER_PATTERN = "test_*.py"
