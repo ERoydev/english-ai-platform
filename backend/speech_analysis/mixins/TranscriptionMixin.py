@@ -2,7 +2,7 @@ import tempfile
 import whisper
 import os
 
-model = whisper.load_model("base")  # Load model globally to avoid reloading each time
+model = whisper.load_model("small")  # Load model globally to avoid reloading each time
 
 
 class TranscriptionMixin:

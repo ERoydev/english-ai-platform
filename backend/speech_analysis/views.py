@@ -17,9 +17,6 @@ from rest_framework.response import Response
 
 import logging
 
-# This loads whisper model in instance called `model`
-from .whisper_lang_loader import model
-
 from .utils import load_audio_file
 
 @method_decorator(csrf_exempt, name='dispatch')
