@@ -19,7 +19,7 @@ from environ import Env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# I make configuration for production and development enviroment here
 env = Env()
 env_file = BASE_DIR / ".env"
 env.read_env(str(env_file))
@@ -31,6 +31,7 @@ ENVIRONMENT = "production"
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# i have used get_random_key() from django.core.manager.utils something like that to generate new secret_key
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -40,7 +41,7 @@ if ENVIRONMENT == "development":
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lexilearn-doa1.onrender.com']
 
 
 # Application definition
@@ -78,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # i have installed whiteNoise to handle staticfiles
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
 ]
@@ -89,6 +91,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+
+# Settings for cloudinary
 if ENVIRONMENT == "development":
     MEDIA_ROOT = BASE_DIR / 'media'
 else:
@@ -119,6 +123,8 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+# Database settings for development and production
 if ENVIRONMENT == "development":
     DATABASES = {
         "default": {
@@ -133,7 +139,7 @@ if ENVIRONMENT == "development":
 else:
     import dj_database_url
     DATABASES = {
-        'default': dj_database_url.parse(env('DATABASE_URL')),
+        'default': dj_database_url.parse(env('DATABASE_URL')), # I get url from render in my case (External DB url)
     }
 
 # Password validation
@@ -229,6 +235,6 @@ EMAIL_USE_SSL = False
 # settings.py
 TEST_DISCOVER_PATTERN = "test_*.py"
 
+# I create global variables to my datasets
 CERF_DATASET_VOCABULARY_NORMAL = BASE_DIR / 'cerf-vocabulary-dataset.csv'
 CERF_DATASET_VOCABULARY_C1C2 = BASE_DIR / 'cerf-vocabulary-c1c2.csv'
-CERF_DATABASE_VOCABULARY_COMBINED = BASE_DIR / 'cerf-database-vocabulary-combined.csv'
