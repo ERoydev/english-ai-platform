@@ -1,6 +1,3 @@
-// Image
-import signup from "../../../assets/auth/signup.svg";
-
 // ICONS
 import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -99,7 +96,7 @@ export default function AuthScreen({
                 <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
                     <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
                         style={{
-                            backgroundImage: `url(${signup})`,
+                            backgroundImage: `url(https://res.cloudinary.com/dnxlpgzu7/image/upload/v1739378720/signup_vetrrc.svg)`,
                           }}>
                     </div>
                 </div>

@@ -28,8 +28,8 @@ export default {
       },
       backgroundImage: {
         'color-gradient': 'linear-gradient(to right bottom, #09031c, #0d081c, #110d1c, #14111c, #16141c, #16141c, #16141b, #16141b, #14111a, #110d19, #0d0819, #090318);',
-        'testimonial-texture': "url('./src/assets/images/corporate.jpg')",
-        'about-texture': "url('./src/assets/images/About/building.jpg')"
+        'testimonial-texture': "url(https://res.cloudinary.com/dnxlpgzu7/image/upload/v1739383105/corporate_gj5a5f.jpg)",
+        'about-texture': "url(https://res.cloudinary.com/dnxlpgzu7/image/upload/v1739378720/building_wqxwjn.jpg)"
         
       },
       fontFamily: {

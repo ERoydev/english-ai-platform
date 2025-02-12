@@ -11,11 +11,9 @@
 @import url('assets/styles/image-overlay.css');
 @import url('assets/styles//slide-down.css');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 
 

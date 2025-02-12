@@ -1,8 +1,6 @@
-import robot from "../../../assets/images/robot.png";
 import Button from "../../common/shared/Button/Button";
 import Letter from "../../common/shared/Letter/Letter";
 import LetterCycle from "../../common/shared/Letter/LetterCycle";
-import chart from "../../../assets/svgs/chart.svg";
 import Header from "../../common/shared/Header/Header";
 
 export default function Hero() {
@@ -48,11 +46,11 @@ export default function Hero() {
                 <Letter title='B2, C1' bgColor="bg-white" textColor="text-blue-700" size='text-xl font-extrabold' positionOptions="right-10 bottom-14" rotateClass="-rotate-12" />
                 
                 <div className="absolute rounded-xl px-3 py-2 shadow-lg border bg-white border-slate-200 bottom-20 left-10 z-10 shadow-cyan-500/50">
-                    <img src={chart} className="w-[32px] h-[32px]" alt="Chart icon" />
+                    <img src="https://res.cloudinary.com/dnxlpgzu7/image/upload/v1739378728/chart_skmdlu.svg" className="w-[32px] h-[32px]" alt="Chart icon" />
                 </div>
                 
                 <div className="relative rounded-full overflow-hidden border-8 border-slate-800">
-                    <img src={robot} className="w-[600px] h-[600px]" alt="human-robot" />
+                    <img src="https://res.cloudinary.com/dnxlpgzu7/image/upload/v1739378726/robot_ycxpvf.png" className="w-[600px] h-[600px]" />
                     <LetterCycle texts={Letters} />
                 </div>
             </div>

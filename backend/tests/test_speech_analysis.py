@@ -6,8 +6,11 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 import os
+from django.conf import settings
 
 UserModel = get_user_model()
+
+# python manage.py test tests --noinput
 
 class TestSpeechAnalysis(TestCase):
     def setUp(self):
@@ -20,13 +23,13 @@ class TestSpeechAnalysis(TestCase):
 
         self.url = reverse('analyze_audio')
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, 'test_audio.wav')
+        file_path = os.path.join(current_dir, 'test_audio2.wav')
 
         with open(file_path, 'rb') as f:
             audio_content = f.read()
 
         audio_file = SimpleUploadedFile(
-            name='test_audio.wav',
+            name='test_audio2.wav',
             content=audio_content,
             content_type='audio/wav'
         )
@@ -49,9 +52,9 @@ class TestSpeechAnalysis(TestCase):
         audio_duration = json_response['audio_duration']
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(transcription, " Hello, I want to test the functionality of my website. Let's find out what is going to be the result of this speech.")
-        self.assertEqual(analysis_result,{'basic_text_analyzer': {'sentence_count_analyzer': 2, 'word_count_analyzer': 23}})
-        self.assertEqual(audio_duration, 9.3)
+        self.assertEqual(transcription, " Hello, I want to test the functionality of my back end. I don't know why I am getting this errors.")
+        self.assertEqual(analysis_result, {'basic_text_analyzer': {'sentence_count_analyzer': 2, 'word_count_analyzer': 20}})
+        self.assertEqual(audio_duration, 7.32)
 
     def test_speech_analysis_language_score_all_stats_objects_should_be_valid(self):
         response = self.client.post(self.url, self.data, format='multipart')
@@ -67,13 +70,33 @@ class TestSpeechAnalysis(TestCase):
         unique_words = json_response['language_scores']['unique_words']
         is_language_recognized = json_response['language_scores']['is_language_recognized']
 
+        # print('-------------------')
+        # print(fluency_stats)
+        # print('-------------------')
+        # print(vocabulary_stats)
+        # print('-------------------')
+        # print(grammar_stats)
+        # print('-------------------')
+        # print(pronunciation_stats)
+        # print('-------------------')
+        # print(total_score)
+        # print('-------------------')
+        # print(overall_level)
+        # print('-------------------')
+        # print(grade)
+        # print('-------------------')
+        # print(unique_words)
+        # print('-------------------')
+        # print(is_language_recognized)
+
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(fluency_stats, {'level': {'score': 'C2', 'description': 'Level for fluency'}, 'score': {'score': 50, 'description': 'Words per second'}, 'words_per_second': {'score': 2.47, 'description': 'Count of words per second'}, 'speech_density': {'score': 0.82, 'description': 'Ratio of meaningful words to total audio duration'}})
-        self.assertEqual(vocabulary_stats, {'level': {'score': 'B2', 'description': 'Level for vocabulary'}, 'score': {'score': 30, 'description': 'Score for vocabulary'}, 'lexical_diversity': {'score': 86.96, 'description': 'Percentage of unique words used', 'percentage': 'True'}, 'advanced_word_usage': {'score': 30.43, 'description': 'Percentage of advanced words used', 'percentage': 'True', 'classified_words': {'A1': ['I', 'to', 'test', 'the', 'of', 'my', 'find', 'out', 'what', 'is', 'to', 'be', 'the', 'result', 'of', 'this'], 'A2': [], 'B1': [], 'B2': ['want', 'functionality'], 'C1': [], 'C2': ['Hello,', 'website.', "Let's", 'going', 'speech.']}}})
-        self.assertEqual(grammar_stats, {'level': {'score': 'C2', 'description': 'Grammar proficiency level'}, 'score': {'score': 50, 'description': 'Grammar proficiency score'}, 'total_weight': {'score': 0, 'description': 'Total weighted errors in the text'}, 'grammar_density': {'score': 1.0, 'description': 'Ratio of correct sentences to total sentences'}})
-        self.assertEqual(pronunciation_stats, {'level': {'score': 'C2', 'description': 'Level for pronunciation'}, 'score': {'score': 50, 'description': 'Score for pronunciation'}, 'average_confidence': {'score': 0.85, 'description': 'Average confidence score'}, 'articulation_rate': {'score': 19.55, 'description': 'Combination of fluency and clarity'}})
-        self.assertEqual(total_score, 180)
-        self.assertEqual(unique_words, 20)
+        self.assertEqual(fluency_stats, {'level': {'score': 'C2', 'description': 'Level for fluency'}, 'score': {'score': 50, 'description': 'Words per second'}, 'words_per_second': {'score': 2.73, 'description': 'Count of words per second'}, 'speech_density': {'score': 0.91, 'description': 'Ratio of meaningful words to total audio duration'}})
+        self.assertEqual(vocabulary_stats, {'level': {'score': 'B2', 'description': 'Level for vocabulary'}, 'score': {'score': 30, 'description': 'Score for vocabulary'}, 'lexical_diversity': {'score': 90.0, 'description': 'Percentage of unique words used', 'percentage': 'True'}, 'advanced_word_usage': {'score': 35.0, 'description': 'Percentage of advanced words used', 'percentage': 'True', 'classified_words': {'A1': ['I', 'to', 'test', 'the', 'of', 'my', 'I', 'know', 'why', 'I', 'am', 'this'], 'A2': ['back'], 'B1': [], 'B2': ['want', 'functionality'], 'C1': [], 'C2': ['Hello,', 'end.', "don't", 'getting', 'errors.']}}})
+        self.assertEqual(grammar_stats, {'level': {'score': 'C1', 'description': 'Grammar proficiency level'}, 'score': {'score': 40, 'description': 'Grammar proficiency score'}, 'total_weight': {'score': 1, 'description': 'Total weighted errors in the text'}, 'grammar_density': {'score': 0.67, 'description': 'Ratio of correct sentences to total sentences'}})
+        self.assertEqual(pronunciation_stats, {'level': {'score': 'C2', 'description': 'Level for pronunciation'}, 'score': {'score': 50, 'description': 'Score for pronunciation'}, 'average_confidence': {'score': 0.85, 'description': 'Average confidence score'}, 'articulation_rate': {'score': 17.0, 'description': 'Combination of fluency and clarity'}})
+        self.assertEqual(total_score, 170)
+        self.assertEqual(unique_words, 18)
         self.assertEqual(overall_level, 'C1')
         self.assertEqual(grade, {'grade': 'C1', 'description': 'Very Good - You have a strong command of English. You can communicate comfortably and handle complex conversations with ease, though minor errors may occur occasionally. Your vocabulary is broad, and your sentences are well-structured. You may benefit from refining your grammar for advanced fluency but are otherwise a proficient communicator.'})
         self.assertEqual(True, is_language_recognized)

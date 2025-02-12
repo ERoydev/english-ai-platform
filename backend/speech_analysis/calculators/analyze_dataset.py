@@ -3,9 +3,11 @@ import os
 from django.conf import settings
 import logging
 
+
 # Paths for datasets
-primary_file_path = os.path.join(settings.STATIC_ROOT if settings.STATIC_ROOT else settings.BASE_DIR, 'static', 'cerf-vocabulary-dataset.csv')
-c1_c2_file_path = os.path.join(settings.STATIC_ROOT if settings.STATIC_ROOT else settings.BASE_DIR, 'static', 'cerf-vocabulary-c1c2.csv')
+primary_file_path = str(settings.CERF_DATASET_VOCABULARY_NORMAL)
+c1_c2_file_path = str(settings.CERF_DATASET_VOCABULARY_C1C2)
+
 
 try:
     # Load the primary dataset
@@ -32,7 +34,7 @@ word_data = pd.concat([primary_data, c1_c2_data], ignore_index=True)
 # Drop duplicates
 word_data.drop_duplicates(subset=['headword', 'pos'], inplace=True)
 
-
-# Save the combined dataset
-word_data.to_csv(os.path.join(settings.BASE_DIR, 'static', 'combined_cerf_vocabulary.csv'), index=False)
-logging.info("Combined dataset saved successfully!")
+#
+# # Save the combined dataset
+# word_data.to_csv(os.path.join(settings.BASE_DIR, 'static', 'combined_cerf_vocabulary.csv'), index=False)
+# logging.info("Combined dataset saved successfully!")

@@ -38,8 +38,7 @@ export default function PracticeApp() {
         navigate(Path.Practice.ListItem, { state: {sectionId: item.sectionId}});
     }
 
-    console.log(userData.user?.profile)
-
+    console.log("SECIONTS", sections)
     return(
         <section className="">
            <BasePracticeApp />

@@ -6,7 +6,6 @@ import { useState } from "react";
 import MobileButton from "../shared/Button/MobileButton";
 import Logo from "../shared/Logo/Logo";
 import MenuItem from "./reusable/MenuItem";
-import Button from "../shared/Button/Button";
 import { Icons } from "./index";
 import { Link } from "react-router-dom";
 import Path from "../../../Paths";
