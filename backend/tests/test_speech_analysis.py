@@ -52,7 +52,7 @@ class TestSpeechAnalysis(TestCase):
         audio_duration = json_response['audio_duration']
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(transcription, " Hello, I want to test the functionality of my back end. I don't know why I am getting this errors.")
+        self.assertEqual(transcription, " Hello, I want to test the functionality of my backend, I don't know why I am getting these errors.")
         self.assertEqual(analysis_result, {'basic_text_analyzer': {'sentence_count_analyzer': 2, 'word_count_analyzer': 20}})
         self.assertEqual(audio_duration, 7.32)
 

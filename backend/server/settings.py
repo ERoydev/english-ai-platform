@@ -25,7 +25,7 @@ env_file = BASE_DIR / ".env"
 env.read_env(str(env_file))
 
 ENVIRONMENT = env('ENVIRONMENT', default="production")
-# ENVIRONMENT = "production"
+ENVIRONMENT = "production"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
