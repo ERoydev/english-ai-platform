@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+        run: sudo apt.txt-get update && sudo apt.txt-get install -y ffmpeg
 
       - name: Set up Python
         uses: actions/setup-python@v3
