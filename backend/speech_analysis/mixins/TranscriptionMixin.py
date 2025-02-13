@@ -1,10 +1,20 @@
 import tempfile
 import os
-from faster_whisper import WhisperModel
 
 # Load Faster Whisper model (force CPU mode to avoid CUDA errors)
 # This is the smallest possible model & optimize memory
-model = WhisperModel("tiny", device="cpu", compute_type="int8")  # Use "cpu" to avoid CUDA errors
+model = None
+def get_model():
+    # lazy loading
+    global model
+    if model is None:
+        from faster_whisper import WhisperModel
+        # Load Faster Whisper model (force CPU mode to avoid CUDA errors)
+        # This is the smallest possible model & optimize memory
+        model = WhisperModel("tiny", device="cpu", compute_type="int8")  # Use "cpu" to avoid CUDA errors
+
+    return model
+
 
 class TranscriptionMixin:
     def transcribe_audio(self, audio_file):
@@ -19,6 +29,7 @@ class TranscriptionMixin:
 
         try:
             # Transcribe using Faster Whisper
+            model = get_model()
             segments, info = model.transcribe(temp_audio_file_path)
 
             # Extract transcribed text
