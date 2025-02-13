@@ -195,7 +195,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.AccountUser'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # Add your frontend URL here
+    'http://localhost:5174',  # Add your frontend URL here
 ]
 
 # If you need to allow credentials (e.g., cookies)
@@ -238,3 +238,4 @@ TEST_DISCOVER_PATTERN = "test_*.py"
 # I create global variables to my datasets
 CERF_DATASET_VOCABULARY_NORMAL = BASE_DIR / 'cerf-vocabulary-dataset.csv'
 CERF_DATASET_VOCABULARY_C1C2 = BASE_DIR / 'cerf-vocabulary-c1c2.csv'
+TRANSCRIPTION_MICROSERVICE_URL = 'https://speech2text-api.onrender.com/audio_transcription'

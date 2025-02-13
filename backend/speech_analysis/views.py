@@ -2,11 +2,12 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+import asyncio
+import aiohttp
 
 # Custom
 from .calculators.LanguageCalculatorFactory import LanguageCalculatorFactory
 from .analyzer import analyze
-from .mixins.TranscriptionMixin import TranscriptionMixin
 from accounts.models import Profile
 
 # Rest
@@ -14,13 +15,16 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from asgiref.sync import sync_to_async
 import logging
 
 from .utils import load_audio_file
+from django.conf import settings
+import requests
+
 
 @method_decorator(csrf_exempt, name='dispatch')
-class AnalyzeAudioView(APIView, TranscriptionMixin):
+class AnalyzeAudioView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -33,16 +37,18 @@ class AnalyzeAudioView(APIView, TranscriptionMixin):
 
         audio_file = request.FILES['audio']
 
-        # Create a temporary file without auto-deletion
+        # Send file as expected by FastAPI (multipart/form-data)
         try:
-            audio = load_audio_file(audio_file)
-            audio_duration = len(audio) / 1000.0  # Duration in seconds
+            with requests.Session() as session: # THIS IS REQUEST TO MY MICROSERVICE TO GET THE TRANSCIPTION => TODO: IMPLEMENT ASYNCHRONOUS BEHAVIOUR
+                files = {'file': (audio_file.name, audio_file, audio_file.content_type)}  # I create multipart/formdata
+                response = session.post(settings.TRANSCRIPTION_MICROSERVICE_URL, files=files)
 
-            # Reset the file pointer before passing to transcribe_audio because .read() consumes the file.
-            audio_file.seek(0)
-            transcription, transcribed_audio = self.transcribe_audio(audio_file)
+            json_response = response.json()
+            transcription = json_response['transcription_text']
+            transcribed_audio = json_response['transcribed_audio']
+            audio_duration = json_response['audio_duration']
 
-            # Apply additional analysis
+            #Apply additional analysis
             analysis_result = analyze(transcription)
 
             # Calculate English score
