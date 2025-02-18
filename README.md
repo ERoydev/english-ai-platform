@@ -1,5 +1,8 @@
 # AI English Learning Platform
 
+This project use a microservice from my other repository using faster whisper model for speech to text transcription
+https://github.com/ERoydev/Speech2Text-API
+
 Welcome to the **AI English Learning Platform**! This project aims to create an intelligent platform for learning English, leveraging the power of Artificial Intelligence (AI) to provide personalized lessons, quizzes, and practice sessions. The platform will be implemented using React for the frontend and Django for the backend.
 
 ## Table of Contents
